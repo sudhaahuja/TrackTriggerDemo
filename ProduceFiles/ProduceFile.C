@@ -110,7 +110,7 @@ void ProduceFile::Loop()
 
 	if (fChain == 0) return;
 	//Long64_t nentries = fChain->GetEntries();
-	Long64_t nentries = 1000;
+	Long64_t nentries = 1;
 	Long64_t nbytes = 0, nb = 0;
 	for (Long64_t jentry=0; jentry<nentries;jentry++) {
 		Long64_t ientry = LoadTree(jentry);
@@ -180,8 +180,7 @@ void ProduceFile::Loop()
 			std::bitset<3>  bxID;        bxID |= stub_bx;
 			std::bitset<11> stubAddress; stubAddress |= int(localPhi*2); //chipID(3bits)+stubAddress(8bits)
 			std::bitset<5>  stubBend2S;  stubBend2S |= int(stub_trigBend*2);  // int-->bitset-->ullong: [0,16]-->[00000,10000]-->[0,16]; [-16,-1]-->[10000,11111]-->[16,31]
-			std::bitset<5>  stubBendPS;  stubBendPS |= int(stub_trigBend*2);  // if taking 3 bits: [0,3][-4,-1]-->[000,011][100,111]-->[0,3][4,7]; 
-			// if taking 4 bits: [0,7][-8,-1]-->[0000,0111][1000,1111]-->[0,7][8,15]
+			std::bitset<5>  stubBendPS;  stubBendPS |= int(stub_trigBend*2);  // if taking 3 bits: [0,3][-4,-1]-->[000,011][100,111]-->[0,3][4,7];  if taking 4 bits: [0,7][-8,-1]-->[0000,0111][1000,1111]-->[0,7][8,15]
 			std::bitset<5>  stubZpos;    stubZpos |= int(localZ);//int-->bitset<5> -->bitset<4> -->ullong: [0,15]-->[00000,01111]-->[0000,1111]-->[0,15]; [16,31]-->[10000,11111]-->[0000,1111]-->[0,15]
 			int nBitsFor2S = bxID.size()+stubAddress.size()+stubBend2S.size();
 			int nBitsForPS = bxID.size()+stubAddress.size()+stubBendPS.size()+(stubZpos.size()-1);
@@ -191,8 +190,8 @@ void ProduceFile::Loop()
 				for (int m=0; m<40; m++){                 //loop 40 modules in this board
 					if (moduleId == OutputModule[board][m]) { //find out which module this stub belongs to
 						std::cout<<std::endl<<"****************************************"<<std::endl;
-						std::cout<<"*********A NEW STUB IN BOARD: "<<board<<"*********"<<std::endl;
-						std::cout<<"****************************************"<<std::endl;
+						std::cout<<           "*********A NEW STUB IN BOARD: "<<board<<"*********"<<std::endl;
+						std::cout<<           "****************************************"<<std::endl;
 						fillOutputFlag[board]=1;
 
 						/**********************************/
@@ -201,17 +200,18 @@ void ProduceFile::Loop()
 						std::bitset<4>  localLadder;      localLadder |= GlbModule_LocalModule_Map_[moduleId].first;
 						std::bitset<4>  localModule;      localModule |= GlbModule_LocalModule_Map_[moduleId].second;
 						std::bitset<24> PREFtmp;
-						for (unsigned b=0;b<localLadder.size();b++) {
-							PREFtmp.set(b, localLadder.test(b));
-						}
-						for (unsigned b=0;b<localModule.size();b++) {
-							PREFtmp.set(localLadder.size() + b, localModule.test(b));
+						for (unsigned b=0;b<stubZpos.size();b++) {
+							PREFtmp.set(b, stubZpos.test(b));
 						}
 						for (unsigned b=0;b<stubAddress.size();b++) {
-							PREFtmp.set(localLadder.size() + localModule.size() + b, stubAddress.test(b));
+							PREFtmp.set(b + stubZpos.size(), stubAddress.test(b));
 						}
-						for (unsigned b=0;b<stubZpos.size();b++) {
-							PREFtmp.set(localLadder.size() + localModule.size() + stubAddress.size() + b, stubZpos.test(b));
+						for (unsigned b=0;b<localModule.size();b++) {
+							PREFtmp.set(b + stubAddress.size() + stubZpos.size(), localModule.test(b));
+						}
+
+						for (unsigned b=0;b<localLadder.size();b++) {
+							PREFtmp.set(b + localModule.size() + stubAddress.size() + stubZpos.size(), localLadder.test(b));
 						}
 						BitsPREF[board][lay].push_back(PREFtmp);
 
@@ -227,18 +227,18 @@ void ProduceFile::Loop()
 						/**********************************/
 						if (lay>7) { //2S modules (layer 8,9,10)
 							if (localZ<1) { //CIC L
-								std::cout<<"This is the "<<nStubL[board][m]+1<<"th fired stub in 2S-L module "<<moduleId<<" has bits:"<<std::endl;
+								std::cout<<"This is the "<<nStubL[board][m]+1<<"th fired stub in 2S-L module "<<moduleId<<", which has bits:"<<std::endl;
 								if (nStubL[board][m]<12) {
 									for (unsigned b=0;b<bxID.size();b++) { //write bxID (3bits) for this stub into the output block
-										BitsCICL[board][m].set(headerCICL.size() + nStubL[board][m]*nBitsFor2S + b, bxID.test(b));
+										BitsCICL[board][m].set(BitsCICL[board][m].size() - headerCICL.size() - nStubL[board][m]*nBitsFor2S - bxID.size() + b, bxID.test(b));
 									}
 									std::cout<<"Set bxID: "<<stub_bx<<std::endl<<BitsCICL[board][m]<<std::endl;
 									for (unsigned b=0;b<stubAddress.size();b++) { //write chipID+stubAddress (11bits) for this stub into the output block
-										BitsCICL[board][m].set(headerCICL.size() + nStubL[board][m]*nBitsFor2S + bxID.size() + b, stubAddress.test(b));
+										BitsCICL[board][m].set(BitsCICL[board][m].size() - headerCICL.size() - nStubL[board][m]*nBitsFor2S - bxID.size() - stubAddress.size() + b, stubAddress.test(b));
 									}
 									std::cout<<"Set chipID+stubAddress: "<<localPhi<<std::endl<<BitsCICL[board][m]<<std::endl;
 									for (unsigned b=0;b<stubBend2S.size();b++) { //write the stubBend bits for this stub into the output block
-										BitsCICL[board][m].set(headerCICL.size() + nStubL[board][m]*nBitsFor2S + bxID.size() + stubAddress.size() + b, stubBend2S.test(b));
+										BitsCICL[board][m].set(BitsCICL[board][m].size() - headerCICL.size() - nStubL[board][m]*nBitsFor2S - bxID.size() - stubAddress.size() - stubBend2S.size() + b, stubBend2S.test(b));
 									}
 									std::cout<<"Set stubBend: "<<stub_trigBend<<std::endl<<BitsCICL[board][m]<<std::endl;
 									nStubL[board][m]++;
@@ -249,18 +249,18 @@ void ProduceFile::Loop()
 								}
 							}
 							else { //CIC R
-								std::cout<<"This is the "<<nStubR[board][m]+1<<"th fired stub in 2S-R module "<<moduleId<<" has bits:"<<std::endl;
+								std::cout<<"This is the "<<nStubR[board][m]+1<<"th fired stub in 2S-R module "<<moduleId<<", which has bits:"<<std::endl;
 								if (nStubR[board][m]<12) {
 									for (unsigned b=0;b<bxID.size();b++) {
-										BitsCICR[board][m].set(headerCICR.size() + nStubR[board][m]*nBitsFor2S + b, bxID.test(b));
+										BitsCICR[board][m].set(BitsCICR[board][m].size() - headerCICR.size() - nStubR[board][m]*nBitsFor2S - bxID.size() + b, bxID.test(b));
 									}
 									std::cout<<"Set bxID: "<<stub_bx<<std::endl<<BitsCICR[board][m]<<std::endl;
 									for (unsigned b=0;b<stubAddress.size();b++) {
-										BitsCICR[board][m].set(headerCICR.size() + nStubR[board][m]*nBitsFor2S + bxID.size() + b, stubAddress.test(b));
+										BitsCICR[board][m].set(BitsCICR[board][m].size() - headerCICR.size() - nStubR[board][m]*nBitsFor2S - bxID.size() - stubAddress.size() + b, stubAddress.test(b));
 									}
 									std::cout<<"Set chipID+stubAddress: "<<localPhi<<std::endl<<BitsCICR[board][m]<<std::endl;
 									for (unsigned b=0;b<stubBend2S.size();b++) {
-										BitsCICR[board][m].set(headerCICR.size() + nStubR[board][m]*nBitsFor2S + bxID.size() + stubAddress.size() + b, stubBend2S.test(b));
+										BitsCICR[board][m].set(BitsCICR[board][m].size() - headerCICR.size() - nStubR[board][m]*nBitsFor2S - bxID.size() - stubAddress.size() - stubBend2S.size() + b, stubBend2S.test(b));
 									}
 									std::cout<<"Set stubBend: "<<stub_trigBend<<std::endl<<BitsCICR[board][m]<<std::endl;
 									nStubR[board][m]++;
@@ -273,22 +273,22 @@ void ProduceFile::Loop()
 						}
 						else { //PS modules (layer 5,6,7)
 							if (localZ<16) { //CIC L
-								std::cout<<"This is the "<<nStubL[board][m]+1<<"th fired stub in PS-L module "<<moduleId<<" has bits:"<<std::endl;
+								std::cout<<"This is the "<<nStubL[board][m]+1<<"th fired stub in PS-L module "<<moduleId<<", which has bits:"<<std::endl;
 								if (nStubL[board][m]<10) {
 									for (unsigned b=0;b<bxID.size();b++) { 
-										BitsCICL[board][m].set(headerCICL.size() + nStubL[board][m]*nBitsForPS + b, bxID.test(b));
+										BitsCICL[board][m].set(BitsCICL[board][m].size() - headerCICL.size() - nStubL[board][m]*nBitsForPS - bxID.size() + b, bxID.test(b));
 									}
 									std::cout<<"Set bxID: "<<stub_bx<<std::endl<<BitsCICL[board][m]<<std::endl;
 									for (unsigned b=0;b<stubAddress.size();b++) {
-										BitsCICL[board][m].set(headerCICL.size() + nStubL[board][m]*nBitsForPS + bxID.size() + b, stubAddress.test(b));
+										BitsCICL[board][m].set(BitsCICL[board][m].size() - headerCICL.size() - nStubL[board][m]*nBitsForPS - bxID.size() - stubAddress.size() + b, stubAddress.test(b));
 									}
 									std::cout<<"Set chipID+stubAddress: "<<localPhi<<std::endl<<BitsCICL[board][m]<<std::endl;
 									for (unsigned b=0;b<stubBendPS.size();b++) {
-										BitsCICL[board][m].set(headerCICL.size() + nStubL[board][m]*nBitsForPS + bxID.size() + stubAddress.size() + b, stubBendPS.test(b));
+										BitsCICL[board][m].set(BitsCICL[board][m].size() - headerCICL.size() - nStubL[board][m]*nBitsForPS - bxID.size() - stubAddress.size() - stubBendPS.size() + b, stubBendPS.test(b));
 									}
 									std::cout<<"Set stubBend: "<<stub_trigBend<<std::endl<<BitsCICL[board][m]<<std::endl;
 									for (unsigned b=0;b<stubZpos.size()-1;b++) { //write the stubZposition (4bits) for this stub into the output block
-										BitsCICL[board][m].set(headerCICL.size() + nStubL[board][m]*nBitsForPS + bxID.size() + stubAddress.size() + stubBendPS.size() + b, stubZpos.test(b));
+										BitsCICL[board][m].set(BitsCICL[board][m].size() - headerCICL.size() - nStubL[board][m]*nBitsForPS - bxID.size() - stubAddress.size() - stubBendPS.size() - (stubZpos.size()-1) + b, stubZpos.test(b));
 									}
 									std::cout<<"Set z position: "<<localZ<<std::endl<<BitsCICL[board][m]<<std::endl;
 									nStubL[board][m]++;
@@ -299,22 +299,22 @@ void ProduceFile::Loop()
 								}
 							}
 							else { //CIC R
-								std::cout<<"This is the "<<nStubR[board][m]+1<<"th fired stub in PS-R module "<<moduleId<<" has bits:"<<std::endl;
+								std::cout<<"This is the "<<nStubR[board][m]+1<<"th fired stub in PS-R module "<<moduleId<<", which has bits:"<<std::endl;
 								if (nStubR[board][m]<10) {
 									for (unsigned b=0;b<bxID.size();b++) { 
-										BitsCICR[board][m].set(headerCICR.size() + nStubR[board][m]*nBitsForPS + b, bxID.test(b));
+										BitsCICR[board][m].set(BitsCICR[board][m].size() - headerCICR.size() - nStubR[board][m]*nBitsForPS - bxID.size() + b, bxID.test(b));
 									}
 									std::cout<<"Set bxID: "<<stub_bx<<std::endl<<BitsCICR[board][m]<<std::endl;
 									for (unsigned b=0;b<stubAddress.size();b++) {
-										BitsCICR[board][m].set(headerCICR.size() + nStubR[board][m]*nBitsForPS + bxID.size() + b, stubAddress.test(b));
+										BitsCICR[board][m].set(BitsCICR[board][m].size() - headerCICR.size() - nStubR[board][m]*nBitsForPS - bxID.size() - stubAddress.size() + b, stubAddress.test(b));
 									}
 									std::cout<<"Set chipID+stubAddress: "<<localPhi<<std::endl<<BitsCICR[board][m]<<std::endl;
 									for (unsigned b=0;b<stubBendPS.size();b++) {
-										BitsCICR[board][m].set(headerCICR.size() + nStubR[board][m]*nBitsForPS + bxID.size() + stubAddress.size()+b, stubBendPS.test(b));
+										BitsCICR[board][m].set(BitsCICR[board][m].size() - headerCICR.size() - nStubR[board][m]*nBitsForPS - bxID.size() - stubAddress.size() - stubBendPS.size() + b, stubBendPS.test(b));
 									}
 									std::cout<<"Set stubBend: "<<stub_trigBend<<std::endl<<BitsCICR[board][m]<<std::endl;
 									for (unsigned b=0;b<stubZpos.size()-1;b++) {
-										BitsCICR[board][m].set(headerCICR.size() + nStubR[board][m]*nBitsForPS + bxID.size() + stubAddress.size() + stubBendPS.size() + b, stubZpos.test(b));
+										BitsCICR[board][m].set(BitsCICR[board][m].size() - headerCICR.size() - nStubR[board][m]*nBitsForPS - bxID.size() - stubAddress.size() - stubBendPS.size() - (stubZpos.size()-1) + b, stubZpos.test(b));
 									}
 									std::cout<<"Set z position: "<<localZ<<std::endl<<BitsCICR[board][m]<<std::endl;
 									nStubR[board][m]++;
@@ -342,31 +342,32 @@ void ProduceFile::Loop()
 				/*********************************/
 				/**********create header**********/
 				/*********************************/
-				//set module type
-				if (decodeLayer(OutputModule[board][m])>7) { //2S module  
-					headerCICL.set(0,0); 
-					headerCICR.set(0,0); 
-				}
-				else { //PS module
-					headerCICL.set(0,1);
-					headerCICR.set(0,1);
-				}
-
-				//set error/status bit
-				headerCICL.set(9,CICStatusL[board][m]);
-				headerCICR.set(9,CICStatusR[board][m]); 
-
-				//set bx ID
-
 				//set number of stubs
 				//std::cout<<"nStubL,R = "<<nStubL[board][m]<<", "<<nStubR[board][m]<<std::endl;
 				std::bitset<4> NStubL,NStubR;
 				NStubL |= nStubL[board][m];
 				NStubR |= nStubR[board][m];
 				for (unsigned b=0;b<NStubL.size();b++) {
-					headerCICL.set(headerCICL.size()-NStubL.size()+b, NStubL.test(b));
-					headerCICR.set(headerCICR.size()-NStubR.size()+b, NStubR.test(b));
-				}   
+					headerCICL.set(b, NStubL.test(b));
+					headerCICR.set(b, NStubR.test(b));
+				}
+
+				//set bx ID
+				std::bitset<12> GlbBxID;
+
+				//set error/status bit
+				headerCICL.set(0 + GlbBxID.size() + NStubL.size(), CICStatusL[board][m]);
+				headerCICR.set(0 + GlbBxID.size() + NStubR.size(), CICStatusR[board][m]);
+
+				//set module type
+				if (decodeLayer(OutputModule[board][m])>7) { //2S module  
+					headerCICL.set(headerCICL.size()-1,0); 
+					headerCICR.set(headerCICL.size()-1,0); 
+				}
+				else { //PS module
+					headerCICL.set(headerCICR.size()-1,1);
+					headerCICR.set(headerCICR.size()-1,1);
+				}
 
 				//print header
 				std::cout<<"Module "<<OutputModule[board][m]<<": HeaderCICL="<<headerCICL<<", HeaderCICR="<<headerCICR<<std::endl;
@@ -375,9 +376,11 @@ void ProduceFile::Loop()
 				/***copy header into the output block***/
 				/***************************************/
 				for (unsigned b=0;b<headerCICL.size();b++) {
-					BitsCICL[board][m].set(b,headerCICL.test(b));
-					BitsCICR[board][m].set(b,headerCICR.test(b));
+					BitsCICL[board][m].set(BitsCICL[board][m].size() - headerCICL.size() + b, headerCICL.test(b));
+					BitsCICR[board][m].set(BitsCICR[board][m].size() - headerCICR.size() + b, headerCICR.test(b));
 				}
+				headerCICL.reset();
+				headerCICR.reset();
 			}
 
 			/******************************************/
@@ -402,7 +405,7 @@ int fillPREFWithString(int board, std::vector< std::vector< std::bitset<24> > >B
 	char str[50];
 	sprintf(str,"PREF_Board%02d.txt",board);
 	outfile.open(str,std::ofstream::app);
-	outfile << "New event: \n";
+	//outfile << "New event: \n";
 
 	int nStubMax=0;
 	int nStubLayer[23]={0};
@@ -413,8 +416,8 @@ int fillPREFWithString(int board, std::vector< std::vector< std::bitset<24> > >B
 
 	for (int s=0; s<nStubMax; s++) {
 		for (int l=5; l<11; l++) {
-			if (s<nStubLayer[l]) outfile << BitsPREFaBoard[l][s].to_string() << " ";
-			else outfile << "11111111111111111111111 ";
+			if (s<nStubLayer[l]) outfile << BitsPREFaBoard[l][s].to_string() << "";
+			else outfile << "111111111111111111111111";
 		}
 		outfile << "\n";
 	}
