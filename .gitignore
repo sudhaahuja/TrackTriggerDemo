@@ -1,0 +1,14 @@
+CVS
+.admin
+*.pyc
+*.o
+*__init__.py
+*_C.d
+*_C.so
+*_C_ACLiC_dict_rdict.pcm
+*.cxx
+*cxx.d
+*cxx.so
+*.tar
+*.pdf
+*.root
