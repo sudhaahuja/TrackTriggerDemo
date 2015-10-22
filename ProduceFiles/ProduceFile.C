@@ -18,7 +18,7 @@ void ProduceFile::Loop()
 {
 	//Get a list of modules for a board
 	unsigned OutputModule[10][40]={{0}};
-	std::ifstream ifs ("ModuleListBoard00.txt", std::ifstream::in);
+	std::ifstream ifs ("../inputfiles/ModuleListBoard00.txt", std::ifstream::in);
 	for (int m=0; m<40; m++) {
 		ifs >> OutputModule[0][m];
 	}   
@@ -29,7 +29,7 @@ void ProduceFile::Loop()
 	std::map<int, pair<int,int>> GlbModule_LocalModule_Map_; //key: global module ID for the whole tracker; value: local module ID for this trigger tower
 	int glbModuleID = 0;
 	int localLad = 0;
-	std::ifstream ifs2 ("ModuleList.txt", std::ifstream::in);
+	std::ifstream ifs2 ("../inputfiles/ModuleList.txt", std::ifstream::in);
 	std::string aLadder;
 	while(std::getline(ifs2,aLadder)){
 		std::stringstream modulestream(aLadder);
@@ -51,7 +51,7 @@ void ProduceFile::Loop()
 
 
 	//Get the stub overlap blinding map
-	TFile *blindMap = TFile::Open("stubOverlapHistosFramesOnlyTree_0p2_0p2_0p2_0p2_0p2_0p2.root","READ");
+	TFile *blindMap = TFile::Open("../inputfiles/stubOverlapHistosFramesOnlyTree_0p2_0p2_0p2_0p2_0p2_0p2.root","READ");
 	TTree *blindTree;
 	blindMap->GetObject("tmodule",blindTree);
 	int id, phi1, z1, phi2, z2;
@@ -64,7 +64,7 @@ void ProduceFile::Loop()
 
 
 	//prepare outputfiles
-	TFile *outputfile = new TFile("DataSourcingTree.root", "RECREATE");
+	TFile *outputfile = new TFile("outputfiles/DataSourcingTree.root", "RECREATE");
 	/*TDirectory *Tower[48];  
 	  sprintf(str,"Tower%02d",1);
 	  Tower[0] = outputfile->mkdir(str);
@@ -82,12 +82,12 @@ void ProduceFile::Loop()
 		}
 
 		//prepare empty txt file for DataSourcing(DS)
-		sprintf(str,"DataSourcingBoard%02d.txt",board);
+		sprintf(str,"outputfiles/DataSourcingBoard%02d.txt",board);
 		std::ofstream outfileDS;
 		outfileDS.open(str);
 
 		//prepare empty txt file for PREF
-		sprintf(str,"PREF_Board%02d.txt",board);
+		sprintf(str,"outputfiles/PREF_Board%02d.txt",board);
 		std::ofstream outfilePREF;
 		outfilePREF.open(str);
 	}

@@ -12,7 +12,7 @@ void MakeBank::Loop()
 {
 
 	//Get the stub overlap blinding map
-	TFile *blindMap = TFile::Open("stubOverlapHistosFramesOnlyTree_0p2_0p2_0p2_0p2_0p2_0p2.root","READ");
+	TFile *blindMap = TFile::Open("../inputfiles/stubOverlapHistosFramesOnlyTree_0p2_0p2_0p2_0p2_0p2_0p2.root","READ");
 	TTree *blindTree;
 	blindMap->GetObject("tmodule",blindTree);
 	int id, phi1, z1, phi2, z2; 
