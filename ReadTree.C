@@ -180,7 +180,7 @@ int readTriggerTowerFile(TString src, std::map<unsigned, std::vector<unsigned> >
 void ReadTree::Loop()
 {
 
-	TFile *blindMap = TFile::Open("stubOverlapHistosFramesOnlyTree_0p2_0p2_0p2_0p2_0p2_0p2.root","READ"); 
+	TFile *blindMap = TFile::Open("inputfiles/stubOverlapHistosFramesOnlyTree_0p2_0p2_0p2_0p2_0p2_0p2.root","READ"); 
 	TTree *blindTree;
 	blindMap->GetObject("tmodule",blindTree);
 	int id, phi1, z1, phi2, z2;
@@ -195,7 +195,7 @@ void ReadTree::Loop()
 
 	std::map<unsigned, std::vector<unsigned> > triggerTowerMap_; // key: towerId; value: moduleIds in the tower
 	std::map<unsigned, std::vector<unsigned> > triggerTowerReverseMap_; // key: moduleId; value: towerIds containing the module
-	readTriggerTowerFile("trigger_sector_map.csv",triggerTowerMap_,triggerTowerReverseMap_);
+	readTriggerTowerFile("inputfiles/trigger_sector_map.csv",triggerTowerMap_,triggerTowerReverseMap_);
 	if (triggerTowerMap_.empty() || triggerTowerReverseMap_.empty()) {
 		std::cout << "Failed to load trigger tower maps" << std::endl;
 		return;
@@ -377,7 +377,7 @@ void ReadTree::Loop()
 	nSTUB_board01->GetXaxis()->SetTitle("# of stubs per board");
 	nSTUB_board01->GetYaxis()->SetTitle("Entries");
 	unsigned OutputModule[10][40]={{0}};
-	std::ifstream ifs ("ModuleList.txt", std::ifstream::in);
+	std::ifstream ifs ("inputfiles/ModuleList.txt", std::ifstream::in);
 	for (int i=0; i<40; i++) {
 		ifs >> OutputModule[0][i];
 	}   

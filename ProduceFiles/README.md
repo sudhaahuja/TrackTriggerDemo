@@ -1,12 +1,16 @@
 Please check DataFormat.xlsx for the output format
 
-The names of the 40 input modules are written in ModuleList.txt
+The names of the 40 input modules are written in ../inputfiles/ModuleListBoard00.txt
 
-1. Make 8BX ntuple:
+* Make 8BX ntuple:
+```
 root -l runReadTree.C++
-
-2. Produce data sourcing files:
+```
+* Produce data sourcing file and PREF file:
+```
 root -l runProduceFile.C++
-
-3. Produce simple bank:
+```
+* Produce simple bank:
+```
 root -l runMakeBank.C++
+```
