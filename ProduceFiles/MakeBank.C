@@ -137,6 +137,6 @@ void MakeBank::Loop()
 		outfile<<bankPattern[0]<<" "<<bankPattern[1]<<" "<<bankPattern[2]<<" "<<bankPattern[3]<<" "<<bankPattern[4]<<" "<<bankPattern[5]<<" "<<bankPattern[6]<<" "<<bankPattern[7]<<" "<<bankPattern[8]<<" "<<bankPattern[9]<<" "<<bankPattern[10]<<" "<<bankPattern[11]<<std::endl;
 	}
 	std::cout<<"Final bank size: "<<patternBank.size()<<std::endl;
-
+	outfile.close();
 }
 
