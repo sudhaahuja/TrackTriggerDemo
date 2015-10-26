@@ -23,7 +23,7 @@ void MakeBank::Loop()
 	blindTree->SetBranchAddress("y2", &z2);
 	Long64_t blindEntries = blindTree->GetEntries();
 
-	std::vector<std::tr1::array<int, 12> > patternBank;
+	std::vector<std::pair<Long64_t, std::tr1::array<int, 12> > > patternBank;
 	float phiMin[6] = {0.564430,0.653554,0.641981,0.717273,0.658179,0.618448};
 	float phiMax[6] = {1.791765,1.710419,1.756567,1.638922,1.673851,1.778293};
 	float zMin[6] = {-6.7127,-6.7797,-5.2542,-9.5318,-9.5318,-9.5318};
@@ -32,7 +32,7 @@ void MakeBank::Loop()
 
 	if (fChain == 0) return;
 	//Long64_t nentries = fChain->GetEntries();
-	Long64_t nentries = 5217;
+	Long64_t nentries = 5478;
 	Long64_t nbytes = 0, nb = 0;
 
 	for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -49,8 +49,11 @@ void MakeBank::Loop()
 			std::cout << "Way too many stubs: " << nstubs << std::endl;
 			return;
 		}   
+		if (nstubs<6) continue;
 
-		std::tr1::array<int, 12> aPattern;
+		std::pair<Long64_t, std::tr1::array<int, 12> > aPattern;
+		aPattern.first=jentry;
+		aPattern.second.assign(-1);
 		for (unsigned l=0; l<nstubs; ++l) {
 			unsigned moduleId   = TTStubs_modId->at(l);
 			float Glbphi        = TTStubs_phi->at(l);
@@ -69,56 +72,55 @@ void MakeBank::Loop()
 				}   
 				if (blindFlag) continue;
 			}   
-			if (nstubs<6) continue;
 
 			unsigned lay = decodeLayer(moduleId);
 
 			switch (lay) {
 				case 5: 
-					aPattern[0] = ceil((Glbphi-phiMin[0])/((phiMax[0]-phiMin[0])/256));
-					aPattern[1] = ceil((Glbz-zMin[0])/((zMax[0]-zMin[0])/4));
+					aPattern.second[0] = floor((Glbphi-phiMin[0])/((phiMax[0]-phiMin[0])/256));
+					aPattern.second[1] = floor((Glbz-zMin[0])/((zMax[0]-zMin[0])/4));
 					break;
 				case 6:  
-					aPattern[2] = ceil((Glbphi-phiMin[1])/((phiMax[1]-phiMin[1])/256));
-					aPattern[3] = ceil((Glbz-zMin[1])/((zMax[1]-zMin[1])/4));
+					aPattern.second[2] = floor((Glbphi-phiMin[1])/((phiMax[1]-phiMin[1])/256));
+					aPattern.second[3] = floor((Glbz-zMin[1])/((zMax[1]-zMin[1])/4));
 					break;
 				case 7:  
-					aPattern[4] = ceil((Glbphi-phiMin[2])/((phiMax[2]-phiMin[2])/256));
-					aPattern[5] = ceil((Glbz-zMin[2])/((zMax[2]-zMin[2])/4));
+					aPattern.second[4] = floor((Glbphi-phiMin[2])/((phiMax[2]-phiMin[2])/256));
+					aPattern.second[5] = floor((Glbz-zMin[2])/((zMax[2]-zMin[2])/4));
 					break;
 				case 8:  
-					aPattern[6] = ceil((Glbphi-phiMin[3])/((phiMax[3]-phiMin[3])/256));
-					aPattern[7] = ceil((Glbz-zMin[3])/((zMax[3]-zMin[3])/4));
+					aPattern.second[6] = floor((Glbphi-phiMin[3])/((phiMax[3]-phiMin[3])/256));
+					aPattern.second[7] = floor((Glbz-zMin[3])/((zMax[3]-zMin[3])/4));
 					break;
 				case 9:  
-					aPattern[8] = ceil((Glbphi-phiMin[4])/((phiMax[4]-phiMin[4])/256));
-					aPattern[9] = ceil((Glbz-zMin[4])/((zMax[4]-zMin[4])/4));
+					aPattern.second[8] = floor((Glbphi-phiMin[4])/((phiMax[4]-phiMin[4])/256));
+					aPattern.second[9] = floor((Glbz-zMin[4])/((zMax[4]-zMin[4])/4));
 					break;
-				case 10:  
-					aPattern[10] = ceil((Glbphi-phiMin[5])/((phiMax[5]-phiMin[5])/256));
-					aPattern[11] = ceil((Glbz-zMin[5])/((zMax[5]-zMin[5])/4));
+				case 10: 
+					aPattern.second[10] = floor((Glbphi-phiMin[5])/((phiMax[5]-phiMin[5])/256));
+					aPattern.second[11] = floor((Glbz-zMin[5])/((zMax[5]-zMin[5])/4));
 					break;
 				default: break;
 			}
 		}
+		//std::cout<<"This pattern("<<aPattern.first<<"): "<<aPattern.second[0]<<" "<<aPattern.second[1]<<" "<<aPattern.second[2]<<" "<<aPattern.second[3]<<" "<<aPattern.second[4]<<" "<<aPattern.second[5]<<" "<<aPattern.second[6]<<" "<<aPattern.second[7]<<" "<<aPattern.second[8]<<" "<<aPattern.second[9]<<" "<<aPattern.second[10]<<" "<<aPattern.second[11]<<std::endl;
 		
-		//std::cout<<"This pattern: "<<aPattern[0]<<" "<<aPattern[1]<<" "<<aPattern[2]<<" "<<aPattern[3]<<" "<<aPattern[4]<<" "<<aPattern[5]<<" "<<aPattern[6]<<" "<<aPattern[7]<<" "<<aPattern[8]<<" "<<aPattern[9]<<" "<<aPattern[10]<<" "<<aPattern[11]<<std::endl;
 		bool badPattern = false;
-		for (int i=0; i<5; i++) {
-			if (aPattern[i*2]<1 || aPattern[i*2]>256 || aPattern[i*2+1]<1 || aPattern[i*2+1]>4) {
+		for (int i=0; i<6; i++) {
+			if (aPattern.second[i*2]<0 || aPattern.second[i*2]>255 || aPattern.second[i*2+1]<0 || aPattern.second[i*2+1]>3) {
 				badPattern=true;
-				std::cout<<"This is a bad pattern: "<<"This pattern: "<<aPattern[0]<<" "<<aPattern[1]<<" "<<aPattern[2]<<" "<<aPattern[3]<<" "<<aPattern[4]<<" "<<aPattern[5]<<" "<<aPattern[6]<<" "<<aPattern[7]<<" "<<aPattern[8]<<" "<<aPattern[9]<<" "<<aPattern[10]<<" "<<aPattern[11]<<std::endl;
+				std::cout<<"This is a bad pattern ("<<aPattern.first<<"): "<<aPattern.second[0]<<" "<<aPattern.second[1]<<" "<<aPattern.second[2]<<" "<<aPattern.second[3]<<" "<<aPattern.second[4]<<" "<<aPattern.second[5]<<" "<<aPattern.second[6]<<" "<<aPattern.second[7]<<" "<<aPattern.second[8]<<" "<<aPattern.second[9]<<" "<<aPattern.second[10]<<" "<<aPattern.second[11]<<std::endl;
 			}
 		}
 		if (badPattern) continue;
 
 		bool newPattern = true;
-		for(std::vector<std::tr1::array<int, 12> >::iterator it = patternBank.begin(); it != patternBank.end(); ++it) {
-			std::tr1::array<int, 12> bankPattern = *it;
-			//std::cout<<bankPattern[0]<<" "<<bankPattern[1]<<" "<<bankPattern[2]<<" "<<bankPattern[3]<<" "<<bankPattern[4]<<" "<<bankPattern[5]<<" "<<bankPattern[6]<<" "<<bankPattern[7]<<" "<<bankPattern[8]<<" "<<bankPattern[9]<<" "<<bankPattern[10]<<" "<<bankPattern[11]<<std::endl;   
-			if (*it==aPattern) {
+		for(std::vector<std::pair<Long64_t, std::tr1::array<int, 12> > >::iterator it = patternBank.begin(); it != patternBank.end(); ++it) {
+			std::pair<Long64_t, std::tr1::array<int, 12> >aBankPattern = *it;
+			//std::cout<<aBankPattern.second[0]<<" "<<aBankPattern.second[1]<<" "<<aBankPattern.second[2]<<" "<<aBankPattern.second[3]<<" "<<aBankPattern.second[4]<<" "<<aBankPattern.second[5]<<" "<<aBankPattern.second[6]<<" "<<aBankPattern.second[7]<<" "<<aBankPattern.second[8]<<" "<<aBankPattern.second[9]<<" "<<aBankPattern.second[10]<<" "<<aBankPattern.second[11]<<std::endl;   
+			if (aBankPattern.second==aPattern.second) {
 				newPattern = false;
-				//std::cout<<"repeated pattern in the bank: "<<bankPattern[0]<<" "<<bankPattern[1]<<" "<<bankPattern[2]<<" "<<bankPattern[3]<<" "<<bankPattern[4]<<" "<<bankPattern[5]<<" "<<bankPattern[6]<<" "<<bankPattern[7]<<" "<<bankPattern[8]<<" "<<bankPattern[9]<<" "<<bankPattern[10]<<" "<<bankPattern[11]<<std::endl;
+				std::cout<<"repeated pattern in the bank ("<<aBankPattern.first<<"): "<<aBankPattern.second[0]<<" "<<aBankPattern.second[1]<<" "<<aBankPattern.second[2]<<" "<<aBankPattern.second[3]<<" "<<aBankPattern.second[4]<<" "<<aBankPattern.second[5]<<" "<<aBankPattern.second[6]<<" "<<aBankPattern.second[7]<<" "<<aBankPattern.second[8]<<" "<<aBankPattern.second[9]<<" "<<aBankPattern.second[10]<<" "<<aBankPattern.second[11]<<std::endl;
 			}   
 		}   
 		if (newPattern) patternBank.push_back(aPattern);
@@ -128,13 +130,13 @@ void MakeBank::Loop()
 
 	std::cout<<"**************** BANK *****************"<<std::endl;
 	char str[50]; int board=0;
-	sprintf(str,"Bank_Board%02d.txt",board);
+	sprintf(str,"outputfiles/Bank_Board%02d.txt",board);
 	std::ofstream outfile;
 	outfile.open(str);
-	for(std::vector<std::tr1::array<int, 12> >::iterator it = patternBank.begin(); it != patternBank.end(); ++it) {
-		std::tr1::array<int, 12> bankPattern = *it;
-		std::cout<<bankPattern[0]<<" "<<bankPattern[1]<<" "<<bankPattern[2]<<" "<<bankPattern[3]<<" "<<bankPattern[4]<<" "<<bankPattern[5]<<" "<<bankPattern[6]<<" "<<bankPattern[7]<<" "<<bankPattern[8]<<" "<<bankPattern[9]<<" "<<bankPattern[10]<<" "<<bankPattern[11]<<std::endl; 
-		outfile<<bankPattern[0]<<" "<<bankPattern[1]<<" "<<bankPattern[2]<<" "<<bankPattern[3]<<" "<<bankPattern[4]<<" "<<bankPattern[5]<<" "<<bankPattern[6]<<" "<<bankPattern[7]<<" "<<bankPattern[8]<<" "<<bankPattern[9]<<" "<<bankPattern[10]<<" "<<bankPattern[11]<<std::endl;
+	for(std::vector<std::pair<Long64_t, std::tr1::array<int, 12> > >::iterator it = patternBank.begin(); it != patternBank.end(); ++it) {
+		std::pair<Long64_t, std::tr1::array<int, 12> >aBankPattern = *it;
+		std::cout<<aBankPattern.first<<" "<<aBankPattern.second[0]<<" "<<aBankPattern.second[1]<<" "<<aBankPattern.second[2]<<" "<<aBankPattern.second[3]<<" "<<aBankPattern.second[4]<<" "<<aBankPattern.second[5]<<" "<<aBankPattern.second[6]<<" "<<aBankPattern.second[7]<<" "<<aBankPattern.second[8]<<" "<<aBankPattern.second[9]<<" "<<aBankPattern.second[10]<<" "<<aBankPattern.second[11]<<std::endl; 
+		outfile  <<aBankPattern.first<<" "<<aBankPattern.second[0]<<" "<<aBankPattern.second[1]<<" "<<aBankPattern.second[2]<<" "<<aBankPattern.second[3]<<" "<<aBankPattern.second[4]<<" "<<aBankPattern.second[5]<<" "<<aBankPattern.second[6]<<" "<<aBankPattern.second[7]<<" "<<aBankPattern.second[8]<<" "<<aBankPattern.second[9]<<" "<<aBankPattern.second[10]<<" "<<aBankPattern.second[11]<<std::endl;
 	}
 	std::cout<<"Final bank size: "<<patternBank.size()<<std::endl;
 	outfile.close();

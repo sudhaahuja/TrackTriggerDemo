@@ -10,9 +10,9 @@
 #include "utils.C"
 #include <tr1/array>
 
-int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 21> > simABoard);
-int fillPREFWithString(int board, std::vector< std::vector< std::bitset<25> > >BitsPREFaBoard);
-int fillTxtfileWithString(int board, std::bitset<256> BitsCICLaBoard[40], std::bitset<256> BitsCICRaBoard[40], unsigned OutputModule[10][40]);
+int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 22> > simABoard);
+int fillPREFWithString(int board, std::vector< std::vector< std::bitset<25> > >BitsPREFaBoard, int jentry);
+int fillTxtfileWithString(int board, std::bitset<256> BitsCICLaBoard[40], std::bitset<256> BitsCICRaBoard[40], unsigned OutputModule[10][40], int jentry);
 int fillTreeWithULong64(TTree *tree, ULong64_t OutputData[40][8], std::bitset<256> BitsCICLaBoard[40], std::bitset<256> BitsCICRaBoard[40]);
 
 
@@ -97,13 +97,13 @@ void ProduceFile::Loop()
 		sprintf(str,"outputfiles/simBoard%02d.txt",board);
 		std::ofstream outfileSIM;
 		outfileSIM.open(str);
-		outfileSIM<<"moduleId genCharge genPdgId genVx genVy genVz genCotTheta genD0 genDz genInvPt genPt genPhi genEta stubPhi stubEta stubR stubX stubY stubZ stubLocalPhi stubLocalZ \n";
+		outfileSIM<<"entry moduleId genCharge genPdgId genVx genVy genVz genCotTheta genD0 genDz genInvPt genPt genPhi genEta stubPhi stubEta stubR stubX stubY stubZ stubLocalPhi stubLocalZ \n";
 	}
 
 
 	if (fChain == 0) return;
 	//Long64_t nentries = fChain->GetEntries();
-	Long64_t nentries = 351;
+	Long64_t nentries = 351;//25;//351;
 	Long64_t nbytes = 0, nb = 0;
 	for (Long64_t jentry=0; jentry<nentries;jentry++) {
 		Long64_t ientry = LoadTree(jentry);
@@ -123,9 +123,9 @@ void ProduceFile::Loop()
 
 		int nStubL[10][40]={{0}};
 		int nStubR[10][40]={{0}};
-		std::vector< std::vector<std::tr1::array<float, 21> > >simInfo;
+		std::vector< std::vector<std::tr1::array<float, 22> > >simInfo;
 		for (int b=0; b<10; b++){ //10 boards
-			std::vector<std::tr1::array<float, 21> >simInfoABoard;
+			std::vector<std::tr1::array<float, 22> >simInfoABoard;
 			simInfo.push_back(simInfoABoard);
 		}
 		bool CICStatusL[10][40]={{0}};
@@ -162,28 +162,29 @@ void ProduceFile::Loop()
 			float stub_trigBend = TTStubs_trigBend->at(l);//-8 to 8, 16 strips, 32 values(5bits) in halfStrip
 			//unsigned stub_bx    = TTStubs_bxId->at(l);    //0-7(3bits) for bx
 			unsigned stub_bx    = 0; 
-			std::tr1::array<float,21> simAStub;
-			simAStub[0]=moduleId;
-			simAStub[1]=genParts_charge->at(0);
-			simAStub[2]=genParts_pdgId->at(0);
-			simAStub[3]=genParts_vx->at(0);
-			simAStub[4]=genParts_vy->at(0);
-			simAStub[5]=genParts_vz->at(0);
-			simAStub[6]=genParts_cotTheta->at(0);
-			simAStub[7]=genParts_d0->at(0);
-			simAStub[8]=genParts_dz->at(0);
-			simAStub[9]=genParts_invPt->at(0);
-			simAStub[10]=TTStubs_simPt->at(l);  // ==genParts_pt->at(0);
-			simAStub[11]=TTStubs_simPhi->at(l); // ==genParts_phi->at(0); 
-			simAStub[12]=TTStubs_simEta->at(l); // ==genParts_eta->at(0);
-			simAStub[13]=TTStubs_phi->at(l);
-			simAStub[14]=TTStubs_eta->at(l);
-			simAStub[15]=TTStubs_r->at(l);
-			simAStub[16]=TTStubs_x->at(l);
-			simAStub[17]=TTStubs_y->at(l);
-			simAStub[18]=TTStubs_z->at(l);
-			simAStub[19]=localPhi;
-			simAStub[20]=localZ;
+			std::tr1::array<float,22> simAStub;
+			simAStub[0]=jentry;
+			simAStub[1]=moduleId;
+			simAStub[2]=genParts_charge->at(0);
+			simAStub[3]=genParts_pdgId->at(0);
+			simAStub[4]=genParts_vx->at(0);
+			simAStub[5]=genParts_vy->at(0);
+			simAStub[6]=genParts_vz->at(0);
+			simAStub[7]=genParts_cotTheta->at(0);
+			simAStub[8]=genParts_d0->at(0);
+			simAStub[9]=genParts_dz->at(0);
+			simAStub[10]=genParts_invPt->at(0);
+			simAStub[11]=TTStubs_simPt->at(l);  // ==genParts_pt->at(0);
+			simAStub[12]=TTStubs_simPhi->at(l); // ==genParts_phi->at(0); 
+			simAStub[13]=TTStubs_simEta->at(l); // ==genParts_eta->at(0);
+			simAStub[14]=TTStubs_phi->at(l);
+			simAStub[15]=TTStubs_eta->at(l);
+			simAStub[16]=TTStubs_r->at(l);
+			simAStub[17]=TTStubs_x->at(l);
+			simAStub[18]=TTStubs_y->at(l);
+			simAStub[19]=TTStubs_z->at(l);
+			simAStub[20]=localPhi;
+			simAStub[21]=localZ;
 
 			if (requirePtCut3 && !pass3GeVCut(moduleId,stub_trigBend)) continue;
 			if (requireBlinding) {
@@ -414,12 +415,12 @@ void ProduceFile::Loop()
 			/**********fill the DS output file*********/
 			/******************************************/
 			fillTreeWithULong64(tree[board],OutputData,BitsCICL[board],BitsCICR[board]);
-			fillTxtfileWithString(board,BitsCICL[board],BitsCICR[board],OutputModule);
+			fillTxtfileWithString(board,BitsCICL[board],BitsCICR[board],OutputModule,jentry);
 
 			/******************************************/
 			/*********fill the PREF output file********/
 			/******************************************/
-			fillPREFWithString(board,BitsPREF[board]);
+			fillPREFWithString(board,BitsPREF[board],jentry);
 			
 			/******************************************/
 			/**********fill the gen info file**********/
@@ -432,25 +433,25 @@ void ProduceFile::Loop()
 }
 
 
-int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 21> > simABoard) {
+int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 22> > simABoard) {
 	std::ofstream outfile;
 	char str[50];
 	sprintf(str,"outputfiles/simBoard%02d.txt",board);
 	outfile.open(str,std::ofstream::app);
-	for(std::vector<std::tr1::array<float, 21> >::iterator it = simABoard.begin(); it != simABoard.end(); ++it) {
-		std::tr1::array<float, 21> simAStub = *it;
+	for(std::vector<std::tr1::array<float, 22> >::iterator it = simABoard.begin(); it != simABoard.end(); ++it) {
+		std::tr1::array<float, 22> simAStub = *it;
 		std::cout
 		<<simAStub[0]<<" "<<simAStub[1]<<" "<<simAStub[2]<<" "<<simAStub[3]<<" "<<simAStub[4]<<" "
 		<<simAStub[5]<<" "<<simAStub[6]<<" "<<simAStub[7]<<" "<<simAStub[8]<<" "<<simAStub[9]<<" "
 		<<simAStub[10]<<" "<<simAStub[11]<<" "<<simAStub[12]<<" "<<simAStub[13]<<" "<<simAStub[14]<<" "
 		<<simAStub[15]<<" "<<simAStub[16]<<" "<<simAStub[17]<<" "<<simAStub[18]<<" "<<simAStub[19]<<" "
-		<<simAStub[20]<<"\n"; 
+		<<simAStub[20]<<" "<<simAStub[21]<<"\n"; 
 		outfile
 		<<simAStub[0]<<" "<<simAStub[1]<<" "<<simAStub[2]<<" "<<simAStub[3]<<" "<<simAStub[4]<<" "
 		<<simAStub[5]<<" "<<simAStub[6]<<" "<<simAStub[7]<<" "<<simAStub[8]<<" "<<simAStub[9]<<" "
 		<<simAStub[10]<<" "<<simAStub[11]<<" "<<simAStub[12]<<" "<<simAStub[13]<<" "<<simAStub[14]<<" "
 		<<simAStub[15]<<" "<<simAStub[16]<<" "<<simAStub[17]<<" "<<simAStub[18]<<" "<<simAStub[19]<<" "
-		<<simAStub[20]<<"\n";
+		<<simAStub[20]<<" "<<simAStub[21]<<"\n";
 	}   
 	outfile << "\n";
 	
@@ -459,12 +460,11 @@ int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 21> > simABoar
 }
 
 
-int fillPREFWithString(int board, std::vector< std::vector< std::bitset<25> > >BitsPREFaBoard) {
+int fillPREFWithString(int board, std::vector< std::vector< std::bitset<25> > >BitsPREFaBoard, int jentry) {
 	std::ofstream outfile;
 	char str[50];
 	sprintf(str,"outputfiles/PREF_Board%02d.txt",board);
 	outfile.open(str,std::ofstream::app);
-	//outfile << "New event: \n";
 
 	int nStubMax=0;
 	int nStubLayer[23]={0};
@@ -473,28 +473,31 @@ int fillPREFWithString(int board, std::vector< std::vector< std::bitset<25> > >B
 		if (nStubMax<nStubLayer[l]) nStubMax=nStubLayer[l];
 	}
 
+	std::bitset<25> AllZero; 
+
 	for (int s=0; s<nStubMax; s++) {
+		outfile << jentry << " 0 "; 
 		for (int l=5; l<11; l++) {
-			if (s<nStubLayer[l]) outfile << BitsPREFaBoard[l][s].to_string() << "";
-			else outfile << "0000000000000000000000000";
+			if (s<nStubLayer[l]) outfile << BitsPREFaBoard[l][s].to_string() << " ";
+			else outfile << AllZero << " ";
 		}
 		outfile << "\n";
 	}
 	
-	outfile << "\n";
-	
+	//EOE
+	outfile << jentry << " 1 " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " \n";
 	outfile.close();
 	return 0;
 }
 
 
 //Convert bitset to a string. Then save the string into the output txtfile
-int fillTxtfileWithString(int board, std::bitset<256> BitsCICLaBoard[40], std::bitset<256> BitsCICRaBoard[40], unsigned OutputModule[10][40]) {
+int fillTxtfileWithString(int board, std::bitset<256> BitsCICLaBoard[40], std::bitset<256> BitsCICRaBoard[40], unsigned OutputModule[10][40], int jentry) {
 	std::ofstream outfile;
 	char str[50];
 	sprintf(str,"outputfiles/DataSourcingBoard%02d.txt",board);
 	outfile.open(str,std::ofstream::app);
-	outfile << "New event: \n";
+	outfile << "Entry "<<jentry<<"\n";
 
 	for (int m=0; m<40; m++) {
 		outfile << "Module " << OutputModule[board][m] << " " << BitsCICLaBoard[m].to_string() << " "<< BitsCICRaBoard[m].to_string() << "\n";
