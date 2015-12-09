@@ -1,6 +1,7 @@
 Please check DataFormat.xlsx for the output format
 
 The names of the 40 input modules are written in ../inputfiles/ModuleListBoard00.txt
+You can change the several bools in utils.C
 
 * Make 8BX ntuple:
 ```

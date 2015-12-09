@@ -16,7 +16,7 @@
 #include <vector>
 #include <vector>
 
-//#include "utils.C"
+#include "utils.C"
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
@@ -193,7 +193,7 @@ void ProduceFile::Init(TTree *tree)
    fChain->SetBranchAddress("TTStubs_coordx", &TTStubs_coordx, &b_TTStubs_coordx);
    fChain->SetBranchAddress("TTStubs_coordy", &TTStubs_coordy, &b_TTStubs_coordy);
    fChain->SetBranchAddress("TTStubs_trigBend", &TTStubs_trigBend, &b_TTStubs_trigBend);
-   //fChain->SetBranchAddress("TTStubs_bxId", &TTStubs_bxId, &b_TTStubs_bxId);
+   if (multiBx) fChain->SetBranchAddress("TTStubs_bxId", &TTStubs_bxId, &b_TTStubs_bxId);
    fChain->SetBranchAddress("TTStubs_modId", &TTStubs_modId, &b_TTStubs_modId);
    fChain->SetBranchAddress("TTStubs_simEta", &TTStubs_simEta, &b_TTStubs_simEta);
    fChain->SetBranchAddress("TTStubs_simPhi", &TTStubs_simPhi, &b_TTStubs_simPhi);

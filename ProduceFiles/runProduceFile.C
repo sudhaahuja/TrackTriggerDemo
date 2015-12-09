@@ -2,7 +2,7 @@
 void runProduceFile()
 {
 	TChain * chain = new TChain("ntupler/tree","");
-	//chain->Add("Neutrino_E2023TTI_PU200_TuneCUEP6S1_ntuple.8BX.root");
+	//chain->Add("Neutrino_E2023TTI_PU200_ntuple.8BX.root");
 	//chain->Add("/eos/uscms/store/user/l1upgrades/SLHC/GEN/620_SLHC12p1_ntuple/PU200/TTbarTTbar_E2023TTI_PU200_TuneCUEP6S1_ntuple.2.root");
 	//chain->Add("/eos/uscms/store/user/l1upgrades/SLHC/GEN/620_SLHC12p1_ntuple/PU140/TTbarTTbar_E2023TTI_PU140_TuneCUEP6S1_ntuple.2.root");
 	//chain->Add("/eos/uscms/store/user/l1upgrades/SLHC/GEN/620_SLHC12p1_ntuple/PU200/Neutrino_E2023TTI_PU200_TuneCUEP6S1_ntuple.2.root");
@@ -10,54 +10,15 @@ void runProduceFile()
 	//chain->Add("/eos/uscms/store/user/l1upgrades/SLHC/GEN/620_SLHC12p1_ntuple/PU0/SingleMu_E2023TTI_ntuple.2.root");
 	//chain->Add("/uscms_data/d2/jiafu/L1TrackTrigger/CMSSW_6_2_0_SLHC12_patch1/src/SLHCL1TrackTriggerSimulations/Configuration/test/control/SingleMu_Barrel_pt5_E2023TTI_ntuple.root");
 	chain->Add("/uscmst1b_scratch/lpc1/lpcmuon/zhenhu/FNAL/AMTest/CMSSW_6_2_0_SLHC25_patch3/src/SLHCL1TrackTriggerSimulations/Configuration/test/SingleMuon_tt27_board00_ntuple.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_117.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_126.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_151.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_161.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_177.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_188.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_189.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_192.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_215.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_236.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_237.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_241.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_252.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_264.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_266.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_278.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_280.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_292.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_295.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_296.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_297.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_305.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_307.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_313.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_315.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_323.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_334.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_337.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_353.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_363.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_376.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_377.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_380.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_383.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_384.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_388.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_390.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_394.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_396.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_408.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_452.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_453.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_496.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_54.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_55.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_61.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_75.root");
-//chain->Add("/eos/uscms/store/user/zhenhu/Neutrino/trackTrigger-neutrino-tt27-v1/151023_080909/0000/Neutrino_tt27_board00_PU200_ntuple_9.root");	
+	//chain->Add("/uscmst1b_scratch/lpc1/lpcmuon/zhenhu/FNAL/AMTest/CMSSW_6_2_0_SLHC25_patch3/src/SLHCL1TrackTriggerSimulations/Configuration/test/SingleMuon_tt27_board00_fixedAngle_ntuple.root");
+
+   //TString name;
+	//for (int i=1; i<51; i++) {
+	//	chain->Add(TString::Format("/eos/uscms/store/user/l1upgrades/noreplica/zhen/Neutrino/trackTrigger-neutrino-tt27-v2/151023_160934/0000/Neutrino_tt27_board00_PU200_ntuple_%d.root",i));
+	//}  
+	//chain->Add("/eos/uscms/store/user/l1upgrades/noreplica/zhen/Neutrino/trackTrigger-neutrino-tt27-v2/151023_160934/0000/Neutrino_tt27_board00_PU200_ntuple_100.root");
+	//chain->Add("/eos/uscms/store/user/l1upgrades/noreplica/zhen/Neutrino/trackTrigger-neutrino-tt27-v2/151023_160934/0000/Neutrino_tt27_board00_PU200_ntuple_123.root");
+
 	ProduceFile a(chain);
 	a.Loop();
 }

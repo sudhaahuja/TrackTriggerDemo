@@ -7,11 +7,10 @@
 #include <fstream>
 #include <sstream>
 #include <bitset>
-#include "utils.C"
 #include <tr1/array>
 
 int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 22> > simABoard);
-int fillPREFWithString(int board, std::vector< std::vector< std::bitset<25> > >BitsPREFaBoard, int jentry);
+int fillPREFWithString(int board, std::vector< std::vector< std::bitset<30> > >BitsPREFaBoard, int jentry);
 int fillTxtfileWithString(int board, std::bitset<256> BitsCICLaBoard[40], std::bitset<256> BitsCICRaBoard[40], unsigned OutputModule[10][40], int jentry);
 int fillTreeWithULong64(TTree *tree, ULong64_t OutputData[40][8], std::bitset<256> BitsCICLaBoard[40], std::bitset<256> BitsCICRaBoard[40]);
 
@@ -65,6 +64,10 @@ void ProduceFile::Loop()
 	Long64_t blindEntries = blindTree->GetEntries();
 
 
+	TH1F *InputLatency = new TH1F("InputLatency","InputLatency",200,0,200);
+	InputLatency->GetXaxis()->SetTitle("the maximum stubRate/layer among all layers");
+	InputLatency->GetYaxis()->SetTitle("Entries");
+
 	//prepare outputfiles
 	TFile *outputfile = new TFile("outputfiles/DataSourcingTree.root", "RECREATE");
 	/*TDirectory *Tower[48];  
@@ -103,7 +106,7 @@ void ProduceFile::Loop()
 
 	if (fChain == 0) return;
 	//Long64_t nentries = fChain->GetEntries();
-	Long64_t nentries = 351;//25;//351;
+	Long64_t nentries = 351;
 	Long64_t nbytes = 0, nb = 0;
 	for (Long64_t jentry=0; jentry<nentries;jentry++) {
 		Long64_t ientry = LoadTree(jentry);
@@ -135,11 +138,11 @@ void ProduceFile::Loop()
 		//define final output block for DS
 		std::bitset<256> BitsCICL[10][40], BitsCICR[10][40];
 		//define PREF block of a stub 
-		std::vector< std::vector< std::vector< std::bitset<25> > > >BitsPREF;
+		std::vector< std::vector< std::vector< std::bitset<30> > > >BitsPREF;
 		for (int b=0; b<10; b++){ //10 boards
-			std::vector< std::vector< std::bitset<25> > >BitsPREFaBoard;
+			std::vector< std::vector< std::bitset<30> > >BitsPREFaBoard;
 			for (int l=0; l<23; l++){ //23 layers
-				std::vector< std::bitset<25> >BitsPREFaLayer;
+				std::vector< std::bitset<30> >BitsPREFaLayer;
 				BitsPREFaBoard.push_back(BitsPREFaLayer);
 			}
 			BitsPREF.push_back(BitsPREFaBoard);
@@ -160,8 +163,9 @@ void ProduceFile::Loop()
 			float localZ        = TTStubs_coordy->at(l);  //0-31(5bits) for PS (4bits for each CIC); 0-1 for 2S
 			float localPhi      = TTStubs_coordx->at(l);  //960 strips for PS, 1016 strips for 2S. 2024 values in halfStrip = 11bits = 3bits(chipID)+8bits(stubAddress)
 			float stub_trigBend = TTStubs_trigBend->at(l);//-8 to 8, 16 strips, 32 values(5bits) in halfStrip
-			//unsigned stub_bx    = TTStubs_bxId->at(l);    //0-7(3bits) for bx
-			unsigned stub_bx    = 0; 
+			unsigned stub_bx;
+			if (multiBx) stub_bx= TTStubs_bxId->at(l);    //0-7(3bits) for bx
+			else stub_bx = 0;
 			std::tr1::array<float,22> simAStub;
 			simAStub[0]=jentry;
 			simAStub[1]=moduleId;
@@ -220,20 +224,23 @@ void ProduceFile::Loop()
 						/**********************************/
 						std::bitset<4>  localLadder;      localLadder |= GlbModule_LocalModule_Map_[moduleId].first;
 						std::bitset<4>  localModule;      localModule |= GlbModule_LocalModule_Map_[moduleId].second;
-						std::bitset<25> PREFtmp;
+						std::bitset<30> PREFtmp;
+						for (unsigned b=0;b<stubBendPS.size();b++) {
+							PREFtmp.set(b, stubBendPS.test(b)); //0000000000000000000000000BBBBB
+						}
 						for (unsigned b=0;b<stubZpos.size();b++) {
-							PREFtmp.set(b, stubZpos.test(b)); //00000000000000000000ZZZZZ
+							PREFtmp.set(b + stubBendPS.size(), stubZpos.test(b)); //00000000000000000000ZZZZZBBBBB
 						}
 						for (unsigned b=0;b<stubAddress.size();b++) {
-							PREFtmp.set(b + stubZpos.size(), stubAddress.test(b)); //000000000AAASSSSSSSSZZZZZ
+							PREFtmp.set(b + stubZpos.size() + stubBendPS.size(), stubAddress.test(b)); //000000000AAASSSSSSSSZZZZZBBBBB
 						}
 						for (unsigned b=0;b<localModule.size();b++) {
-							PREFtmp.set(b + stubAddress.size() + stubZpos.size(), localModule.test(b)); //00000MMMMAAASSSSSSSSZZZZZ
+							PREFtmp.set(b + stubAddress.size() + stubZpos.size() + stubBendPS.size(), localModule.test(b)); //00000MMMMAAASSSSSSSSZZZZZBBBBB
 						}
 						for (unsigned b=0;b<localLadder.size();b++) {
-							PREFtmp.set(b + localModule.size() + stubAddress.size() + stubZpos.size(), localLadder.test(b)); //0LLLLMMMMAAASSSSSSSSZZZZZ
+							PREFtmp.set(b + localModule.size() + stubAddress.size() + stubZpos.size() + stubBendPS.size(), localLadder.test(b)); //0LLLLMMMMAAASSSSSSSSZZZZZBBBBB
 						}
-						PREFtmp.set(PREFtmp.size()-1,1); //1LLLLMMMMAAASSSSSSSSZZZZZ
+						PREFtmp.set(PREFtmp.size()-1,1); //1LLLLMMMMAAASSSSSSSSZZZZZBBBBB
 
 						BitsPREF[board][lay].push_back(PREFtmp);
 
@@ -359,8 +366,10 @@ void ProduceFile::Loop()
 		//1. create DS header, then copy header into the DS output block, then fill the DS output file
 		//2. fill the PREF output file
 		for (int board=0; board<1; board++) {
-			for (int l=5; l<11; l++) {
-				if (BitsPREF[board][l].size()==0) fillOutputFlag[board]=0; //if there is 0 stubs in any layer, skip this event.
+			if (SkipEventWithEmptyLayer) {  //if there is 0 stubs in any layer, skip this event. Set SkipEventWithEmptyLayer=0 if runing for PU only simple
+				for (int l=5; l<11; l++) {
+					if (BitsPREF[board][l].size()==0) fillOutputFlag[board]=0; 
+				}
 			}
 			if (fillOutputFlag[board]==0) continue;
 
@@ -420,7 +429,8 @@ void ProduceFile::Loop()
 			/******************************************/
 			/*********fill the PREF output file********/
 			/******************************************/
-			fillPREFWithString(board,BitsPREF[board],jentry);
+			int nStubMax = fillPREFWithString(board,BitsPREF[board],jentry);
+			InputLatency->Fill(nStubMax);
 			
 			/******************************************/
 			/**********fill the gen info file**********/
@@ -429,6 +439,10 @@ void ProduceFile::Loop()
 		}
 	}
 
+	TCanvas *c1 = new TCanvas("c1","c1"); 
+	InputLatency->Draw();
+	c1->SaveAs("outputfiles/InputLatency.pdf");
+	c1->SaveAs("outputfiles/InputLatency.png");
 	outputfile->Write();
 }
 
@@ -460,7 +474,7 @@ int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 22> > simABoar
 }
 
 
-int fillPREFWithString(int board, std::vector< std::vector< std::bitset<25> > >BitsPREFaBoard, int jentry) {
+int fillPREFWithString(int board, std::vector< std::vector< std::bitset<30> > >BitsPREFaBoard, int jentry) {
 	std::ofstream outfile;
 	char str[50];
 	sprintf(str,"outputfiles/PREF_Board%02d.txt",board);
@@ -473,7 +487,7 @@ int fillPREFWithString(int board, std::vector< std::vector< std::bitset<25> > >B
 		if (nStubMax<nStubLayer[l]) nStubMax=nStubLayer[l];
 	}
 
-	std::bitset<25> AllZero; 
+	std::bitset<30> AllZero; 
 
 	for (int s=0; s<nStubMax; s++) {
 		outfile << jentry << " 0 "; 
@@ -487,7 +501,7 @@ int fillPREFWithString(int board, std::vector< std::vector< std::bitset<25> > >B
 	//EOE
 	outfile << jentry << " 1 " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " \n";
 	outfile.close();
-	return 0;
+	return nStubMax;
 }
 
 
