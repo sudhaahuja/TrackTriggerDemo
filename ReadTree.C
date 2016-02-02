@@ -875,7 +875,7 @@ void ReadTree::Loop()
 						if (lad==3 && mod==33) {stub_tt27_lN_ladN_modN[5][3][33]++;stub_roads++;}
 						if (lad==3 && mod==34) {stub_tt27_lN_ladN_modN[5][3][34]++;stub_roads++;}
 						// stub rate for ss with fountain approach sf1z1,2,4
-						if (lad==2) {
+						if (lad==3) {
 							if (localPhi<(9)) {
 								stub_sf1_lN_PhiN_z1[5][0][0]++;
 								if (mod==30||mod==31||mod==32||mod==33) { stub_sf1_lN_PhiN_z2[5][0][0]++;}
@@ -907,11 +907,19 @@ void ReadTree::Loop()
 								stub_sf1_lN_PhiN_z1[6][0][0]++;
 								if (mod>=26&&mod<31) { stub_sf1_lN_PhiN_z2[6][0][0]++;}
 								if (mod>=31&&mod<36) { stub_sf1_lN_PhiN_z2[6][0][1]++;}
+								if (mod==26||mod==27||(mod==28&&localZ>15)) { stub_sf1_lN_PhiN_z4[6][0][0]++;}
+								if (mod==29||mod==30||(mod==28&&localZ<16)) { stub_sf1_lN_PhiN_z4[6][0][1]++;}
+								if (mod==31||mod==32||(mod==33&&localZ>15)) { stub_sf1_lN_PhiN_z4[6][0][2]++;}
+								if (mod==34||mod==35||(mod==33&&localZ<16)) { stub_sf1_lN_PhiN_z4[6][0][3]++;}
 							}
 							if (localPhi>=(480-8) && localPhi<(480+8)) {
 								stub_sf1_lN_PhiN_z1[6][1][0]++;
 								if (mod>=26&&mod<31) { stub_sf1_lN_PhiN_z2[6][1][0]++;}
 								if (mod>=31&&mod<36) { stub_sf1_lN_PhiN_z2[6][1][1]++;}
+								if (mod==26||mod==27||(mod==28&&localZ>15)) { stub_sf1_lN_PhiN_z4[6][1][0]++;}
+								if (mod==29||mod==30||(mod==28&&localZ<16)) { stub_sf1_lN_PhiN_z4[6][1][1]++;}
+								if (mod==31||mod==32||(mod==33&&localZ>15)) { stub_sf1_lN_PhiN_z4[6][1][2]++;}
+								if (mod==34||mod==35||(mod==33&&localZ<16)) { stub_sf1_lN_PhiN_z4[6][1][3]++;}
 							}
 						}
 						break;
@@ -925,11 +933,19 @@ void ReadTree::Loop()
 								stub_sf1_lN_PhiN_z1[7][0][0]++;
 								if (mod>=26&&mod<32) { stub_sf1_lN_PhiN_z2[7][0][0]++;}
 								if (mod>=32&&mod<38) { stub_sf1_lN_PhiN_z2[7][0][1]++;}
+								if (mod>=26&&mod<29) { stub_sf1_lN_PhiN_z4[7][0][0]++;}
+								if (mod>=29&&mod<32) { stub_sf1_lN_PhiN_z4[7][0][1]++;}
+								if (mod>=32&&mod<35) { stub_sf1_lN_PhiN_z4[7][0][2]++;}
+								if (mod>=35&&mod<38) { stub_sf1_lN_PhiN_z4[7][0][3]++;}
 							}
 							if (localPhi>=(480-11) && localPhi<(480+12)) {
 								stub_sf1_lN_PhiN_z1[7][1][0]++;
 								if (mod>=26&&mod<32) { stub_sf1_lN_PhiN_z2[7][1][0]++;}
 								if (mod>=32&&mod<38) { stub_sf1_lN_PhiN_z2[7][1][1]++;}
+								if (mod>=26&&mod<29) { stub_sf1_lN_PhiN_z4[7][1][0]++;}
+								if (mod>=29&&mod<32) { stub_sf1_lN_PhiN_z4[7][1][1]++;}
+								if (mod>=32&&mod<35) { stub_sf1_lN_PhiN_z4[7][1][2]++;}
+								if (mod>=35&&mod<38) { stub_sf1_lN_PhiN_z4[7][1][3]++;}
 							}
 						}
 						break;
@@ -938,16 +954,24 @@ void ReadTree::Loop()
 						stub_ttN_lN[27][8]++;
 						if (lad==8 && mod==14) {stub_tt27_lN_ladN_modN[8][8][14]++;stub_roads++;}
 						if (lad==9 && mod==14) {stub_tt27_lN_ladN_modN[8][9][14]++;stub_roads++;}
-						if (lad==10) {
+						if (lad==9) {
 							if (localPhi<(37)) {
 								stub_sf1_lN_PhiN_z1[8][0][0]++;
 								if ((mod>=11&&mod<14)||(mod==14&&localZ==1)) { stub_sf1_lN_PhiN_z2[8][0][0]++;}
-								if ((mod>=15&&mod<19)||(mod==14&&localZ==0)) { stub_sf1_lN_PhiN_z2[8][0][1]++;}
+								if ((mod>=15&&mod<18)||(mod==14&&localZ==0)) { stub_sf1_lN_PhiN_z2[8][0][1]++;}
+								if (mod==11||mod==12) { stub_sf1_lN_PhiN_z4[8][0][0]++;}
+								if (mod==13||mod==14) { stub_sf1_lN_PhiN_z4[8][0][1]++;}
+								if (mod==15||mod==16) { stub_sf1_lN_PhiN_z4[8][0][2]++;}
+								if (mod==17||mod==18) { stub_sf1_lN_PhiN_z4[8][0][3]++;}
 							}
 							if (localPhi>=(508-18) && localPhi<(508+19)) {
 								stub_sf1_lN_PhiN_z1[8][1][0]++;
 								if ((mod>=11&&mod<14)||(mod==14&&localZ==1)) { stub_sf1_lN_PhiN_z2[8][1][0]++;}
-								if ((mod>=15&&mod<19)||(mod==14&&localZ==0)) { stub_sf1_lN_PhiN_z2[8][1][1]++;}
+								if ((mod>=15&&mod<18)||(mod==14&&localZ==0)) { stub_sf1_lN_PhiN_z2[8][1][1]++;}
+								if (mod==11||mod==12) { stub_sf1_lN_PhiN_z4[8][1][0]++;}
+								if (mod==13||mod==14) { stub_sf1_lN_PhiN_z4[8][1][1]++;}
+								if (mod==15||mod==16) { stub_sf1_lN_PhiN_z4[8][1][2]++;}
+								if (mod==17||mod==18) { stub_sf1_lN_PhiN_z4[8][1][3]++;}
 							}
 						}
 						break;
@@ -956,16 +980,24 @@ void ReadTree::Loop()
 						stub_ttN_lN[27][9]++;
 						if (lad==10 && mod==15) {stub_tt27_lN_ladN_modN[9][10][15]++;stub_roads++;}
 						if (lad==11 && mod==15) {stub_tt27_lN_ladN_modN[9][11][15]++;stub_roads++;}
-						if (lad==14) {
+						if (lad==12) {
 							if (localPhi<(51)) {
 								stub_sf1_lN_PhiN_z1[9][0][0]++;
 								if ((mod>=11&&mod<15)||(mod==15&&localZ==1)) { stub_sf1_lN_PhiN_z2[9][0][0]++;}
 								if ((mod>=16&&mod<20)||(mod==15&&localZ==0)) { stub_sf1_lN_PhiN_z2[9][0][1]++;}
+								if (mod==11||mod==12) { stub_sf1_lN_PhiN_z4[9][0][0]++;}
+								if (mod==13||mod==14) { stub_sf1_lN_PhiN_z4[9][0][1]++;}
+								if (mod==15||mod==16) { stub_sf1_lN_PhiN_z4[9][0][2]++;}
+								if (mod==17||mod==18) { stub_sf1_lN_PhiN_z4[9][0][3]++;}
 							}
 							if (localPhi>=(508-25) && localPhi<(508+26)) {
 								stub_sf1_lN_PhiN_z1[9][1][0]++;
 								if ((mod>=11&&mod<15)||(mod==15&&localZ==1)) { stub_sf1_lN_PhiN_z2[9][1][0]++;}
 								if ((mod>=16&&mod<20)||(mod==15&&localZ==0)) { stub_sf1_lN_PhiN_z2[9][1][1]++;}
+								if (mod==11||mod==12) { stub_sf1_lN_PhiN_z4[9][1][0]++;}
+								if (mod==13||mod==14) { stub_sf1_lN_PhiN_z4[9][1][1]++;}
+								if (mod==15||mod==16) { stub_sf1_lN_PhiN_z4[9][1][2]++;}
+								if (mod==17||mod==18) { stub_sf1_lN_PhiN_z4[9][1][3]++;}
 							}
 						}                 
 						break;
@@ -978,7 +1010,7 @@ void ReadTree::Loop()
 						if (lad==12 && mod==16) {stub_tt27_lN_ladN_modN[10][12][16]++;stub_roads++;}
 						if (lad==13 && mod==16) {stub_tt27_lN_ladN_modN[10][13][16]++;stub_roads++;}
 						if (lad==14 && mod==16) {stub_tt27_lN_ladN_modN[10][14][16]++;stub_roads++;}
-						if (lad==17) {
+						if (lad==14) {
 							if (localPhi<69) {
 								if (jentry==277 || jentry==492 || jentry==530 || jentry==815) cout<<"mod="<<mod<<", local Z="<<localZ<<", local phi="<<localPhi<<", roughPt="<<roughPt<<", simPt="<<simPt<<endl;
 								stub_sf1_lN_PhiN_z1[10][0][0]++;
@@ -1162,6 +1194,38 @@ void ReadTree::Loop()
 		nStubTower27LayerNPhibinN_z4[5][1][1]->Fill(stub_sf1_lN_PhiN_z4[5][1][1]);
 		nStubTower27LayerNPhibinN_z4[5][1][2]->Fill(stub_sf1_lN_PhiN_z4[5][1][2]);
 		nStubTower27LayerNPhibinN_z4[5][1][3]->Fill(stub_sf1_lN_PhiN_z4[5][1][3]);
+		nStubTower27LayerNPhibinN_z4[6][0][0]->Fill(stub_sf1_lN_PhiN_z4[6][0][0]);
+		nStubTower27LayerNPhibinN_z4[6][0][1]->Fill(stub_sf1_lN_PhiN_z4[6][0][1]);
+		nStubTower27LayerNPhibinN_z4[6][0][2]->Fill(stub_sf1_lN_PhiN_z4[6][0][2]);
+		nStubTower27LayerNPhibinN_z4[6][0][3]->Fill(stub_sf1_lN_PhiN_z4[6][0][3]);
+		nStubTower27LayerNPhibinN_z4[6][1][0]->Fill(stub_sf1_lN_PhiN_z4[6][1][0]);
+		nStubTower27LayerNPhibinN_z4[6][1][1]->Fill(stub_sf1_lN_PhiN_z4[6][1][1]);
+		nStubTower27LayerNPhibinN_z4[6][1][2]->Fill(stub_sf1_lN_PhiN_z4[6][1][2]);
+		nStubTower27LayerNPhibinN_z4[6][1][3]->Fill(stub_sf1_lN_PhiN_z4[6][1][3]);
+		nStubTower27LayerNPhibinN_z4[7][0][0]->Fill(stub_sf1_lN_PhiN_z4[7][0][0]);
+		nStubTower27LayerNPhibinN_z4[7][0][1]->Fill(stub_sf1_lN_PhiN_z4[7][0][1]);
+		nStubTower27LayerNPhibinN_z4[7][0][2]->Fill(stub_sf1_lN_PhiN_z4[7][0][2]);
+		nStubTower27LayerNPhibinN_z4[7][0][3]->Fill(stub_sf1_lN_PhiN_z4[7][0][3]);
+		nStubTower27LayerNPhibinN_z4[7][1][0]->Fill(stub_sf1_lN_PhiN_z4[7][1][0]);
+		nStubTower27LayerNPhibinN_z4[7][1][1]->Fill(stub_sf1_lN_PhiN_z4[7][1][1]);
+		nStubTower27LayerNPhibinN_z4[7][1][2]->Fill(stub_sf1_lN_PhiN_z4[7][1][2]);
+		nStubTower27LayerNPhibinN_z4[7][1][3]->Fill(stub_sf1_lN_PhiN_z4[7][1][3]);
+		nStubTower27LayerNPhibinN_z4[8][0][0]->Fill(stub_sf1_lN_PhiN_z4[8][0][0]);
+		nStubTower27LayerNPhibinN_z4[8][0][1]->Fill(stub_sf1_lN_PhiN_z4[8][0][1]);
+		nStubTower27LayerNPhibinN_z4[8][0][2]->Fill(stub_sf1_lN_PhiN_z4[8][0][2]);
+		nStubTower27LayerNPhibinN_z4[8][0][3]->Fill(stub_sf1_lN_PhiN_z4[8][0][3]);
+		nStubTower27LayerNPhibinN_z4[8][1][0]->Fill(stub_sf1_lN_PhiN_z4[8][1][0]);
+		nStubTower27LayerNPhibinN_z4[8][1][1]->Fill(stub_sf1_lN_PhiN_z4[8][1][1]);
+		nStubTower27LayerNPhibinN_z4[8][1][2]->Fill(stub_sf1_lN_PhiN_z4[8][1][2]);
+		nStubTower27LayerNPhibinN_z4[8][1][3]->Fill(stub_sf1_lN_PhiN_z4[8][1][3]);
+		nStubTower27LayerNPhibinN_z4[9][0][0]->Fill(stub_sf1_lN_PhiN_z4[9][0][0]);
+		nStubTower27LayerNPhibinN_z4[9][0][1]->Fill(stub_sf1_lN_PhiN_z4[9][0][1]);
+		nStubTower27LayerNPhibinN_z4[9][0][2]->Fill(stub_sf1_lN_PhiN_z4[9][0][2]);
+		nStubTower27LayerNPhibinN_z4[9][0][3]->Fill(stub_sf1_lN_PhiN_z4[9][0][3]);
+		nStubTower27LayerNPhibinN_z4[9][1][0]->Fill(stub_sf1_lN_PhiN_z4[9][1][0]);
+		nStubTower27LayerNPhibinN_z4[9][1][1]->Fill(stub_sf1_lN_PhiN_z4[9][1][1]);
+		nStubTower27LayerNPhibinN_z4[9][1][2]->Fill(stub_sf1_lN_PhiN_z4[9][1][2]);
+		nStubTower27LayerNPhibinN_z4[9][1][3]->Fill(stub_sf1_lN_PhiN_z4[9][1][3]);
 		nStubTower27LayerNPhibinN_z4[10][0][0]->Fill(stub_sf1_lN_PhiN_z4[10][0][0]);
 		nStubTower27LayerNPhibinN_z4[10][0][1]->Fill(stub_sf1_lN_PhiN_z4[10][0][1]);
 		nStubTower27LayerNPhibinN_z4[10][0][2]->Fill(stub_sf1_lN_PhiN_z4[10][0][2]);
@@ -1190,8 +1254,19 @@ void ReadTree::Loop()
 	}  
 
 	//Loop with the geometry map
+	int Nps=0; int N2s=0; int NpsWithOverlap=0; int N2sWithOverlap=0;
 	for (auto it: triggerTowerReverseMap_) {
+		//if (it.second.size()==0) continue;
 		Tower_perModule->Fill(it.second.size());
+		if (decodeLayer(it.first)<8 || decodeLayer(it.first)>10 && decodeLadder(it.first)<9) {
+			Nps++;
+			NpsWithOverlap+=(it.second.size());
+		}
+		else {
+			N2s++;
+			N2sWithOverlap+=(it.second.size());
+		}
+
 		// it.first (key, here is the moduleId); triggerTowerReverseMap_[it.first] (value, here is a vector of towers) 
 		// it.second.size() == triggerTowerReverseMap_[it.first].size()
 		for (unsigned j=0; j<triggerTowerReverseMap_[it.first].size(); j++) {
@@ -1204,6 +1279,9 @@ void ReadTree::Loop()
 			else Module_inEachTower_merge->Fill(triggerTowerReverseMap_[it.first].at(j));
 		}   
 	}   
+	std::cout<<"Nps="<<Nps<<", N2s="<<N2s<<", total="<<Nps+N2s<<std::endl;
+	std::cout<<"NpsWithOverlap="<<NpsWithOverlap<<", N2sWithOverlap="<<N2sWithOverlap<<", total="<<NpsWithOverlap+N2sWithOverlap<<std::endl;
+
 
 	TLatex L1;
 	L1.SetNDC();
@@ -1701,5 +1779,21 @@ void ReadTree::Loop()
 	}
 	c19->SaveAs("plots/nSTUB_sf1z4.pdf");
 
+	TCanvas *c20 = new TCanvas("c20","c20",900,600);
+	c20->Divide(6,4);
+	for (int z=0; z<4; z++){
+		for (int l=5; l<11; l++){
+			c20->cd(z*6+(l-5+1));
+			gPad-> SetLogy();
+			nStubTower27LayerNPhibinN_z4[l][1][z]->SetFillColor(l-3);
+			nStubTower27LayerNPhibinN_z4[l][1][z]->Draw();
+			sprintf(str,"TT27, Layer %02d, z_{%02d}",l,z+1);
+			L1.DrawLatex(0.1,0.95,str);
+			sprintf(str,"%03f",float(nStubTower27LayerNPhibinN_z4[l][1][z]->Integral(6,11))/nStubTower27LayerNPhibinN_z4[l][1][z]->Integral());
+			L1.DrawLatex(0.7,0.7,str);
+			L.DrawLine(5,0.1,5,10);
+		}
+	}
+	c20->SaveAs("plots/nSTUB_sf1z4_Jet.pdf");
 
 }
