@@ -1,7 +1,8 @@
 bool requirePtCut3 = true;
 bool requireBlinding = true;
-bool SkipEventWithEmptyLayer = true;  //set it to false for PU only samples
+bool SkipEventWithEmptyLayer = false;  //set it to false for PU only samples
 bool multiBx = false;
+bool halfLayer = false; //only simulate data for half layer 5
 
 unsigned int decodeLayer( unsigned int moduleId) {
    return moduleId / 10000;
