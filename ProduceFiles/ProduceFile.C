@@ -576,7 +576,20 @@ int fillTxtfileWithString(int board, std::bitset<256> BitsCICLaBoard[40], std::b
 	outfile << "Entry "<<jentry<<"\n";
 
 	for (int m=0; m<40; m++) {
-		outfile << "Module " << BoardModuleMap[board][m][0] << " " << BitsCICLaBoard[m].to_string() << " "<< BitsCICRaBoard[m].to_string() << "\n";
+		//outfile << "Module " << BoardModuleMap[board][m][0] << " " << BitsCICLaBoard[m].to_string() << " "<< BitsCICRaBoard[m].to_string() << "\n";
+		outfile << "Module " << BoardModuleMap[board][m][0] << "\n";
+		for (int j=0; j<(256/32); j++) {
+			for (int k=0; k<32; k++) {
+				outfile << BitsCICLaBoard[m].test(255-32*j-k);
+			}
+			outfile << "\n";
+		}
+		for (int j=0; j<(256/32); j++) {
+			for (int k=0; k<32; k++) {
+				outfile << BitsCICRaBoard[m].test(255-32*j-k);
+			}
+			outfile << "\n";
+		}
 	}
 	outfile << "\n";
 
