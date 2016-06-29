@@ -1,6 +1,6 @@
 bool requirePtCut3 = true;
-bool requireBlinding = true;
-bool SkipEventWithEmptyLayer = false;  //set it to false for PU only samples
+bool requireBlinding = false;
+bool SkipEventWithEmptyLayer = false;  //usually false
 bool multiBx = false;
 bool halfLayer = false; //only simulate data for half layer 5
 

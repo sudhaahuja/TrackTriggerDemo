@@ -215,10 +215,10 @@ void ProduceFile::Init(TTree *tree)
    fChain->SetBranchAddress("genParts_vx", &genParts_vx, &b_genParts_vx);
    fChain->SetBranchAddress("genParts_vy", &genParts_vy, &b_genParts_vy);
    fChain->SetBranchAddress("genParts_vz", &genParts_vz, &b_genParts_vz);
-   //fChain->SetBranchAddress("genParts_cotTheta", &genParts_cotTheta, &b_genParts_cotTheta);
-   //fChain->SetBranchAddress("genParts_d0", &genParts_d0, &b_genParts_d0);
-   //fChain->SetBranchAddress("genParts_dz", &genParts_dz, &b_genParts_dz);
-   //fChain->SetBranchAddress("genParts_invPt", &genParts_invPt, &b_genParts_invPt);
+   fChain->SetBranchAddress("genParts_cotTheta", &genParts_cotTheta, &b_genParts_cotTheta);
+   fChain->SetBranchAddress("genParts_d0", &genParts_d0, &b_genParts_d0);
+   fChain->SetBranchAddress("genParts_dz", &genParts_dz, &b_genParts_dz);
+   fChain->SetBranchAddress("genParts_invPt", &genParts_invPt, &b_genParts_invPt);
 
    Notify();
 }

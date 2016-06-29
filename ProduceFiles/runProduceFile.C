@@ -5,12 +5,13 @@ void runProduceFile()
 	//chain->Add("Neutrino_E2023TTI_PU200_ntuple.8BX.root");
 	//chain->Add("root://cmsxrootd.fnal.gov//store/user/l1upgrades/SLHC/GEN/620_SLHC12p1_ntuple/PU200/TTbarTTbar_E2023TTI_PU200_TuneCUEP6S1_ntuple.2.root");
 	//chain->Add("root://cmsxrootd.fnal.gov//store/user/l1upgrades/SLHC/GEN/620_SLHC12p1_ntuple/PU140/TTbarTTbar_E2023TTI_PU140_TuneCUEP6S1_ntuple.2.root");
-	chain->Add("root://cmsxrootd.fnal.gov//store/user/l1upgrades/SLHC/GEN/620_SLHC12p1_ntuple/PU200/Neutrino_E2023TTI_PU200_TuneCUEP6S1_ntuple.2.root");
+	//chain->Add("root://cmsxrootd.fnal.gov//store/user/l1upgrades/SLHC/GEN/620_SLHC12p1_ntuple/PU200/Neutrino_E2023TTI_PU200_TuneCUEP6S1_ntuple.2.root");
 	//chain->Add("root://cmsxrootd.fnal.gov//store/user/l1upgrades/SLHC/GEN/620_SLHC12p1_ntuple/PU140/Neutrino_E2023TTI_PU140_TuneCUEP6S1_ntuple.2.root");
 	//chain->Add("root://cmsxrootd.fnal.gov//store/user/l1upgrades/SLHC/GEN/620_SLHC12p1_ntuple/PU0/SingleMu_E2023TTI_ntuple.2.root");
 	//chain->Add("/uscms_data/d2/jiafu/L1TrackTrigger/CMSSW_6_2_0_SLHC12_patch1/src/SLHCL1TrackTriggerSimulations/Configuration/test/control/SingleMu_Barrel_pt5_E2023TTI_ntuple.root");
 	//chain->Add("~zhenhu/FNAL/AMTest/CMSSW_6_2_0_SLHC25_patch3/src/SLHCL1TrackTriggerSimulations/Configuration/test/SingleMuon_tt27_board00_ntuple.root");
 	//chain->Add("~zhenhu/FNAL/AMTest/CMSSW_6_2_0_SLHC25_patch3/src/SLHCL1TrackTriggerSimulations/Configuration/test/SingleMuon_tt27_board00_fixedAngle_ntuple.root");
+	chain->Add("/uscms/home/sergo/nobackup/TTdemo_integration/SingleMuon_tt27_PU0_ntuple_50ev.root");
 
    //TString name;
 	//for (int i=1; i<51; i++) {

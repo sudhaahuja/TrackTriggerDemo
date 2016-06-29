@@ -9,8 +9,8 @@
 #include <bitset>
 #include <tr1/array>
 
-int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 22> > simABoard);
-int fillPRBF2WithString(std::vector< std::vector< std::bitset<35> > >BitsPRBF2aBx, int jentry);
+int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 23> > simABoard);
+int fillPRBF2WithString(std::vector< std::vector< std::bitset<32> > >BitsPRBF2aBx, int jentry);
 int fillTxtfileWithString(int board, std::bitset<256> BitsCICLaBoard[40], std::bitset<256> BitsCICRaBoard[40], std::vector< std::vector< std::vector<unsigned> > > BoardModuleMap, int jentry);
 int fillTreeWithULong64(TTree *tree, ULong64_t OutputData[40][8], std::bitset<256> BitsCICLaBoard[40], std::bitset<256> BitsCICRaBoard[40]);
 
@@ -115,22 +115,16 @@ void ProduceFile::Loop()
 		sprintf(str,"outputfiles/DataSourcingBoard%02d.txt",board);
 		std::ofstream outfileDS;
 		outfileDS.open(str);
-
-		//prepare empty txt file for gen track parameters and stub parameters
-		sprintf(str,"outputfiles/simBoard%02d.txt",board);
-		std::ofstream outfileSIM;
-		outfileSIM.open(str);
-		outfileSIM<<"entry moduleId genCharge genPdgId genVx genVy genVz genCotTheta genD0 genDz genInvPt genPt genPhi genEta stubPhi stubEta stubR stubX stubY stubZ stubLocalPhi stubLocalZ \n";
 	}
-	//prepare empty txt file for PRBF.2
+	//prepare empty txt file for PRBF.2 and sim
 	std::ofstream outfilePRBF2;
 	outfilePRBF2.open("outputfiles/PRBF2.txt");
-
-
+	std::ofstream outfileSIM;
+	outfileSIM.open("outputfiles/sim.txt");
 
 	if (fChain == 0) return;
-	//Long64_t nentries = fChain->GetEntries();
-	Long64_t nentries = 1;
+	Long64_t nentries = fChain->GetEntries();
+	//Long64_t nentries = 1;
 	//Long64_t nentries = 351;
 	Long64_t nbytes = 0, nb = 0;
 	for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -139,7 +133,7 @@ void ProduceFile::Loop()
 		nb = fChain->GetEntry(jentry);   nbytes += nb;
 		const unsigned nstubs = TTStubs_modId->size();
 		//if (jentry%100==0) 
-		//std::cout<<std::endl<<"Processing event #"<<jentry<<", nstubs="<<nstubs<<std::endl;
+		std::cout<<std::endl<<"Processing event #"<<jentry<<", nstubs="<<nstubs<<std::endl;
 		if (!nstubs) { // skip if no stub
 			continue;
 		}    
@@ -151,9 +145,9 @@ void ProduceFile::Loop()
 
 		int nStubL[10][40]={{0}};  //make sure BoardModuleMap.size()<=10;
 		int nStubR[10][40]={{0}};
-		std::vector< std::vector<std::tr1::array<float, 22> > >simInfo;
+		std::vector< std::vector<std::tr1::array<float, 23> > >simInfo;
 		for (unsigned b=0; b<BoardModuleMap.size(); b++){ //10 boards
-			std::vector<std::tr1::array<float, 22> >simInfoABoard;
+			std::vector<std::tr1::array<float, 23> >simInfoABoard;
 			simInfo.push_back(simInfoABoard);
 		}
 		bool CICStatusL[10][40]={{0}};
@@ -163,11 +157,11 @@ void ProduceFile::Loop()
 		//define final output block for DS
 		std::bitset<256> BitsCICL[BoardModuleMap.size()][40], BitsCICR[BoardModuleMap.size()][40];
 		//define PRBF2 block of a stub
-		std::vector< std::vector< std::vector< std::bitset<35> > > >BitsPRBF2;
+		std::vector< std::vector< std::vector< std::bitset<32> > > >BitsPRBF2;
 		for (int b=0; b<40; b++){ //40 bx
-			std::vector< std::vector< std::bitset<35> > >BitsPRBF2aBx;
+			std::vector< std::vector< std::bitset<32> > >BitsPRBF2aBx;
 			for (int l=0; l<23; l++){ //23 layers
-				std::vector< std::bitset<35> >BitsPRBF2aLayer;
+				std::vector< std::bitset<32> >BitsPRBF2aLayer;
 				BitsPRBF2aBx.push_back(BitsPRBF2aLayer);
 			}
 			BitsPRBF2.push_back(BitsPRBF2aBx);
@@ -192,7 +186,7 @@ void ProduceFile::Loop()
 			unsigned stub_bx;
 			if (multiBx) stub_bx= TTStubs_bxId->at(l);    //0-7(3bits) for bx
 			else stub_bx = 0;
-			std::tr1::array<float,22> simAStub;
+			std::tr1::array<float,23> simAStub;
 			simAStub[0]=jentry;
 			simAStub[1]=moduleId;
 			simAStub[2]=genParts_charge->at(0);
@@ -200,10 +194,10 @@ void ProduceFile::Loop()
 			simAStub[4]=genParts_vx->at(0);
 			simAStub[5]=genParts_vy->at(0);
 			simAStub[6]=genParts_vz->at(0);
-			simAStub[7]=0;//genParts_cotTheta->at(0);
-			simAStub[8]=0;//genParts_d0->at(0);
-			simAStub[9]=0;//genParts_dz->at(0);
-			simAStub[10]=0;//genParts_invPt->at(0);
+			simAStub[7]=genParts_cotTheta->at(0);
+			simAStub[8]=genParts_d0->at(0);
+			simAStub[9]=genParts_dz->at(0);
+			simAStub[10]=genParts_invPt->at(0);
 			simAStub[11]=TTStubs_simPt->at(l);  // ==genParts_pt->at(0);
 			simAStub[12]=TTStubs_simPhi->at(l); // ==genParts_phi->at(0); 
 			simAStub[13]=TTStubs_simEta->at(l); // ==genParts_eta->at(0);
@@ -215,15 +209,16 @@ void ProduceFile::Loop()
 			simAStub[19]=TTStubs_z->at(l);
 			simAStub[20]=localPhi;
 			simAStub[21]=localZ;
+			simAStub[22]=stub_trigBend;
 
-			if (requirePtCut3 && !pass3GeVCut(moduleId,stub_trigBend)) continue;
+			if (requirePtCut3 && !pass3GeVCut(moduleId,stub_trigBend)) {std::cout<<std::endl<<"THIS STUB FAILS PT 3GEC CUT"<<std::endl; continue;}
 			if (requireBlinding) {
 				bool blindFlag = false;
 				for (Long64_t i=0;i<blindEntries;i++) {
 					blindTree->GetEntry(i);
 					if (moduleId==unsigned(id) && (localPhi<phi1 || localPhi>phi2 || localZ<z1 || localZ>z2)) blindFlag = true;
 				}
-				if (blindFlag) continue;
+				if (blindFlag) {std::cout<<std::endl<<"THIS STUB FAILS OVERLAP MASKING CUT"<<std::endl; continue;}
 			}
 
 
@@ -250,44 +245,42 @@ void ProduceFile::Loop()
 					fillOutputFlag=1;            //if there is no stubs belongs to this trigger tower, this value will be still 0, and we do not fill output file
 					std::bitset<4>  localLadder;      localLadder |= GlbModule_LocalModule_Map_[moduleId].first;
 					std::bitset<5>  localModule;      localModule |= GlbModule_LocalModule_Map_[moduleId].second;
-					std::bitset<35> PRBFtmp;
+					std::bitset<32> PRBFtmp;
 					
 					if (halfLayer && ( (lay == 5 && lad == 4) || (lay == 5 && lad == 3 && localPhi < 480) ) ) continue;
 					
-					for (unsigned b=0;b<stubZpos.size();b++) {
-						PRBFtmp.set(b,  stubZpos.test(b)); //0000000000000000000000000000000ZZZZ
-					}
+					//for (unsigned b=0;b<layIdx.size();b++) {
+					//PRBFtmp.set(b,  layIdx.test(b));
+					//}
 					if (lay>7) { //2S modules (layer 8,9,10) 
-						for (unsigned b=0;b<stubBend2S.size();b++) {
-							PRBFtmp.set(b + stubZpos.size(),  stubBend2S.test(b)); //00000000000000000000000000BBBBB0000
+						for (unsigned b=0;b<stubBend2S.size()-1;b++) {
+							PRBFtmp.set(b + 2,  stubBend2S.test(b));                                                            //00000000000000000000000000BBBBLL
 						}
 					}
 					else {//PS modules (layer 5,6,7)
-						for (unsigned b=0;b<stubBendPS.size();b++) {
-							PRBFtmp.set(b + stubZpos.size(),  stubBendPS.test(b)); //00000000000000000000000000BBBBBZZZZ
+						for (unsigned b=0;b<stubBendPS.size()-1;b++) {
+							PRBFtmp.set(b + 2,  stubBendPS.test(b));                                                            //00000000000000000000000000BBBBLL
 						}
 					}
-					for (unsigned b=0;b<layIdx.size();b++) {
-						PRBFtmp.set(b + PRBFtmp.size() - 1 - localModule.size() - 1 - localLadder.size() - stubAddress.size() - layIdx.size(),  layIdx.test(b)); //0000000000000000000000LLLLBBBBBZZZZ
+					for (unsigned b=0;b<stubZpos5.size();b++) {
+						PRBFtmp.set(b + PRBFtmp.size() - 1 - localModule.size() - localLadder.size() - stubAddress.size() - stubZpos5.size(),  stubZpos5.test(b)); //000000000000000000000ZZZZZBBBBLL
 					}
 					for (unsigned b=0;b<stubAddress.size();b++) {
-						PRBFtmp.set(b + PRBFtmp.size() - 1 - localModule.size() - 1 - localLadder.size() - stubAddress.size(),  stubAddress.test(b)); //00000000000AAASSSSSSSSLLLLBBBBBZZZZ
+						PRBFtmp.set(b + PRBFtmp.size() - 1 - localModule.size() - localLadder.size() - stubAddress.size(),  stubAddress.test(b)); //0000000000AAASSSSSSSSZZZZZBBBBLL
 					}
 					for (unsigned b=0;b<localLadder.size();b++) {
-						PRBFtmp.set(b + PRBFtmp.size() - 1 - localModule.size() - 1 - localLadder.size(),  localLadder.test(b)); //0000000LLLLAAASSSSSSSSLLLLBBBBBZZZZ
-					}
-					for (unsigned b=0;b<1;b++) { 
-						PRBFtmp.set(b + PRBFtmp.size() - 1 - localModule.size() - 1,  stubZpos5.test(4)); //000000CLLLLAAASSSSSSSSLLLLBBBBBZZZZ
+						PRBFtmp.set(b + PRBFtmp.size() - 1 - localModule.size() - localLadder.size(),  localLadder.test(b));                      //000000LLLLAAASSSSSSSSZZZZZBBBBLL
 					}
 					for (unsigned b=0;b<localModule.size();b++) {
-						PRBFtmp.set(b + PRBFtmp.size() - 1 - localModule.size(),  localModule.test(b)); //0MMMMMCLLLLAAASSSSSSSSLLLLBBBBBZZZZ
+						PRBFtmp.set(b + PRBFtmp.size() - 1 - localModule.size(),  localModule.test(b));                                           //0MMMMMLLLLAAASSSSSSSSZZZZZBBBBLL
 					}
 					for (unsigned b=0;b<1;b++) {
-						PRBFtmp.set(b + PRBFtmp.size() - 1, 1); //1MMMMMCLLLLAAASSSSSSSSLLLLBBBBBZZZZ
+						PRBFtmp.set(b + PRBFtmp.size() - 1, 1);                                                                                   //1MMMMMLLLLAAASSSSSSSSZZZZZBBBBLL
 					}
 					BitsPRBF2[0][lay].push_back(PRBFtmp);
 
-					for (int layer=5; layer<11; layer++) {
+					std::cout<<std::endl;
+					for (int layer=5; layer<11; layer++) {						
 						std::cout<<"***** layer "<<layer<<" *****"<<std::endl;
 						for (unsigned stub=0; stub<BitsPRBF2[0][layer].size(); stub++) {
 							std::cout<<BitsPRBF2[0][layer][stub]<<std::endl;
@@ -431,7 +424,7 @@ void ProduceFile::Loop()
 				if (BitsPRBF2[0][layer].size()==0) fillOutputFlag=0;
 			}
 		}
-		if (fillOutputFlag==0) continue;
+		if (fillOutputFlag==0) {std::cout<<std::endl<<"THIS EVENT FAILS EMPTY LAYER CUT"<<std::endl; continue;}
 
 		/*******************************************/
 		/********fill the PRBF.2 output file********/
@@ -477,7 +470,7 @@ void ProduceFile::Loop()
 				}
 
 				//print header
-				std::cout<<"Module "<<BoardModuleMap[board][m][0]<<": HeaderCICL="<<headerCICL<<", HeaderCICR="<<headerCICR<<std::endl;
+				//std::cout<<"Module "<<BoardModuleMap[board][m][0]<<": HeaderCICL="<<headerCICL<<", HeaderCICR="<<headerCICR<<std::endl;
 
 				/***************************************/
 				/***copy header into the output block***/
@@ -511,34 +504,31 @@ void ProduceFile::Loop()
 }
 
 
-int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 22> > simABoard) {
-	std::ofstream outfile;
-	char str[50];
-	sprintf(str,"outputfiles/simBoard%02d.txt",board);
-	outfile.open(str,std::ofstream::app);
-	for(std::vector<std::tr1::array<float, 22> >::iterator it = simABoard.begin(); it != simABoard.end(); ++it) {
-		std::tr1::array<float, 22> simAStub = *it;
-		std::cout
+int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 23> > simABoard) {
+	std::ofstream outfileSIM;
+	outfileSIM.open("outputfiles/sim.txt",std::ofstream::app);
+	for(std::vector<std::tr1::array<float, 23> >::iterator it = simABoard.begin(); it != simABoard.end(); ++it) {
+		std::tr1::array<float, 23> simAStub = *it;
+		std::cout<<"Board"<<board<<" "
 			<<simAStub[0]<<" "<<simAStub[1]<<" "<<simAStub[2]<<" "<<simAStub[3]<<" "<<simAStub[4]<<" "
 			<<simAStub[5]<<" "<<simAStub[6]<<" "<<simAStub[7]<<" "<<simAStub[8]<<" "<<simAStub[9]<<" "
 			<<simAStub[10]<<" "<<simAStub[11]<<" "<<simAStub[12]<<" "<<simAStub[13]<<" "<<simAStub[14]<<" "
 			<<simAStub[15]<<" "<<simAStub[16]<<" "<<simAStub[17]<<" "<<simAStub[18]<<" "<<simAStub[19]<<" "
-			<<simAStub[20]<<" "<<simAStub[21]<<"\n"; 
-		outfile
-			<<simAStub[0]<<" "<<simAStub[1]<<" "<<simAStub[2]<<" "<<simAStub[3]<<" "<<simAStub[4]<<" "
-			<<simAStub[5]<<" "<<simAStub[6]<<" "<<simAStub[7]<<" "<<simAStub[8]<<" "<<simAStub[9]<<" "
-			<<simAStub[10]<<" "<<simAStub[11]<<" "<<simAStub[12]<<" "<<simAStub[13]<<" "<<simAStub[14]<<" "
-			<<simAStub[15]<<" "<<simAStub[16]<<" "<<simAStub[17]<<" "<<simAStub[18]<<" "<<simAStub[19]<<" "
-			<<simAStub[20]<<" "<<simAStub[21]<<"\n";
+			<<simAStub[20]<<" "<<simAStub[21]<<" "<<simAStub[22]<<"\n"; 
+		outfileSIM<<simAStub[0]<<" Board "<<board<<" moduleId "<<simAStub[1]<<" genCharge "<<simAStub[2]<<" genPdgId "<<simAStub[3]<<"\n"
+			<<" genVx "<<simAStub[4]<<" genVy "<<simAStub[5]<<" genVz "<<simAStub[6]<<" genD0 "<<simAStub[8]<<" genDz "<<simAStub[9]<<"\n"
+			<<" genCotTheta "<<simAStub[7]<<" genInvPt "<<simAStub[10]<<" genPt "<<simAStub[11]<<" genPhi "<<simAStub[12]<<" genEta "<<simAStub[13]<<"\n"
+			<<" stubPhi "<<simAStub[14]<<" stubEta "<<simAStub[15]<<" stubR "<<simAStub[16]<<" stubX "<<simAStub[17]<<" stubY "<<simAStub[18]<<" stubZ "<<simAStub[19]<<"\n"
+			<<" stubLocalPhi "<<simAStub[20]<<" stubLocalZ "<<simAStub[21]<<" stubBend "<<simAStub[22]<<"\n"<<"\n";
 	}   
-	outfile << "\n";
+	//outfileSIM << "\n";
 
-	outfile.close();
+	outfileSIM.close();
 	return 0;
 }
 
 
-int fillPRBF2WithString(std::vector< std::vector< std::bitset<35> > >BitsPRBF2aBx, int jentry) {
+int fillPRBF2WithString(std::vector< std::vector< std::bitset<32> > >BitsPRBF2aBx, int jentry) {
 	std::ofstream outfile;
 	outfile.open("outputfiles/PRBF2.txt",std::ofstream::app);
 
@@ -549,7 +539,7 @@ int fillPRBF2WithString(std::vector< std::vector< std::bitset<35> > >BitsPRBF2aB
 		if (nStubMax<nStubLayer[l]) nStubMax=nStubLayer[l];
 	}
 
-	std::bitset<35> AllZero; 
+	std::bitset<32> AllZero; 
 
 	for (int s=0; s<nStubMax; s++) {
 		outfile << jentry << " 0 "; 
