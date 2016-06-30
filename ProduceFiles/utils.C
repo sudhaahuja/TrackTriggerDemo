@@ -1,6 +1,7 @@
 bool requirePtCut3 = true;
+bool requireGenPtCut3 = true;
 bool requireBlinding = false;
-bool SkipEventWithEmptyLayer = false;  //usually false
+bool SkipEventWithTwoEmptyLayer = true; 
 bool multiBx = false;
 bool halfLayer = false; //only simulate data for half layer 5
 

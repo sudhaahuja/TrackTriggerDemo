@@ -212,6 +212,7 @@ void ProduceFile::Loop()
 			simAStub[22]=stub_trigBend;
 
 			if (requirePtCut3 && !pass3GeVCut(moduleId,stub_trigBend)) {std::cout<<std::endl<<"THIS STUB FAILS PT 3GEC CUT"<<std::endl; continue;}
+			if (requireGenPtCut3 && TTStubs_simPt->at(l)<3) {std::cout<<std::endl<<"THIS STUB FAILS GEN PT 3GEC CUT"<<std::endl; continue;}
 			if (requireBlinding) {
 				bool blindFlag = false;
 				for (Long64_t i=0;i<blindEntries;i++) {
@@ -419,12 +420,17 @@ void ProduceFile::Loop()
 		//1. fill the PRBF2 output file
 		//2. create DS header, then copy header into the DS output block, then fill the DS output file
 
-		if (SkipEventWithEmptyLayer) {  //if there is 0 stubs in any layer, skip this event. Set SkipEventWithEmptyLayer=0 if runing for PU only simple
+		if (SkipEventWithTwoEmptyLayer) {  //if there is 0 stubs in any layer, skip this event. Set SkipEventWithTwoEmptyLayer=0 if runing for PU only simple
+			int nEmptyLayer = 0;
 			for (int layer=5; layer<11; layer++) {
-				if (BitsPRBF2[0][layer].size()==0) fillOutputFlag=0;
+				if (BitsPRBF2[0][layer].size()==0) nEmptyLayer++;
+			}
+			if (nEmptyLayer>1) {
+				fillOutputFlag=0;
+				std::cout<<std::endl<<"THIS EVENT FAILS EMPTY LAYER CUT"<<std::endl;
 			}
 		}
-		if (fillOutputFlag==0) {std::cout<<std::endl<<"THIS EVENT FAILS EMPTY LAYER CUT"<<std::endl; continue;}
+		if (fillOutputFlag==0) continue;
 
 		/*******************************************/
 		/********fill the PRBF.2 output file********/

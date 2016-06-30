@@ -34,42 +34,6 @@
  stubPhi 0.863623 stubEta 0.159203 stubR 51.9573 stubX 33.756 stubY 39.498 stubZ 8.30674
  stubLocalPhi 793 stubLocalZ 30 stubBend 1
 
-1 Board 6 moduleId 70831 genCharge -1 genPdgId 13
- genVx 0.00103413 genVy -0.000563217 genVz 3.4576 genD0 0.00111234 genDz 3.45772
- genCotTheta 0.303325 genInvPt -0.436534 genPt 2.29077 genPhi 1.40644 genEta 0.298856
- stubPhi 1.53314 stubEta 0.364664 stubR 49.8969 stubX 1.87866 stubY 49.8616 stubZ 18.6016
- stubLocalPhi 206.5 stubLocalZ 20 stubBend -2
-
-1 Board 8 moduleId 102015 genCharge -1 genPdgId 13
- genVx 0.00103413 genVy -0.000563217 genVz 3.4576 genD0 0.00111234 genDz 3.45772
- genCotTheta 0.303325 genInvPt -0.436534 genPt 2.29077 genPhi 1.40644 genEta 0.298856
- stubPhi 1.67829 stubEta 0.344697 stubR 106.441 stubX -11.4196 stubY 105.826 stubZ 37.4206
- stubLocalPhi 214 stubLocalZ 0 stubBend -6
-
-1 Board 9 moduleId 50433 genCharge -1 genPdgId 13
- genVx 0.00103413 genVy -0.000563217 genVz 3.4576 genD0 0.00111234 genDz 3.45772
- genCotTheta 0.303325 genInvPt -0.436534 genPt 2.29077 genPhi 1.40644 genEta 0.298856
- stubPhi 1.46172 stubEta 0.446104 stubR 21.4955 stubX 2.34 stubY 21.3678 stubZ 9.91049
- stubLocalPhi 713.5 stubLocalZ 5 stubBend -1.5
-
-1 Board 9 moduleId 60630 genCharge -1 genPdgId 13
- genVx 0.00103413 genVy -0.000563217 genVz 3.4576 genD0 0.00111234 genDz 3.45772
- genCotTheta 0.303325 genInvPt -0.436534 genPt 2.29077 genPhi 1.40644 genEta 0.298856
- stubPhi 1.49513 stubEta 0.394089 stubR 34.8587 stubX 2.635 stubY 34.759 stubZ 14.0958
- stubLocalPhi 743 stubLocalZ 10 stubBend -1
-
-1 Board 9 moduleId 81214 genCharge -1 genPdgId 13
- genVx 0.00103413 genVy -0.000563217 genVz 3.4576 genD0 0.00111234 genDz 3.45772
- genCotTheta 0.303325 genInvPt -0.436534 genPt 2.29077 genPhi 1.40644 genEta 0.298856
- stubPhi 1.57812 stubEta 0.33106 stubR 67.614 stubX -0.495 stubY 67.6122 stubZ 22.7954
- stubLocalPhi 452.5 stubLocalZ 1 stubBend -3.5
-
-1 Board 9 moduleId 91615 genCharge -1 genPdgId 13
- genVx 0.00103413 genVy -0.000563217 genVz 3.4576 genD0 0.00111234 genDz 3.45772
- genCotTheta 0.303325 genInvPt -0.436534 genPt 2.29077 genPhi 1.40644 genEta 0.298856
- stubPhi 1.62833 stubEta 0.363454 stubR 87.2 stubX -5.01423 stubY 87.0557 stubZ 32.3956
- stubLocalPhi 441 stubLocalZ 1 stubBend -4.5
-
 2 Board 0 moduleId 50231 genCharge -1 genPdgId 13
  genVx -0.00057664 genVy -0.000468849 genVz -4.95698 genD0 -7.91691e-05 genDz -4.95683
  genCotTheta 0.198997 genInvPt -0.0613976 genPt 16.2873 genPhi 0.789388 genEta 0.197706
@@ -328,48 +292,6 @@
  stubPhi 1.44988 stubEta 0.849537 stubR 34.4058 stubX 4.15 stubY 34.1546 stubZ 32.8739
  stubLocalPhi 894.5 stubLocalZ 26 stubBend 0.5
 
-9 Board 5 moduleId 50334 genCharge -1 genPdgId 13
- genVx -7.44532e-05 genVy 1.99337e-05 genVz 1.16971 genD0 -7.61411e-05 genDz 1.16972
- genCotTheta 0.404551 genInvPt -0.494306 genPt 2.02304 genPhi 1.15333 genEta 0.394258
- stubPhi 1.22111 stubEta 0.436107 stubR 23.8368 stubX 8.16655 stubY 22.3943 stubZ 10.7281
- stubLocalPhi 377 stubLocalZ 31 stubBend -2
-
-9 Board 5 moduleId 60531 genCharge -1 genPdgId 13
- genVx -7.44532e-05 genVy 1.99337e-05 genVz 1.16971 genD0 -7.61411e-05 genDz 1.16972
- genCotTheta 0.404551 genInvPt -0.494306 genPt 2.02304 genPhi 1.15333 genEta 0.394258
- stubPhi 1.25641 stubEta 0.424257 stubR 36.2455 stubX 11.2081 stubY 34.469 stubZ 15.8429
- stubLocalPhi 670 stubLocalZ 26 stubBend -1
-
-9 Board 5 moduleId 70732 genCharge -1 genPdgId 13
- genVx -7.44532e-05 genVy 1.99337e-05 genVz 1.16971 genD0 -7.61411e-05 genDz 1.16972
- genCotTheta 0.404551 genInvPt -0.494306 genPt 2.02304 genPhi 1.15333 genEta 0.394258
- stubPhi 1.29925 stubEta 0.414326 stubR 51.259 stubX 13.7485 stubY 49.3808 stubZ 21.8508
- stubLocalPhi 450.5 stubLocalZ 26 stubBend -2.5
-
-9 Board 6 moduleId 50333 genCharge -1 genPdgId 13
- genVx -7.44532e-05 genVy 1.99337e-05 genVz 1.16971 genD0 -7.61411e-05 genDz 1.16972
- genCotTheta 0.404551 genInvPt -0.494306 genPt 2.02304 genPhi 1.15333 genEta 0.394258
- stubPhi 1.21943 stubEta 0.437428 stubR 23.2302 stubX 7.99531 stubY 21.811 stubZ 10.4887
- stubLocalPhi 383.5 stubLocalZ 1 stubBend -2
-
-9 Board 6 moduleId 81014 genCharge -1 genPdgId 13
- genVx -7.44532e-05 genVy 1.99337e-05 genVz 1.16971 genD0 -7.61411e-05 genDz 1.16972
- genCotTheta 0.404551 genInvPt -0.494306 genPt 2.02304 genPhi 1.15333 genEta 0.394258
- stubPhi 1.34605 stubEta 0.400403 stubR 67.6586 stubX 15.0782 stubY 65.9571 stubZ 27.8204
- stubLocalPhi 229 stubLocalZ 0 stubBend -4
-
-9 Board 7 moduleId 91415 genCharge -1 genPdgId 13
- genVx -7.44532e-05 genVy 1.99337e-05 genVz 1.16971 genD0 -7.61411e-05 genDz 1.16972
- genCotTheta 0.404551 genInvPt -0.494306 genPt 2.02304 genPhi 1.15333 genEta 0.394258
- stubPhi 1.40212 stubEta 0.416904 stubR 87.21 stubX 14.6409 stubY 85.9723 stubZ 37.4206
- stubLocalPhi 669 stubLocalZ 0 stubBend -5
-
-9 Board 7 moduleId 101816 genCharge -1 genPdgId 13
- genVx -7.44532e-05 genVy 1.99337e-05 genVz 1.16971 genD0 -7.61411e-05 genDz 1.16972
- genCotTheta 0.404551 genInvPt -0.494306 genPt 2.02304 genPhi 1.15333 genEta 0.394258
- stubPhi 1.46017 stubEta 0.430518 stubR 107.054 stubX 11.8193 stubY 106.4 stubZ 47.5257
- stubLocalPhi 840 stubLocalZ 0 stubBend -6.5
-
 10 Board 1 moduleId 50235 genCharge -1 genPdgId 13
  genVx 0.000828161 genVy 0.000135075 genVz 5.42867 genD0 0.000510134 genDz 5.4283
  genCotTheta 0.56026 genInvPt -0.205872 genPt 4.85738 genPhi 0.815156 genEta 0.534451
@@ -562,102 +484,6 @@
  stubPhi 1.03433 stubEta 0.347725 stubR 23.4523 stubX 11.9865 stubY 20.1578 stubZ 8.3203
  stubLocalPhi 815.5 stubLocalZ 16 stubBend 1
 
-15 Board 1 moduleId 101013 genCharge 1 genPdgId -13
- genVx -0.00219052 genVy -0.000640502 genVz 5.27086 genD0 -0.00162053 genDz 5.27101
- genCotTheta 0.0979053 genInvPt 0.39887 genPt 2.50708 genPhi 1.07406 genEta 0.0977495
- stubPhi 0.829949 stubEta 0.166433 stubR 106.408 stubX 71.8164 stubY 78.5184 stubZ 17.7917
- stubLocalPhi 469.5 stubLocalZ 0 stubBend 5
-
-15 Board 2 moduleId 60429 genCharge 1 genPdgId -13
- genVx -0.00219052 genVy -0.000640502 genVz 5.27086 genD0 -0.00162053 genDz 5.27101
- genCotTheta 0.0979053 genInvPt 0.39887 genPt 2.50708 genPhi 1.07406 genEta 0.0977495
- stubPhi 0.996151 stubEta 0.250112 stubR 34.1991 stubX 18.5885 stubY 28.7063 stubZ 8.64307
- stubLocalPhi 654 stubLocalZ 16 stubBend 1.5
-
-15 Board 2 moduleId 70529 genCharge 1 genPdgId -13
- genVx -0.00219052 genVy -0.000640502 genVz 5.27086 genD0 -0.00162053 genDz 5.27101
- genCotTheta 0.0979053 genInvPt 0.39887 genPt 2.50708 genPhi 1.07406 genEta 0.0977495
- stubPhi 0.955995 stubEta 0.197798 stubR 51.8892 stubX 29.9295 stubY 42.3876 stubZ 10.3306
- stubLocalPhi 313.5 stubLocalZ 16 stubBend 2.5
-
-15 Board 2 moduleId 80713 genCharge 1 genPdgId -13
- genVx -0.00219052 genVy -0.000640502 genVz 5.27086 genD0 -0.00162053 genDz 5.27101
- genCotTheta 0.0979053 genInvPt 0.39887 genPt 2.50708 genPhi 1.07406 genEta 0.0977495
- stubPhi 0.91695 stubEta 0.183964 stubR 69.008 stubX 41.9737 stubY 54.7751 stubZ 12.7667
- stubLocalPhi 502.5 stubLocalZ 1 stubBend 4
-
-15 Board 2 moduleId 90913 genCharge 1 genPdgId -13
- genVx -0.00219052 genVy -0.000640502 genVz 5.27086 genD0 -0.00162053 genDz 5.27101
- genCotTheta 0.0979053 genInvPt 0.39887 genPt 2.50708 genPhi 1.07406 genEta 0.0977495
- stubPhi 0.869924 stubEta 0.142517 stubR 89.2774 stubX 57.5736 stubY 68.2329 stubZ 12.7667
- stubLocalPhi 925.5 stubLocalZ 1 stubBend 4.5
-
-15 Board 6 moduleId 50333 genCharge 1 genPdgId -13
- genVx -0.00219052 genVy -0.000640502 genVz 5.27086 genD0 -0.00162053 genDz 5.27101
- genCotTheta 0.0979053 genInvPt 0.39887 genPt 2.50708 genPhi 1.07406 genEta 0.0977495
- stubPhi 1.02044 stubEta 0.31789 stubR 23.5019 stubX 12.2914 stubY 20.0315 stubZ 7.59749
- stubLocalPhi 848.5 stubLocalZ 21 stubBend 2
-
-16 Board 0 moduleId 50231 genCharge 1 genPdgId -13
- genVx -0.00129067 genVy -0.00017132 genVz -3.94668 genD0 -0.00101901 genDz -3.94648
- genCotTheta 0.252729 genInvPt 0.486269 genPt 2.05647 genPhi 1.03089 genEta 0.250113
- stubPhi 0.97068 stubEta 0.0723009 stubR 21.7399 stubX 12.2774 stubY 17.9413 stubZ 1.57318
- stubLocalPhi 79 stubLocalZ 5 stubBend 1.5
-
-16 Board 0 moduleId 80613 genCharge 1 genPdgId -13
- genVx -0.00129067 genVy -0.00017132 genVz -3.94668 genD0 -0.00101901 genDz -3.94648
- genCotTheta 0.252729 genInvPt 0.486269 genPt 2.05647 genPhi 1.03089 genEta 0.250113
- stubPhi 0.842821 stubEta 0.189083 stubR 67.1184 stubX 44.6579 stubY 50.1054 stubZ 12.7667
- stubLocalPhi 79.5 stubLocalZ 1 stubBend 4
-
-16 Board 1 moduleId 90813 genCharge 1 genPdgId -13
- genVx -0.00129067 genVy -0.00017132 genVz -3.94668 genD0 -0.00101901 genDz -3.94648
- genCotTheta 0.252729 genInvPt 0.486269 genPt 2.05647 genPhi 1.03089 genEta 0.250113
- stubPhi 0.785142 stubEta 0.202583 stubR 87.2265 stubX 61.6942 stubY 61.6626 stubZ 17.7917
- stubLocalPhi 755.5 stubLocalZ 0 stubBend 5.5
-
-16 Board 2 moduleId 60428 genCharge 1 genPdgId -13
- genVx -0.00129067 genVy -0.00017132 genVz -3.94668 genD0 -0.00101901 genDz -3.94648
- genCotTheta 0.252729 genInvPt 0.486269 genPt 2.05647 genPhi 1.03089 genEta 0.250113
- stubPhi 0.933475 stubEta 0.137431 stubR 34.985 stubX 20.8176 stubY 28.1172 stubZ 4.82316
- stubLocalPhi 876.5 stubLocalZ 13 stubBend 2.5
-
-16 Board 2 moduleId 70529 genCharge 1 genPdgId -13
- genVx -0.00129067 genVy -0.00017132 genVz -3.94668 genD0 -0.00101901 genDz -3.94648
- genCotTheta 0.252729 genInvPt 0.486269 genPt 2.05647 genPhi 1.03089 genEta 0.250113
- stubPhi 0.885839 stubEta 0.173113 stubR 51.9004 stubX 32.8343 stubY 40.194 stubZ 9.02956
- stubLocalPhi 677.5 stubLocalZ 25 stubBend 2.5
-
-17 Board 8 moduleId 70931 genCharge -1 genPdgId 13
- genVx 0.00180135 genVy -0.00087947 genVz 4.66302 genD0 0.00188784 genDz 4.66321
- genCotTheta 0.278646 genInvPt -0.493429 genPt 2.02663 genPhi 1.45957 genEta 0.27516
- stubPhi 1.60628 stubEta 0.361308 stubR 51.9467 stubX -1.84288 stubY 51.914 stubZ 19.1798
- stubLocalPhi 775 stubLocalZ 16 stubBend -2
-
-17 Board 9 moduleId 50433 genCharge -1 genPdgId 13
- genVx 0.00180135 genVy -0.00087947 genVz 4.66302 genD0 0.00188784 genDz 4.66321
- genCotTheta 0.278646 genInvPt -0.493429 genPt 2.02663 genPhi 1.45957 genEta 0.27516
- stubPhi 1.52053 stubEta 0.47853 stubR 21.3948 stubX 1.075 stubY 21.3678 stubZ 10.6333
- stubLocalPhi 587 stubLocalZ 0 stubBend -2
-
-17 Board 9 moduleId 50434 genCharge -1 genPdgId 13
- genVx 0.00180135 genVy -0.00087947 genVz 4.66302 genD0 0.00188784 genDz 4.66321
- genCotTheta 0.278646 genInvPt -0.493429 genPt 2.02663 genPhi 1.45957 genEta 0.27516
- stubPhi 1.52214 stubEta 0.476064 stubR 21.9982 stubX 1.07 stubY 21.9722 stubZ 10.8726
- stubLocalPhi 586.5 stubLocalZ 30 stubBend -1.5
-
-17 Board 9 moduleId 60630 genCharge -1 genPdgId 13
- genVx 0.00180135 genVy -0.00087947 genVz 4.66302 genD0 0.00188784 genDz 4.66321
- genCotTheta 0.278646 genInvPt -0.493429 genPt 2.02663 genPhi 1.45957 genEta 0.27516
- stubPhi 1.55814 stubEta 0.402831 stubR 34.7618 stubX 0.44 stubY 34.759 stubZ 14.3849
- stubLocalPhi 523.5 stubLocalZ 8 stubBend -1.5
-
-17 Board 9 moduleId 102115 genCharge -1 genPdgId 13
- genVx 0.00180135 genVy -0.00087947 genVz 4.66302 genD0 0.00188784 genDz 4.66321
- genCotTheta 0.278646 genInvPt -0.493429 genPt 2.02663 genPhi 1.45957 genEta 0.27516
- stubPhi 1.7698 stubEta 0.338487 stubR 108.469 stubX -21.4431 stubY 106.329 stubZ 37.4206
- stubLocalPhi 102 stubLocalZ 0 stubBend -6.5
-
 18 Board 2 moduleId 60428 genCharge 1 genPdgId -13
  genVx 0.00106098 genVy -0.000257399 genVz -6.53967 genD0 0.00103828 genDz -6.53977
  genCotTheta 0.272728 genInvPt 0.0329473 genPt 30.3515 genPhi 1.0185 genEta 0.269456
@@ -693,42 +519,6 @@
  genCotTheta 0.272728 genInvPt 0.0329473 genPt 30.3515 genPhi 1.0185 genEta 0.269456
  stubPhi 1.00585 stubEta 0.189231 stubR 67.0651 stubX 35.9045 stubY 56.6445 stubZ 12.7667
  stubLocalPhi 815.5 stubLocalZ 1 stubBend 0.5
-
-19 Board 0 moduleId 60330 genCharge 1 genPdgId -13
- genVx -0.000926021 genVy -7.7548e-05 genVz -0.154568 genD0 -0.000678799 genDz -0.154362
- genCotTheta 0.324534 genInvPt 0.336184 genPt 2.97456 genPhi 0.90256 genEta 0.319091
- stubPhi 0.831832 stubEta 0.314625 stubR 36.8395 stubX 24.8122 stubY 27.2305 stubZ 11.7828
- stubLocalPhi 308.5 stubLocalZ 26 stubBend 1
-
-19 Board 0 moduleId 70430 genCharge 1 genPdgId -13
- genVx -0.000926021 genVy -7.7548e-05 genVz -0.154568 genD0 -0.000678799 genDz -0.154362
- genCotTheta 0.324534 genInvPt 0.336184 genPt 2.97456 genPhi 0.90256 genEta 0.319091
- stubPhi 0.807765 stubEta 0.316644 stubR 49.3337 stubX 34.0953 stubY 35.6557 stubZ 15.8836
- stubLocalPhi 141.5 stubLocalZ 7 stubBend 1.5
-
-19 Board 0 moduleId 80614 genCharge 1 genPdgId -13
- genVx -0.000926021 genVy -7.7548e-05 genVz -0.154568 genD0 -0.000678799 genDz -0.154362
- genCotTheta 0.324534 genInvPt 0.336184 genPt 2.97456 genPhi 0.90256 genEta 0.319091
- stubPhi 0.772354 stubEta 0.331041 stubR 67.618 stubX 48.4327 stubY 47.1854 stubZ 22.7954
- stubLocalPhi 605.5 stubLocalZ 1 stubBend 3
-
-19 Board 0 moduleId 90714 genCharge 1 genPdgId -13
- genVx -0.000926021 genVy -7.7548e-05 genVz -0.154568 genD0 -0.000678799 genDz -0.154362
- genCotTheta 0.324534 genInvPt 0.336184 genPt 2.97456 genPhi 0.90256 genEta 0.319091
- stubPhi 0.729233 stubEta 0.304984 stubR 89.8202 stubX 66.9776 stubY 59.847 stubZ 27.8204
- stubLocalPhi 309.5 stubLocalZ 0 stubBend 3
-
-19 Board 0 moduleId 100815 genCharge 1 genPdgId -13
- genVx -0.000926021 genVy -7.7548e-05 genVz -0.154568 genD0 -0.000678799 genDz -0.154362
- genCotTheta 0.324534 genInvPt 0.336184 genPt 2.97456 genPhi 0.90256 genEta 0.319091
- stubPhi 0.696643 stubEta 0.299749 stubR 106.474 stubX 81.6656 stubY 68.3187 stubZ 32.3956
- stubLocalPhi 90.5 stubLocalZ 1 stubBend 3.5
-
-19 Board 2 moduleId 50233 genCharge 1 genPdgId -13
- genVx -0.000926021 genVy -7.7548e-05 genVz -0.154568 genD0 -0.000678799 genDz -0.154362
- genCotTheta 0.324534 genInvPt 0.336184 genPt 2.97456 genPhi 0.90256 genEta 0.319091
- stubPhi 0.860991 stubEta 0.311264 stubR 21.429 stubX 13.965 stubY 16.2537 stubZ 6.7783
- stubLocalPhi 317.667 stubLocalZ 26.6667 stubBend 0.5
 
 20 Board 4 moduleId 70632 genCharge 1 genPdgId -13
  genVx -0.00171452 genVy -0.000760828 genVz -2.88109 genD0 -0.00137371 genDz -2.88037
@@ -808,72 +598,6 @@
  stubPhi 1.00024 stubEta 0.592603 stubR 67.6868 stubX 36.5575 stubY 56.9654 stubZ 42.5007
  stubLocalPhi 860.5 stubLocalZ 1 stubBend -1
 
-22 Board 5 moduleId 70729 genCharge 1 genPdgId -13
- genVx 0.00193162 genVy 0.000187648 genVz -1.21858 genD0 0.00190693 genDz -1.21867
- genCotTheta 0.259577 genInvPt 0.353347 genPt 2.83008 genPhi 1.48077 genEta 0.256747
- stubPhi 1.37555 stubEta 0.235241 stubR 52.0373 stubX 10.0955 stubY 51.0486 stubZ 12.3545
- stubLocalPhi 53.5 stubLocalZ 2 stubBend 1
-
-22 Board 5 moduleId 101514 genCharge 1 genPdgId -13
- genVx 0.00193162 genVy 0.000187648 genVz -1.21858 genD0 0.00190693 genDz -1.21867
- genCotTheta 0.259577 genInvPt 0.353347 genPt 2.83008 genPhi 1.48077 genEta 0.256747
- stubPhi 1.2595 stubEta 0.252466 stubR 109.033 stubX 33.3958 stubY 103.792 stubZ 27.8204
- stubLocalPhi 272.5 stubLocalZ 0 stubBend 4
-
-22 Board 6 moduleId 60529 genCharge 1 genPdgId -13
- genVx 0.00193162 genVy 0.000187648 genVz -1.21858 genD0 0.00190693 genDz -1.21867
- genCotTheta 0.259577 genInvPt 0.353347 genPt 2.83008 genPhi 1.48077 genEta 0.256747
- stubPhi 1.4069 stubEta 0.223847 stubR 36.3696 stubX 5.93419 stubY 35.8822 stubZ 8.20938
- stubLocalPhi 124 stubLocalZ 19 stubBend 1
-
-22 Board 6 moduleId 81013 genCharge 1 genPdgId -13
- genVx 0.00193162 genVy 0.000187648 genVz -1.21858 genD0 0.00190693 genDz -1.21867
- genCotTheta 0.259577 genInvPt 0.353347 genPt 2.83008 genPhi 1.48077 genEta 0.256747
- stubPhi 1.34538 stubEta 0.262322 stubR 67.0522 stubX 14.987 stubY 65.3558 stubZ 17.7917
- stubLocalPhi 236.5 stubLocalZ 0 stubBend 2.5
-
-22 Board 6 moduleId 91314 genCharge 1 genPdgId -13
- genVx 0.00193162 genVy 0.000187648 genVz -1.21858 genD0 0.00190693 genDz -1.21867
- genCotTheta 0.259577 genInvPt 0.353347 genPt 2.83008 genPhi 1.48077 genEta 0.256747
- stubPhi 1.29905 stubEta 0.251148 stubR 89.8177 stubX 24.108 stubY 86.5218 stubZ 22.7954
- stubLocalPhi 691 stubLocalZ 1 stubBend 4
-
-22 Board 8 moduleId 50432 genCharge 1 genPdgId -13
- genVx 0.00193162 genVy 0.000187648 genVz -1.21858 genD0 0.00190693 genDz -1.21867
- genCotTheta 0.259577 genInvPt 0.353347 genPt 2.83008 genPhi 1.48077 genEta 0.256747
- stubPhi 1.43555 stubEta 0.206498 stubR 22.1747 stubX 2.99 stubY 21.9722 stubZ 4.61164
- stubLocalPhi 778.5 stubLocalZ 14 stubBend 1.5
-
-23 Board 0 moduleId 60330 genCharge 1 genPdgId -13
- genVx 0.00182338 genVy 0.000773119 genVz 3.64296 genD0 0.00104011 genDz 3.64256
- genCotTheta 0.239641 genInvPt 0.486443 genPt 2.05574 genPhi 0.95394 genEta 0.237405
- stubPhi 0.852418 stubEta 0.329169 stubR 36.8826 stubX 24.2748 stubY 27.7679 stubZ 12.361
- stubLocalPhi 232.5 stubLocalZ 22 stubBend 1
-
-23 Board 0 moduleId 70430 genCharge 1 genPdgId -13
- genVx 0.00182338 genVy 0.000773119 genVz 3.64296 genD0 0.00104011 genDz 3.64256
- genCotTheta 0.239641 genInvPt 0.486443 genPt 2.05574 genPhi 0.95394 genEta 0.237405
- stubPhi 0.817465 stubEta 0.305257 stubR 49.3689 stubX 33.7719 stubY 36.0104 stubZ 15.3053
- stubLocalPhi 93.5 stubLocalZ 11 stubBend 2
-
-23 Board 0 moduleId 80613 genCharge 1 genPdgId -13
- genVx 0.00182338 genVy 0.000773119 genVz 3.64296 genD0 0.00104011 genDz 3.64256
- genCotTheta 0.239641 genInvPt 0.486443 genPt 2.05574 genPhi 0.95394 genEta 0.237405
- stubPhi 0.767268 stubEta 0.26245 stubR 67.0188 stubX 48.2408 stubY 46.5225 stubZ 17.7917
- stubLocalPhi 642.5 stubLocalZ 0 stubBend 4
-
-23 Board 0 moduleId 100814 genCharge 1 genPdgId -13
- genVx 0.00182338 genVy 0.000773119 genVz 3.64296 genD0 0.00104011 genDz 3.64256
- genCotTheta 0.239641 genInvPt 0.486443 genPt 2.05574 genPhi 0.95394 genEta 0.237405
- stubPhi 0.652263 stubEta 0.257121 stubR 107.017 stubX 85.0474 stubY 64.9577 stubZ 27.8204
- stubLocalPhi 616 stubLocalZ 0 stubBend 6.5
-
-23 Board 2 moduleId 50233 genCharge 1 genPdgId -13
- genVx 0.00182338 genVy 0.000773119 genVz 3.64296 genD0 0.00104011 genDz 3.64256
- genCotTheta 0.239641 genInvPt 0.486443 genPt 2.05574 genPhi 0.95394 genEta 0.237405
- stubPhi 0.894937 stubEta 0.396736 stubR 21.4966 stubX 13.4476 stubY 16.771 stubZ 8.75399
- stubLocalPhi 244.5 stubLocalZ 13 stubBend 1
-
 24 Board 0 moduleId 50231 genCharge -1 genPdgId 13
  genVx -0.000881494 genVy -0.000380444 genVz -3.8479 genD0 -0.000362302 genDz -3.84771
  genCotTheta 0.212077 genInvPt -0.234048 genPt 4.27262 genPhi 0.794385 genEta 0.210519
@@ -945,42 +669,6 @@
  genCotTheta 0.45369 genInvPt -0.099356 genPt 10.0648 genPhi 0.943773 genEta 0.439412
  stubPhi 0.982197 stubEta 0.39986 stubR 67.7553 stubX 37.6175 stubY 56.3534 stubZ 27.8204
  stubLocalPhi 996.5 stubLocalZ 0 stubBend 0
-
-26 Board 5 moduleId 70733 genCharge 1 genPdgId -13
- genVx 0.000709428 genVy -0.00109246 genVz 3.61775 genD0 0.000795853 genDz 3.61821
- genCotTheta 0.450305 genInvPt 0.417883 genPt 2.39301 genPhi 1.48945 genEta 0.436328
- stubPhi 1.36319 stubEta 0.500173 stubR 51.9884 stubX 10.7159 stubY 50.8721 stubZ 27.101
- stubLocalPhi 118 stubLocalZ 22 stubBend 2
-
-26 Board 5 moduleId 101517 genCharge 1 genPdgId -13
- genVx 0.000709428 genVy -0.00109246 genVz 3.61775 genD0 0.000795853 genDz 3.61821
- genCotTheta 0.450305 genInvPt 0.417883 genPt 2.39301 genPhi 1.48945 genEta 0.436328
- stubPhi 1.2245 stubEta 0.461844 stubR 108.421 stubX 36.8003 stubY 101.985 stubZ 51.8728
- stubLocalPhi 695.5 stubLocalZ 1 stubBend 6
-
-26 Board 6 moduleId 91316 genCharge 1 genPdgId -13
- genVx 0.000709428 genVy -0.00109246 genVz 3.61775 genD0 0.000795853 genDz 3.61821
- genCotTheta 0.450305 genInvPt 0.417883 genPt 2.39301 genPhi 1.48945 genEta 0.436328
- stubPhi 1.27037 stubEta 0.456702 stubR 89.9021 stubX 26.6042 stubY 85.8755 stubZ 42.5007
- stubLocalPhi 977.5 stubLocalZ 1 stubBend 5
-
-26 Board 7 moduleId 60532 genCharge 1 genPdgId -13
- genVx 0.000709428 genVy -0.00109246 genVz 3.61775 genD0 0.000795853 genDz 3.61821
- genCotTheta 0.450305 genInvPt 0.417883 genPt 2.39301 genPhi 1.48945 genEta 0.436328
- stubPhi 1.39978 stubEta 0.523585 stubR 36.952 stubX 6.28864 stubY 36.4129 stubZ 20.2437
- stubLocalPhi 144.5 stubLocalZ 28 stubBend 1
-
-26 Board 7 moduleId 81015 genCharge 1 genPdgId -13
- genVx 0.000709428 genVy -0.00109246 genVz 3.61775 genD0 0.000795853 genDz 3.61821
- genCotTheta 0.450305 genInvPt 0.417883 genPt 2.39301 genPhi 1.48945 genEta 0.436328
- stubPhi 1.32646 stubEta 0.466303 stubR 67.018 stubX 16.2128 stubY 65.0274 stubZ 32.3956
- stubLocalPhi 377.5 stubLocalZ 1 stubBend 3
-
-26 Board 9 moduleId 50434 genCharge 1 genPdgId -13
- genVx 0.000709428 genVy -0.00109246 genVz 3.61775 genD0 0.000795853 genDz 3.61821
- genCotTheta 0.450305 genInvPt 0.417883 genPt 2.39301 genPhi 1.48945 genEta 0.436328
- stubPhi 1.43577 stubEta 0.580965 stubR 22.174 stubX 2.985 stubY 21.9722 stubZ 13.6193
- stubLocalPhi 778 stubLocalZ 11 stubBend 2
 
 27 Board 2 moduleId 50233 genCharge 1 genPdgId -13
  genVx -0.00131346 genVy -0.0009334 genVz -9.09146 genD0 -0.000635836 genDz -9.09036
@@ -1138,84 +826,6 @@
  stubPhi 1.43755 stubEta 0.255046 stubR 69.0082 stubX 9.16797 stubY 68.3965 stubZ 17.7917
  stubLocalPhi 525.5 stubLocalZ 0 stubBend -0.5
 
-31 Board 5 moduleId 70729 genCharge -1 genPdgId 13
- genVx 0.00204319 genVy 8.51978e-05 genVz -1.65337 genD0 0.00180933 genDz -1.65356
- genCotTheta 0.204311 genInvPt -0.366611 genPt 2.72768 genPhi 1.12769 genEta 0.202916
- stubPhi 1.23361 stubEta 0.170187 stubR 51.9561 stubX 17.189 stubY 49.0303 stubZ 8.88499
- stubLocalPhi 791 stubLocalZ 26 stubBend -1.5
-
-31 Board 6 moduleId 50332 genCharge -1 genPdgId 13
- genVx 0.00204319 genVy 8.51978e-05 genVz -1.65337 genD0 0.00180933 genDz -1.65356
- genCotTheta 0.204311 genInvPt -0.366611 genPt 2.72768 genPhi 1.12769 genEta 0.202916
- stubPhi 1.17663 stubEta 0.132555 stubR 23.8148 stubX 9.14587 stubY 21.9886 stubZ 3.16602
- stubLocalPhi 483 stubLocalZ 24 stubBend -1.5
-
-31 Board 6 moduleId 60528 genCharge -1 genPdgId 13
- genVx 0.00204319 genVy 8.51978e-05 genVz -1.65337 genD0 0.00180933 genDz -1.65356
- genCotTheta 0.204311 genInvPt -0.366611 genPt 2.72768 genPhi 1.12769 genEta 0.202916
- stubPhi 1.20274 stubEta 0.157023 stubR 37.0085 stubX 13.3157 stubY 34.53 stubZ 5.83509
- stubLocalPhi 872 stubLocalZ 6 stubBend -1
-
-31 Board 6 moduleId 81013 genCharge -1 genPdgId 13
- genVx 0.00204319 genVy 8.51978e-05 genVz -1.65337 genD0 0.00180933 genDz -1.65356
- genCotTheta 0.204311 genInvPt -0.366611 genPt 2.72768 genPhi 1.12769 genEta 0.202916
- stubPhi 1.26524 stubEta 0.189212 stubR 67.072 stubX 20.1769 stubY 63.9652 stubZ 12.7667
- stubLocalPhi 833.5 stubLocalZ 1 stubBend -2.5
-
-31 Board 6 moduleId 91313 genCharge -1 genPdgId 13
- genVx 0.00204319 genVy 8.51978e-05 genVz -1.65337 genD0 0.00180933 genDz -1.65356
- genCotTheta 0.204311 genInvPt -0.366611 genPt 2.72768 genPhi 1.12769 genEta 0.202916
- stubPhi 1.3122 stubEta 0.198161 stubR 89.1993 stubX 22.8108 stubY 86.2333 stubZ 17.7917
- stubLocalPhi 559.5 stubLocalZ 0 stubBend -3.5
-
-31 Board 6 moduleId 101613 genCharge -1 genPdgId 13
- genVx 0.00204319 genVy 8.51978e-05 genVz -1.65337 genD0 0.00180933 genDz -1.65356
- genCotTheta 0.204311 genInvPt -0.366611 genPt 2.72768 genPhi 1.12769 genEta 0.202916
- stubPhi 1.34912 stubEta 0.166376 stubR 106.445 stubX 23.4039 stubY 103.84 stubZ 17.7917
- stubLocalPhi 196 stubLocalZ 0 stubBend -4.5
-
-32 Board 2 moduleId 60428 genCharge 1 genPdgId -13
- genVx -0.00062654 genVy 0.000464188 genVz -2.10896 genD0 -0.000738115 genDz -2.10901
- genCotTheta 0.189385 genInvPt 0.397223 genPt 2.51748 genPhi 1.26145 genEta 0.188271
- stubPhi 1.18118 stubEta 0.128916 stubR 35.0733 stubX 13.3222 stubY 32.4447 stubZ 4.53403
- stubLocalPhi 11 stubLocalZ 15 stubBend 1
-
-32 Board 2 moduleId 101213 genCharge 1 genPdgId -13
- genVx -0.00062654 genVy 0.000464188 genVz -2.10896 genD0 -0.000738115 genDz -2.10901
- genCotTheta 0.189385 genInvPt 0.397223 genPt 2.51748 genPhi 1.26145 genEta 0.188271
- stubPhi 1.01373 stubEta 0.166395 stubR 106.433 stubX 56.2707 stubY 90.3412 stubZ 17.7917
- stubLocalPhi 251.5 stubLocalZ 0 stubBend 5
-
-32 Board 3 moduleId 91013 genCharge 1 genPdgId -13
- genVx -0.00062654 genVy 0.000464188 genVz -2.10896 genD0 -0.000738115 genDz -2.10901
- genCotTheta 0.189385 genInvPt 0.397223 genPt 2.51748 genPhi 1.26145 genEta 0.188271
- stubPhi 1.0589 stubEta 0.145743 stubR 87.2882 stubX 42.7563 stubY 76.0995 stubZ 12.7667
- stubLocalPhi 66.5 stubLocalZ 1 stubBend 3.5
-
-32 Board 4 moduleId 50331 genCharge 1 genPdgId -13
- genVx -0.00062654 genVy 0.000464188 genVz -2.10896 genD0 -0.000738115 genDz -2.10901
- genCotTheta 0.189385 genInvPt 0.397223 genPt 2.51748 genPhi 1.26145 genEta 0.188271
- stubPhi 1.20803 stubEta 0.0987163 stubR 23.2208 stubX 8.24014 stubY 21.7096 stubZ 2.296
- stubLocalPhi 410 stubLocalZ 0 stubBend 1.5
-
-32 Board 4 moduleId 70628 genCharge 1 genPdgId -13
- genVx -0.00062654 genVy 0.000464188 genVz -2.10896 genD0 -0.000738115 genDz -2.10901
- genCotTheta 0.189385 genInvPt 0.397223 genPt 2.51748 genPhi 1.26145 genEta 0.188271
- stubPhi 1.1483 stubEta 0.146749 stubR 49.2562 stubX 20.1972 stubY 44.9249 stubZ 7.25428
- stubLocalPhi 285 stubLocalZ 6 stubBend 1.5
-
-32 Board 4 moduleId 80813 genCharge 1 genPdgId -13
- genVx -0.00062654 genVy 0.000464188 genVz -2.10896 genD0 -0.000738115 genDz -2.10901
- genCotTheta 0.189385 genInvPt 0.397223 genPt 2.51748 genPhi 1.26145 genEta 0.188271
- stubPhi 1.10643 stubEta 0.189063 stubR 67.1255 stubX 30.0627 stubY 60.0172 stubZ 12.7667
- stubLocalPhi 66 stubLocalZ 1 stubBend 3.5
-
-32 Board 6 moduleId 50332 genCharge 1 genPdgId -13
- genVx -0.00062654 genVy 0.000464188 genVz -2.10896 genD0 -0.000738115 genDz -2.10901
- genCotTheta 0.189385 genInvPt 0.397223 genPt 2.51748 genPhi 1.26145 genEta 0.188271
- stubPhi 1.20664 stubEta 0.102371 stubR 23.8245 stubX 8.48529 stubY 22.2622 stubZ 2.44321
- stubLocalPhi 411.5 stubLocalZ 29 stubBend 1.5
-
 33 Board 4 moduleId 50331 genCharge 1 genPdgId -13
  genVx 0.00209463 genVy 0.000284335 genVz -2.95932 genD0 0.00197469 genDz -2.95938
  genCotTheta 0.0757932 genInvPt 0.0909289 genPt 10.9976 genPhi 1.34085 genEta 0.0757208
@@ -1251,48 +861,6 @@
  genCotTheta 0.0757932 genInvPt 0.0909289 genPt 10.9976 genPhi 1.34085 genEta 0.0757208
  stubPhi 1.28478 stubEta 0.0274197 stubR 107.089 stubX 30.2135 stubY 102.739 stubZ 2.93673
  stubLocalPhi 959.5 stubLocalZ 1 stubBend 1.5
-
-34 Board 4 moduleId 91117 genCharge 1 genPdgId -13
- genVx 0.00103267 genVy -0.000144431 genVz 0.670128 genD0 0.00103979 genDz 0.670086
- genCotTheta 0.547061 genInvPt 0.380098 genPt 2.6309 genPhi 1.3568 genEta 0.522904
- stubPhi 1.16305 stubEta 0.55235 stubR 89.3022 stubX 35.4119 stubY 81.981 stubZ 51.8728
- stubLocalPhi 28.5 stubLocalZ 1 stubBend 3.5
-
-34 Board 4 moduleId 101418 genCharge 1 genPdgId -13
- genVx 0.00103267 genVy -0.000144431 genVz 0.670128 genD0 0.00103979 genDz 0.670086
- genCotTheta 0.547061 genInvPt 0.380098 genPt 2.6309 genPhi 1.3568 genEta 0.522904
- stubPhi 1.1238 stubEta 0.551209 stubR 107.073 stubX 46.2831 stubY 96.5528 stubZ 62.0538
- stubLocalPhi 907.5 stubLocalZ 1 stubBend 4.5
-
-34 Board 5 moduleId 50334 genCharge 1 genPdgId -13
- genVx 0.00103267 genVy -0.000144431 genVz 0.670128 genD0 0.00103979 genDz 0.670086
- genCotTheta 0.547061 genInvPt 0.380098 genPt 2.6309 genPhi 1.3568 genEta 0.522904
- stubPhi 1.30465 stubEta 0.545825 stubR 24.0068 stubX 6.31417 stubY 23.1615 stubZ 13.7639
- stubLocalPhi 176.5 stubLocalZ 10 stubBend 1
-
-34 Board 5 moduleId 70733 genCharge 1 genPdgId -13
- genVx 0.00103267 genVy -0.000144431 genVz 0.670128 genD0 0.00103979 genDz 0.670086
- genCotTheta 0.547061 genInvPt 0.380098 genPt 2.6309 genPhi 1.3568 genEta 0.522904
- stubPhi 1.24466 stubEta 0.535015 stubR 51.9248 stubX 16.6359 stubY 49.1877 stubZ 29.1249
- stubLocalPhi 733.5 stubLocalZ 8 stubBend 1.5
-
-34 Board 5 moduleId 80915 genCharge 1 genPdgId -13
- genVx 0.00103267 genVy -0.000144431 genVz 0.670128 genD0 0.00103979 genDz 0.670086
- genCotTheta 0.547061 genInvPt 0.380098 genPt 2.6309 genPhi 1.3568 genEta 0.522904
- stubPhi 1.20743 stubEta 0.518486 stubR 69.0377 stubX 24.5374 stubY 64.53 stubZ 37.4206
- stubLocalPhi 282.5 stubLocalZ 0 stubBend 3.5
-
-34 Board 5 moduleId 91216 genCharge 1 genPdgId -13
- genVx 0.00103267 genVy -0.000144431 genVz 0.670128 genD0 0.00103979 genDz 0.670086
- genCotTheta 0.547061 genInvPt 0.380098 genPt 2.6309 genPhi 1.3568 genEta 0.522904
- stubPhi 1.16612 stubEta 0.517232 stubR 87.9121 stubX 34.6128 stubY 80.8114 stubZ 47.5257
- stubLocalPhi 995.5 stubLocalZ 0 stubBend 4
-
-34 Board 7 moduleId 60532 genCharge 1 genPdgId -13
- genVx 0.00103267 genVy -0.000144431 genVz 0.670128 genD0 0.00103979 genDz 0.670086
- genCotTheta 0.547061 genInvPt 0.380098 genPt 2.6309 genPhi 1.3568 genEta 0.522904
- stubPhi 1.27721 stubEta 0.539044 stubR 36.8184 stubX 10.6546 stubY 35.2431 stubZ 20.8219
- stubLocalPhi 596.5 stubLocalZ 24 stubBend 1.5
 
 35 Board 0 moduleId 50232 genCharge -1 genPdgId 13
  genVx -0.000288225 genVy 0.00037838 genVz -0.951768 genD0 -0.000457339 genDz -0.951788
@@ -1365,42 +933,6 @@
  genCotTheta 0.63565 genInvPt 0.0763425 genPt 13.0989 genPhi 1.50356 genEta 0.599153
  stubPhi 1.4887 stubEta 0.598034 stubR 34.8765 stubX 2.86 stubY 34.759 stubZ 22.123
  stubLocalPhi 765.5 stubLocalZ 15 stubBend 0
-
-37 Board 6 moduleId 91318 genCharge 1 genPdgId -13
- genVx -0.000297805 genVy 0.000577449 genVz 3.77737 genD0 -0.000341266 genDz 3.77702
- genCotTheta 0.625019 genInvPt 0.336328 genPt 2.97329 genPhi 1.49393 genEta 0.590159
- stubPhi 1.3213 stubEta 0.645276 stubR 89.8032 stubX 22.1738 stubY 87.0226 stubZ 62.0538
- stubLocalPhi 469 stubLocalZ 1 stubBend 3.5
-
-37 Board 6 moduleId 101619 genCharge 1 genPdgId -13
- genVx -0.000297805 genVy 0.000577449 genVz 3.77737 genD0 -0.000341266 genDz 3.77702
- genCotTheta 0.625019 genInvPt 0.336328 genPt 2.97329 genPhi 1.49393 genEta 0.590159
- stubPhi 1.2887 stubEta 0.626863 stubR 106.47 stubX 29.6376 stubY 102.261 stubZ 71.1997
- stubLocalPhi 910.5 stubLocalZ 1 stubBend 4
-
-37 Board 7 moduleId 60533 genCharge 1 genPdgId -13
- genVx -0.000297805 genVy 0.000577449 genVz 3.77737 genD0 -0.000341266 genDz 3.77702
- genCotTheta 0.625019 genInvPt 0.336328 genPt 2.97329 genPhi 1.49393 genEta 0.590159
- stubPhi 1.42384 stubEta 0.676449 stubR 36.4354 stubX 5.33532 stubY 36.0426 stubZ 26.5698
- stubLocalPhi 62 stubLocalZ 11 stubBend 1
-
-37 Board 7 moduleId 70835 genCharge 1 genPdgId -13
- genVx -0.000297805 genVy 0.000577449 genVz 3.77737 genD0 -0.000341266 genDz 3.77702
- genCotTheta 0.625019 genInvPt 0.336328 genPt 2.97329 genPhi 1.49393 genEta 0.590159
- stubPhi 1.39788 stubEta 0.65223 stubR 49.9841 stubX 8.59986 stubY 49.2388 stubZ 34.9623
- stubLocalPhi 881.5 stubLocalZ 28 stubBend 2
-
-37 Board 7 moduleId 81016 genCharge 1 genPdgId -13
- genVx -0.000297805 genVy 0.000577449 genVz 3.77737 genD0 -0.000341266 genDz 3.77702
- genCotTheta 0.625019 genInvPt 0.336328 genPt 2.97329 genPhi 1.49393 genEta 0.590159
- stubPhi 1.36392 stubEta 0.654187 stubR 67.7143 stubX 13.909 stubY 66.2704 stubZ 47.5257
- stubLocalPhi 94.5 stubLocalZ 0 stubBend 2
-
-37 Board 9 moduleId 50435 genCharge 1 genPdgId -13
- genVx -0.000297805 genVy 0.000577449 genVz 3.77737 genD0 -0.000341266 genDz 3.77702
- genCotTheta 0.625019 genInvPt 0.336328 genPt 2.97329 genPhi 1.49393 genEta 0.590159
- stubPhi 1.45248 stubEta 0.735175 stubR 21.5182 stubX 2.54 stubY 21.3678 stubZ 17.2837
- stubLocalPhi 733.5 stubLocalZ 11 stubBend 1
 
 38 Board 5 moduleId 50334 genCharge -1 genPdgId 13
  genVx -5.18298e-05 genVy 0.000135275 genVz -2.06604 genD0 -8.99127e-05 genDz -2.06611
@@ -1552,54 +1084,6 @@
  stubPhi 1.4201 stubEta 0.542215 stubR 109.024 stubX 16.3671 stubY 107.788 stubZ 62.0538
  stubLocalPhi 330 stubLocalZ 1 stubBend -3
 
-42 Board 5 moduleId 70726 genCharge 1 genPdgId -13
- genVx -0.000665087 genVy -0.000356177 genVz -2.77863 genD0 -0.000617791 genDz -2.77861
- genCotTheta 0.0307768 genInvPt 0.365854 genPt 2.73333 genPhi 1.45109 genEta 0.030772
- stubPhi 1.34253 stubEta -0.0249138 stubR 51.3196 stubX 11.6133 stubY 49.9883 stubZ -1.2787
- stubLocalPhi 228.5 stubLocalZ 4 stubBend 1.5
-
-42 Board 5 moduleId 91211 genCharge 1 genPdgId -13
- genVx -0.000665087 genVy -0.000356177 genVz -2.77863 genD0 -0.000617791 genDz -2.77861
- genCotTheta 0.0307768 genInvPt 0.365854 genPt 2.73333 genPhi 1.45109 genEta 0.030772
- stubPhi 1.26601 stubEta -0.0228408 stubR 87.3066 stubX 26.1994 stubY 83.2829 stubZ -1.99433
- stubLocalPhi 23.5 stubLocalZ 0 stubBend 2.5
-
-42 Board 5 moduleId 101511 genCharge 1 genPdgId -13
- genVx -0.000665087 genVy -0.000356177 genVz -2.77863 genD0 -0.000617791 genDz -2.77861
- genCotTheta 0.0307768 genInvPt 0.365854 genPt 2.73333 genPhi 1.45109 genEta 0.030772
- stubPhi 1.22043 stubEta -0.018392 stubR 108.429 stubX 37.2174 stubY 101.841 stubZ -1.99433
- stubLocalPhi 744.5 stubLocalZ 0 stubBend 5
-
-42 Board 5 moduleId 101512 genCharge 1 genPdgId -13
- genVx -0.000665087 genVy -0.000356177 genVz -2.77863 genD0 -0.000617791 genDz -2.77861
- genCotTheta 0.0307768 genInvPt 0.365854 genPt 2.73333 genPhi 1.45109 genEta 0.030772
- stubPhi 1.21914 stubEta 0.0269303 stubR 109.036 stubX 37.5583 stubY 102.363 stubZ 2.93673
- stubLocalPhi 761.5 stubLocalZ 1 stubBend 5
-
-42 Board 6 moduleId 60527 genCharge 1 genPdgId -13
- genVx -0.000665087 genVy -0.000356177 genVz -2.77863 genD0 -0.000617791 genDz -2.77861
- genCotTheta 0.0307768 genInvPt 0.365854 genPt 2.73333 genPhi 1.45109 genEta 0.030772
- stubPhi 1.37424 stubEta -0.0454639 stubR 36.2726 stubX 7.08364 stubY 35.5742 stubZ -1.64966
- stubLocalPhi 243 stubLocalZ 27 stubBend 1
-
-42 Board 6 moduleId 81011 genCharge 1 genPdgId -13
- genVx -0.000665087 genVy -0.000356177 genVz -2.77863 genD0 -0.000617791 genDz -2.77861
- genCotTheta 0.0307768 genInvPt 0.365854 genPt 2.73333 genPhi 1.45109 genEta 0.030772
- stubPhi 1.3094 stubEta -0.0297583 stubR 67.0078 stubX 17.3168 stubY 64.7316 stubZ -1.99433
- stubLocalPhi 504.5 stubLocalZ 0 stubBend 3
-
-42 Board 8 moduleId 50430 genCharge 1 genPdgId -13
- genVx -0.000665087 genVy -0.000356177 genVz -2.77863 genD0 -0.000617791 genDz -2.77861
- genCotTheta 0.0307768 genInvPt 0.365854 genPt 2.73333 genPhi 1.45109 genEta 0.030772
- stubPhi 1.40352 stubEta -0.0967373 stubR 22.2832 stubX 3.71 stubY 21.9722 stubZ -2.15898
- stubLocalPhi 850.5 stubLocalZ 0 stubBend 2
-
-42 Board 8 moduleId 50431 genCharge 1 genPdgId -13
- genVx -0.000665087 genVy -0.000356177 genVz -2.77863 genD0 -0.000617791 genDz -2.77861
- genCotTheta 0.0307768 genInvPt 0.365854 genPt 2.73333 genPhi 1.45109 genEta 0.030772
- stubPhi 1.4048 stubEta -0.100701 stubR 21.6656 stubX 3.58 stubY 21.3678 stubZ -2.18544
- stubLocalPhi 837.5 stubLocalZ 31 stubBend 2
-
 43 Board 1 moduleId 50235 genCharge 1 genPdgId -13
  genVx -0.000353341 genVy 0.00035972 genVz -1.07308 genD0 -0.000493958 genDz -1.07315
  genCotTheta 0.760957 genInvPt 0.167271 genPt 5.97834 genPhi 0.978655 genEta 0.70189
@@ -1749,42 +1233,6 @@
  genCotTheta 0.22682 genInvPt 0.0910113 genPt 10.9876 genPhi 0.808151 genEta 0.224918
  stubPhi 0.796863 stubEta 0.34206 stubR 21.3692 stubX 14.9361 stubY 15.2826 stubZ 7.45292
  stubLocalPhi 455 stubLocalZ 22 stubBend 0.5
-
-47 Board 0 moduleId 100915 genCharge 1 genPdgId -13
- genVx -0.00108899 genVy 0.000654261 genVz -0.280449 genD0 -0.00127041 genDz -0.28045
- genCotTheta 0.346909 genInvPt 0.451874 genPt 2.21301 genPhi 1.03268 genEta 0.340302
- stubPhi 0.743065 stubEta 0.338672 stubR 108.408 stubX 79.8314 stubY 73.3431 stubZ 37.4206
- stubLocalPhi 519.5 stubLocalZ 0 stubBend 6
-
-47 Board 1 moduleId 90814 genCharge 1 genPdgId -13
- genVx -0.00108899 genVy 0.000654261 genVz -0.280449 genD0 -0.00127041 genDz -0.28045
- genCotTheta 0.346909 genInvPt 0.451874 genPt 2.21301 genPhi 1.03268 genEta 0.340302
- stubPhi 0.799305 stubEta 0.311757 stubR 87.808 stubX 61.2202 stubY 62.9471 stubZ 27.8204
- stubLocalPhi 619 stubLocalZ 0 stubBend 5.5
-
-47 Board 1 moduleId 90815 genCharge 1 genPdgId -13
- genVx -0.00108899 genVy 0.000654261 genVz -0.280449 genD0 -0.00127041 genDz -0.28045
- genCotTheta 0.346909 genInvPt 0.451874 genPt 2.21301 genPhi 1.03268 genEta 0.340302
- stubPhi 0.800929 stubEta 0.363446 stubR 87.2021 stubX 60.6962 stubY 62.6113 stubZ 32.3956
- stubLocalPhi 602.5 stubLocalZ 1 stubBend 5
-
-47 Board 2 moduleId 50233 genCharge 1 genPdgId -13
- genVx -0.00108899 genVy 0.000654261 genVz -0.280449 genD0 -0.00127041 genDz -0.28045
- genCotTheta 0.346909 genInvPt 0.451874 genPt 2.21301 genPhi 1.03268 genEta 0.340302
- stubPhi 0.974972 stubEta 0.329884 stubR 21.7576 stubX 12.2102 stubY 18.0085 stubZ 7.30836
- stubLocalPhi 69.5 stubLocalZ 23 stubBend 1
-
-47 Board 2 moduleId 60430 genCharge 1 genPdgId -13
- genVx -0.00108899 genVy 0.000654261 genVz -0.280449 genD0 -0.00127041 genDz -0.28045
- genCotTheta 0.346909 genInvPt 0.451874 genPt 2.21301 genPhi 1.03268 genEta 0.340302
- stubPhi 0.940581 stubEta 0.330984 stubR 34.9575 stubX 20.6011 stubY 28.2422 stubZ 11.7828
- stubLocalPhi 851.5 stubLocalZ 26 stubBend 1.5
-
-47 Board 2 moduleId 70531 genCharge 1 genPdgId -13
- genVx -0.00108899 genVy 0.000654261 genVz -0.280449 genD0 -0.00127041 genDz -0.28045
- genCotTheta 0.346909 genInvPt 0.451874 genPt 2.21301 genPhi 1.03268 genEta 0.340302
- stubPhi 0.896432 stubEta 0.335487 stubR 51.8823 stubX 32.3954 stubY 40.5255 stubZ 17.7342
- stubLocalPhi 622.5 stubLocalZ 26 stubBend 3
 
 48 Board 0 moduleId 50232 genCharge -1 genPdgId 13
  genVx 0.00108617 genVy 0.000116834 genVz 4.5701 genD0 0.000789303 genDz 4.57003
