@@ -31,6 +31,12 @@ public :
    vector<float>   *TTStubs_trigBend;
    vector<float>   *TTStubs_coordx;
    vector<float>   *TTStubs_coordy;
+   vector<unsigned int> *AMTTRoads_patternRef;
+   vector<unsigned int> *AMTTRoads_tower;
+   vector<unsigned int> *AMTTRoads_nstubs;
+   vector<float>   *AMTTRoads_patternInvPt;
+   vector<vector<unsigned int> > *AMTTRoads_superstripIds;
+   vector<vector<vector<unsigned int> > > *AMTTRoads_stubRefs;
 
    // List of branches
    TBranch        *b_TTStubs_phi;   //!  
@@ -40,6 +46,12 @@ public :
    TBranch        *b_TTStubs_trigBend;   //!
    TBranch        *b_TTStubs_coordx;   //!
    TBranch        *b_TTStubs_coordy;   //!
+   TBranch        *b_AMTTRoads_patternRef;   //!
+   TBranch        *b_AMTTRoads_tower;   //!
+   TBranch        *b_AMTTRoads_nstubs;   //!
+   TBranch        *b_AMTTRoads_patternInvPt;   //!
+   TBranch        *b_AMTTRoads_superstripIds;   //!
+   TBranch        *b_AMTTRoads_stubRefs;   //!
 
    MakeBank(TTree *tree=0);
    virtual ~MakeBank();
@@ -60,11 +72,11 @@ MakeBank::MakeBank(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/eos/uscms/store/user/l1upgrades/SLHC/GEN/620_SLHC12p1_ntuple/PU140/TTbarTTbar_E2023TTI_PU140_TuneCUEP6S1_ntuple.2.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("results.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/eos/uscms/store/user/l1upgrades/SLHC/GEN/620_SLHC12p1_ntuple/PU140/TTbarTTbar_E2023TTI_PU140_TuneCUEP6S1_ntuple.2.root");
+         f = new TFile("results.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("/eos/uscms/store/user/l1upgrades/SLHC/GEN/620_SLHC12p1_ntuple/PU140/TTbarTTbar_E2023TTI_PU140_TuneCUEP6S1_ntuple.2.root:/ntupler");
+      TDirectory * dir = (TDirectory*)f->Get("results.root:/ntupler");
       dir->GetObject("tree",tree);
 
    }
@@ -114,6 +126,12 @@ void MakeBank::Init(TTree *tree)
    TTStubs_trigBend = 0;
    TTStubs_coordx = 0;
    TTStubs_coordy = 0;
+   AMTTRoads_patternRef = 0;
+   AMTTRoads_tower = 0;
+   AMTTRoads_nstubs = 0;
+   AMTTRoads_patternInvPt = 0;
+   AMTTRoads_superstripIds = 0;
+   AMTTRoads_stubRefs = 0;
 
    // Set branch addresses and branch pointers
    if (!tree) return;
@@ -128,6 +146,12 @@ void MakeBank::Init(TTree *tree)
    fChain->SetBranchAddress("TTStubs_trigBend", &TTStubs_trigBend, &b_TTStubs_trigBend);
    fChain->SetBranchAddress("TTStubs_coordx", &TTStubs_coordx, &b_TTStubs_coordx);
    fChain->SetBranchAddress("TTStubs_coordy", &TTStubs_coordy, &b_TTStubs_coordy);
+   fChain->SetBranchAddress("AMTTRoads_patternRef", &AMTTRoads_patternRef, &b_AMTTRoads_patternRef);
+   fChain->SetBranchAddress("AMTTRoads_tower", &AMTTRoads_tower, &b_AMTTRoads_tower);
+   fChain->SetBranchAddress("AMTTRoads_nstubs", &AMTTRoads_nstubs, &b_AMTTRoads_nstubs);
+   fChain->SetBranchAddress("AMTTRoads_patternInvPt", &AMTTRoads_patternInvPt, &b_AMTTRoads_patternInvPt);
+   fChain->SetBranchAddress("AMTTRoads_superstripIds", &AMTTRoads_superstripIds, &b_AMTTRoads_superstripIds);
+   fChain->SetBranchAddress("AMTTRoads_stubRefs", &AMTTRoads_stubRefs, &b_AMTTRoads_stubRefs);
    Notify();
 }
 

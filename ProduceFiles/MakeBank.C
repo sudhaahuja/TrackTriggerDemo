@@ -10,7 +10,7 @@
 
 void MakeBank::Loop()
 {
-
+/*
 	//Get the stub overlap blinding map
 	TFile *blindMap = TFile::Open("../inputfiles/stubOverlapHistosFramesOnlyTree_0p2_0p2_0p2_0p2_0p2_0p2.root","READ");
 	TTree *blindTree;
@@ -22,17 +22,18 @@ void MakeBank::Loop()
 	blindTree->SetBranchAddress("x2", &phi2);
 	blindTree->SetBranchAddress("y2", &z2);
 	Long64_t blindEntries = blindTree->GetEntries();
-
-	std::vector<std::pair<Long64_t, std::tr1::array<int, 12> > > patternBank;
+*/
+/*
 	float phiMin[6] = {0.564430,0.653554,0.641981,0.717273,0.658179,0.618448};
 	float phiMax[6] = {1.791765,1.710419,1.756567,1.638922,1.673851,1.778293};
 	float zMin[6] = {-6.7127,-6.7797,-5.2542,-9.5318,-9.5318,-9.5318};
 	float zMax[6] = {26.9799,36.7048,47.7511,59.4103,78.7372,88.9935};
-
+*/
+	std::vector<std::pair<Long64_t, std::tr1::array<int, 12> > > patternBank;
 
 	if (fChain == 0) return;
 	//Long64_t nentries = fChain->GetEntries();
-	Long64_t nentries = 5478;
+	Long64_t nentries = 1000;//5478;
 	Long64_t nbytes = 0, nb = 0;
 
 	for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -40,7 +41,7 @@ void MakeBank::Loop()
 		if (ientry < 0) break;
 		nb = fChain->GetEntry(jentry);   nbytes += nb; 
 		const unsigned nstubs = TTStubs_modId->size();
-		if (jentry%100==0) 
+		if (jentry%1==0) 
 			std::cout<<"Processing event #"<<jentry<<", nstubs="<<nstubs<<std::endl;
 		if (!nstubs) { // skip if no stub
 			continue;
@@ -50,10 +51,23 @@ void MakeBank::Loop()
 			return;
 		}   
 		if (nstubs<6) continue;
+		unsigned nRoads = AMTTRoads_superstripIds->size();
+		if (nRoads<1) continue;
 
 		std::pair<Long64_t, std::tr1::array<int, 12> > aPattern;
 		aPattern.first=jentry;
 		aPattern.second.assign(-1);
+
+		for (unsigned i=0; i<nRoads; ++i) {
+			for (unsigned lay = 0; lay<6; lay++) {
+				int phi_ss = AMTTRoads_superstripIds->at(i).at(lay) % 512;
+				int z_ss = AMTTRoads_superstripIds->at(i).at(lay) / 512;
+				aPattern.second[lay*2] = phi_ss;
+				aPattern.second[lay*2+1] = z_ss;
+			}
+		}
+
+/*
 		for (unsigned l=0; l<nstubs; ++l) {
 			unsigned moduleId   = TTStubs_modId->at(l);
 			float Glbphi        = TTStubs_phi->at(l);
@@ -102,6 +116,7 @@ void MakeBank::Loop()
 					break;
 				default: break;
 			}
+			
 		}
 		//std::cout<<"This pattern("<<aPattern.first<<"): "<<aPattern.second[0]<<" "<<aPattern.second[1]<<" "<<aPattern.second[2]<<" "<<aPattern.second[3]<<" "<<aPattern.second[4]<<" "<<aPattern.second[5]<<" "<<aPattern.second[6]<<" "<<aPattern.second[7]<<" "<<aPattern.second[8]<<" "<<aPattern.second[9]<<" "<<aPattern.second[10]<<" "<<aPattern.second[11]<<std::endl;
 		
@@ -113,6 +128,7 @@ void MakeBank::Loop()
 			}
 		}
 		if (badPattern) continue;
+*/
 
 		bool newPattern = true;
 		for(std::vector<std::pair<Long64_t, std::tr1::array<int, 12> > >::iterator it = patternBank.begin(); it != patternBank.end(); ++it) {
@@ -129,8 +145,8 @@ void MakeBank::Loop()
 	}
 
 	std::cout<<"**************** BANK *****************"<<std::endl;
-	char str[50]; int board=0;
-	sprintf(str,"outputfiles/Bank_Board%02d.txt",board);
+	char str[50]; int AM=0;
+	sprintf(str,"outputfiles/Bank_AM%02d.txt",AM);
 	std::ofstream outfile;
 	outfile.open(str);
 	for(std::vector<std::pair<Long64_t, std::tr1::array<int, 12> > >::iterator it = patternBank.begin(); it != patternBank.end(); ++it) {
