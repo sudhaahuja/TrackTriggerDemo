@@ -8,6 +8,7 @@
 #include <sstream>
 #include <bitset>
 #include <tr1/array>
+#include <math.h>
 
 int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 23> > simABoard);
 int fillPRBF2WithString(std::vector< std::vector< std::bitset<32> > >BitsPRBF2aBx, int jentry);
@@ -125,7 +126,7 @@ void ProduceFile::Loop()
 
 	if (fChain == 0) return;
 	Long64_t nentries = fChain->GetEntries();
-	//Long64_t nentries = 1;
+	//Long64_t nentries = 11;
 	//Long64_t nentries = 351;
 	Long64_t nbytes = 0, nb = 0;
 	for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -227,16 +228,17 @@ void ProduceFile::Loop()
 
 			std::bitset<3>  bxID;        bxID |= stub_bx;
 			std::bitset<4>  layIdx;       layIdx |= int(lay-5); // [5,21] --> [0,16]
-			std::bitset<11> stubAddress; stubAddress |= int(localPhi*2); //chipID(3bits)+stubAddress(8bits)
+			std::bitset<11> stubAddress; stubAddress |= round(localPhi*2); //chipID(3bits)+stubAddress(8bits)
 			std::bitset<5>  stubBend2S;  stubBend2S |= int(stub_trigBend*2);  // int-->bitset-->ullong: [0,16]-->[00000,10000]-->[0,16]; [-16,-1]-->[10000,11111]-->[16,31]
 			std::bitset<5>  stubBendPS;  stubBendPS |= int(stub_trigBend*2);  // if taking 3 bits: [0,3][-4,-1]-->[000,011][100,111]-->[0,3][4,7];  if taking 4 bits: [0,7][-8,-1]-->[0000,0111][1000,1111]-->[0,7][8,15]
 			std::bitset<5>  stubZpos5;    //int-->bitset<5> -->bitset<4> -->ullong: [0,15]-->[00000,01111]-->[0000,1111]-->[0,15]; [16,31]-->[10000,11111]-->[0000,1111]-->[0,15]
 			std::bitset<4>  stubZpos;
 			if (lay>7) stubZpos5 |= int(localZ*16); //2S
 			else { //PS
-				stubZpos |= int(localZ);
-				stubZpos5 |= int(localZ);
+				stubZpos |= round(localZ);
+				stubZpos5 |= round(localZ);
 			}
+
 			
 
 			/**********************************/
