@@ -504,6 +504,13 @@ void ProduceFile::Loop()
 		}
 	}
 
+	//a special lind added at the end of PRBF2.txt to reset AM for FW
+	std::bitset<32> AllZero;
+	std::ofstream outfile_PRBF2;
+	outfile_PRBF2.open("outputfiles/PRBF2.txt",std::ofstream::app);
+	outfile_PRBF2 << "00000" << " 0 " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " \n";
+	outfile_PRBF2.close();
+
 	TCanvas *c1 = new TCanvas("c1","c1"); 
 	InputLatency->Draw();
 	c1->SaveAs("outputfiles/InputLatency.pdf");
