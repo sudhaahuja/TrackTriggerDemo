@@ -11,6 +11,7 @@
 
 int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 23> > simABoard);
 int fillPRBF2WithString(std::vector< std::vector< std::bitset<32> > >BitsPRBF2aBx, int jentry);
+int fillPRBF2WithString(std::vector< std::vector< std::bitset<32> > >BitsPRBF2aBx, int jentry, int length);
 int fillTxtfileWithString(int board, std::bitset<256> BitsCICLaBoard[40], std::bitset<256> BitsCICRaBoard[40], std::vector< std::vector< std::vector<unsigned> > > BoardModuleMap, int jentry);
 int fillTreeWithULong64(TTree *tree, ULong64_t OutputData[40][8], std::bitset<256> BitsCICLaBoard[40], std::bitset<256> BitsCICRaBoard[40]);
 
@@ -211,6 +212,7 @@ void ProduceFile::Loop()
 			simAStub[21]=localZ;
 			simAStub[22]=stub_trigBend;
 
+			//if (nstubs > 6) continue;
 			if (requirePtCut3 && !pass3GeVCut(moduleId,stub_trigBend)) {std::cout<<std::endl<<"THIS STUB FAILS PT 3GEC CUT"<<std::endl; continue;}
 			if (requireGenPtCut3 && TTStubs_simPt->at(l)<3) {std::cout<<std::endl<<"THIS STUB FAILS GEN PT 3GEC CUT"<<std::endl; continue;}
 			if (requireBlinding) {
@@ -435,7 +437,7 @@ void ProduceFile::Loop()
 		/*******************************************/
 		/********fill the PRBF.2 output file********/
 		/*******************************************/
-		int nStubMax = fillPRBF2WithString(BitsPRBF2[0],jentry);
+		int nStubMax = fillPRBF2WithString(BitsPRBF2[0],jentry,100);
 		InputLatency->Fill(nStubMax);
 
 		/*******************************************/
@@ -534,6 +536,39 @@ int fillGenSimInfo(int board, std::vector< std::tr1::array<float, 23> > simABoar
 }
 
 
+// Fill PRBF2 output file with fixed length
+int fillPRBF2WithString(std::vector< std::vector< std::bitset<32> > >BitsPRBF2aBx, int jentry, int length) {
+	std::ofstream outfile;
+	outfile.open("outputfiles/PRBF2.txt",std::ofstream::app);
+
+	int nStubMax=0;
+	int nStubLayer[23]={0};
+	for (int l=5; l<11; l++) {
+		nStubLayer[l] = BitsPRBF2aBx[l].size();
+		if (nStubMax<nStubLayer[l]) nStubMax=nStubLayer[l];
+	}
+
+	char jentryStr[5];
+	sprintf(jentryStr,"%05d",jentry);
+
+	std::bitset<32> AllZero;
+
+	for (int s=0; s<length-1; s++) {
+		outfile << jentryStr << " 0 ";
+		for (int l=5; l<11; l++) {
+			if (s<nStubLayer[l]) outfile << BitsPRBF2aBx[l][s].to_string() << " ";
+			else outfile << AllZero << " ";
+		}
+		outfile << "\n";
+	}
+
+	//EOE
+	outfile << jentryStr << " 1 " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " \n";
+	outfile.close();
+	return nStubMax;
+}
+
+// Fill PRBF2 output file with floating length
 int fillPRBF2WithString(std::vector< std::vector< std::bitset<32> > >BitsPRBF2aBx, int jentry) {
 	std::ofstream outfile;
 	outfile.open("outputfiles/PRBF2.txt",std::ofstream::app);
@@ -545,10 +580,13 @@ int fillPRBF2WithString(std::vector< std::vector< std::bitset<32> > >BitsPRBF2aB
 		if (nStubMax<nStubLayer[l]) nStubMax=nStubLayer[l];
 	}
 
+	char jentryStr[5];
+	sprintf(jentryStr,"%05d",jentry);
+
 	std::bitset<32> AllZero; 
 
 	for (int s=0; s<nStubMax; s++) {
-		outfile << jentry << " 0 "; 
+		outfile << jentryStr << " 0 "; 
 		for (int l=5; l<11; l++) {
 			if (s<nStubLayer[l]) outfile << BitsPRBF2aBx[l][s].to_string() << " ";
 			else outfile << AllZero << " ";
@@ -557,7 +595,7 @@ int fillPRBF2WithString(std::vector< std::vector< std::bitset<32> > >BitsPRBF2aB
 	}
 
 	//EOE
-	outfile << jentry << " 1 " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " \n";
+	outfile << jentryStr << " 1 " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " " << AllZero << " \n";
 	outfile.close();
 	return nStubMax;
 }

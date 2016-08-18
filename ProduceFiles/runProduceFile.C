@@ -12,6 +12,7 @@ void runProduceFile()
 	//chain->Add("~zhenhu/FNAL/AMTest/CMSSW_6_2_0_SLHC25_patch3/src/SLHCL1TrackTriggerSimulations/Configuration/test/SingleMuon_tt27_board00_ntuple.root");
 	//chain->Add("~zhenhu/FNAL/AMTest/CMSSW_6_2_0_SLHC25_patch3/src/SLHCL1TrackTriggerSimulations/Configuration/test/SingleMuon_tt27_board00_fixedAngle_ntuple.root");
 	chain->Add("/uscms/home/sergo/nobackup/TTdemo_integration/SingleMuon_tt27_PU0_ntuple_50ev.root");
+	//chain->Add("/uscms/home/zhenhu/Public/TTdemo_integration/MultiMuons_tt27_PU0_ntuple_10ev.root");
 
    //TString name;
 	//for (int i=1; i<51; i++) {
