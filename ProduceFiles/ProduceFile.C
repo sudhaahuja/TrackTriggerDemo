@@ -196,10 +196,10 @@ void ProduceFile::Loop()
 			simAStub[4]=genParts_vx->at(0);
 			simAStub[5]=genParts_vy->at(0);
 			simAStub[6]=genParts_vz->at(0);
-			simAStub[7]=genParts_cotTheta->at(0);
-			simAStub[8]=genParts_d0->at(0);
-			simAStub[9]=genParts_dz->at(0);
-			simAStub[10]=genParts_invPt->at(0);
+			//			simAStub[7]=genParts_cotTheta->at(0);
+			//			simAStub[8]=genParts_d0->at(0);
+			//			simAStub[9]=genParts_dz->at(0);
+			//			simAStub[10]=genParts_invPt->at(0);
 			simAStub[11]=TTStubs_simPt->at(l);  // ==genParts_pt->at(0);
 			simAStub[12]=TTStubs_simPhi->at(l); // ==genParts_phi->at(0); 
 			simAStub[13]=TTStubs_simEta->at(l); // ==genParts_eta->at(0);
