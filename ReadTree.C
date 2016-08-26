@@ -373,15 +373,29 @@ void ReadTree::Loop()
 	nStubRoads->GetXaxis()->SetTitle("# of stubs per road");
 	nStubRoads->GetYaxis()->SetTitle("Entries");
 
-	TH1F *nSTUB_board01 = new TH1F("nSTUB_board01","nSTUB_board01",75,0,150);
+	/*	TH1F *nSTUB_board01 = new TH1F("nSTUB_board01","nSTUB_board01",75,0,150);
 	nSTUB_board01->GetXaxis()->SetTitle("# of stubs per board");
-	nSTUB_board01->GetYaxis()->SetTitle("Entries");
-	unsigned OutputModule[10][40]={{0}};
-	std::ifstream ifs ("inputfiles/ModuleList.txt", std::ifstream::in);
-	for (int i=0; i<40; i++) {
-		ifs >> OutputModule[0][i];
-	}   
-	ifs.close();
+	nSTUB_board01->GetYaxis()->SetTitle("Entries");*/
+
+	//HERE
+	std::vector<TH1F*> nSTUB_boardN;
+	for (int t=0;t<10;t++){
+	  sprintf(str,"nSTUB_board%02d",t+1);
+		nSTUB_boardN.push_back(new TH1F(str, str, 75, 0, 150));
+		nSTUB_boardN[t]->GetXaxis()->SetTitle("# of stubs");
+		nSTUB_boardN[t]->GetYaxis()->SetTitle("Entries");
+	}  
+
+	unsigned OutputModule[10][50]={{0}}; //HERE
+	//HERE
+	for(int board = 0; board<10; board++){
+	  sprintf(str,"inputfiles/ModuleMap%02d.txt",board+1);// cout<<"reading module map file: "<<str<<endl;
+	  std::ifstream ifs (str, std::ifstream::in);
+	  for (int i=0; i<50; i++) { //HERE
+	    ifs >> OutputModule[board][i]; //cout<<"OutputModule[board][i]="<<OutputModule[board][i]<<endl;
+	  }   
+	  ifs.close();
+	}
 
 	std::vector<TH1F*> nStubTowerN;
 	for (int t=0;t<48;t++){
@@ -401,7 +415,30 @@ void ReadTree::Loop()
 			nStubLayerN[l]->GetYaxis()->SetTitle("Entries");
 		}
 		nStubTowerNLayerN.push_back(nStubLayerN);
-	}
+	} 
+
+	std::vector< std::vector<TH1F*> > nStubTowerNLayerNLayerM;
+		for (int t=0;t<48;t++) { 
+		std::vector<TH1F*> nStubLayerNLayerM;
+		for(int n = 5; n < 11; n++){
+		  for(int m = n+1; m < 11; m++){
+		    sprintf(str,"nStubTower%02dLayer%02dLayer%02d",t,n,m); 
+		    nStubLayerNLayerM.push_back(new TH1F(str, str, 100, 0, 300));
+		  }
+		}
+		for(int v = 0; v < nStubLayerNLayerM.size(); v++){
+		  nStubLayerNLayerM[v]->GetXaxis()->SetTitle("# of stubs per tower for combined layers");
+		  nStubLayerNLayerM[v]->GetYaxis()->SetTitle("Entries");
+		}		
+		nStubTowerNLayerNLayerM.push_back(nStubLayerNLayerM);
+        } 
+		
+	TH1F* nStubTowerNLayerNLayerMfirsthalf = new TH1F("nStubTower27Layer8Layer9half","nStubTower27Layer8Layer9half",100,0,300);
+	TH1F* nStubTowerNLayerNLayerMsechalf = new TH1F("nStubTower27Layer8Layer9half","nStubTower27Layer8Layer9half",100,0,300);
+
+	TH1F* nStubTowerNLayerNfirsthalf = new TH1F("nStubTower27Layer5half","nStubTower27Layer5half",100,0,300);
+	TH1F* nStubTowerNLayerNsechalf = new TH1F("nStubTower27Layer5half","nStubTower27Layer5half",100,0,300);
+
 	/*
 		std::vector< std::vector<TH1F*> > nStubTower16Layer5ladNmodN;
 		for (int l=0;l<76;l++) {
@@ -502,7 +539,7 @@ void ReadTree::Loop()
 			std::cout << "Way too many stubs: " << nstubs << std::endl;
 			return;
 		}
-		/*
+				/*
 			std::map<unsigned, std::vector<unsigned> > trackModuleIdMap_; // key: trackId, value: moduleIds in the track
 			for (unsigned l=0; l<nstubs; ++l) {
 			if (requirePtCut3 && !pass3GeVCut(TTStubs_modId->at(l),TTStubs_trigBend->at(l))) continue;
@@ -530,21 +567,34 @@ void ReadTree::Loop()
 		int stub_global_3GeV=0;
 		int stub_ttN[48]={0};
 		int stub_ttN_lN[48][24]={{0}};
+		int stub_ttN_lN_ladN_modN[48][24][2]={{0}};
 		//int stub_tt16_l5_ladN_modN[76][82]={{0}};
 		int stub_tt16_lN_ladN_modN[25][76][82]={{{0}}};
 		int stub_tt27_lN_ladN_modN[25][76][82]={{{0}}};
 		int stub_roads=0;
-		int stub_tt27_board01=0;
+		int stub_tt27_board01=0; //HERE - define for 10 boards - filled later
+		int stub_tt27_board02=0;  
+		int stub_tt27_board03=0; 
+		int stub_tt27_board04=0; 
+		int stub_tt27_board05=0; 
+		int stub_tt27_board06=0; 
+		int stub_tt27_board07=0; 
+		int stub_tt27_board08=0; 
+		int stub_tt27_board09=0;  
+		int stub_tt27_board10=0;  
 		int stub_sf1_lN_PhiN_z1[25][10][1]={{{0}}};
 		int stub_sf1_lN_PhiN_z2[25][10][2]={{{0}}};
 		int stub_sf1_lN_PhiN_z4[25][10][4]={{{0}}};
-
+	
 		for (unsigned l=0; l<nstubs; ++l) {   
 			//module ID
-			moduleId = TTStubs_modId->at(l);
+           		moduleId = TTStubs_modId->at(l); //std::cout<<"moduleid = "<<moduleId<<std::endl;
 			lay      = decodeLayer(moduleId); //layer
-			lad      = decodeLadder(moduleId); //phi module for barrel; r rings for endcaps 
+			//std::cout<<"layer = "<<lay<<std::endl;
+			lad      = decodeLadder(moduleId); //phi module for barrel; r rings for endcaps  // split here for 8+9(0.5) and 9(0.5)+10
+			//std::cout<<"ladder = "<<lad<<std::endl;
 			mod      = decodeModule(moduleId); //z module for barrel; phi module for endcaps 
+			//std::cout<<"mod z = "<<mod<<std::endl;
 			//local coordinates
 			localPhi = TTStubs_coordx->at(l);
 			localZ   = TTStubs_coordy->at(l); 
@@ -561,7 +611,7 @@ void ReadTree::Loop()
 			simPt    = TTStubs_simPt->at(l);
 			//std::cout<<"localPhi="<<localPhi<<"*2="<<int(localPhi*2)<<", localZ="<<localZ<<", stub_trigBend="<<stub_trigBend<<std::endl;
 
-
+		
 			if (triggerTowerReverseMap_[moduleId].size()==0) continue;
 			if (pass3GeVCut(moduleId,stub_trigBend)) stub_global_3GeV++;
 			if (requirePtCut3 && !pass3GeVCut(moduleId,stub_trigBend)) continue;
@@ -574,7 +624,7 @@ void ReadTree::Loop()
 				if (blindFlag) continue;
 			}
 
-
+		
 			nSTUB_perLayer->Fill(lay,1./nentries);
 
 			if (stub_z>250) STUB_phi_mod->Fill(mod,stub_phi);
@@ -592,7 +642,7 @@ void ReadTree::Loop()
 					|| triggerTowerReverseMap_[moduleId] == overlap24_32
 					|| triggerTowerReverseMap_[moduleId] == overlap32_40)
 				STUB_z_r_overlap->Fill(stub_z,stub_r);
-
+		
 			switch (lay) {
 				//barrel
 				case 5: 
@@ -619,7 +669,7 @@ void ReadTree::Loop()
 					nSTUB_Layer10->Fill(mod,1./nentries/76);
 					if (mod==12) nSTUB_Layer10_centralZ->Fill(lad,1./nentries);
 					break;
-
+			
 					//endcap
 				case 11: 
 					nSTUB_Layer11->Fill(lad,1./nentries/ring_nModule_Map_[lad]);
@@ -634,8 +684,8 @@ void ReadTree::Loop()
 						case 7: nStubLayerNRingN[11][7]->Fill(mod,1./nentries);break;
 						case 8: nStubLayerNRingN[11][8]->Fill(mod,1./nentries);break;
 						case 9: nStubLayerNRingN[11][9]->Fill(mod,1./nentries);break;
-						case 10: nStubLayerNRingN[11][10]->Fill(mod,1./nentries);break;
-						case 11: nStubLayerNRingN[11][11]->Fill(mod,1./nentries);break;
+              					case 10: nStubLayerNRingN[11][10]->Fill(mod,1./nentries);break; 
+ 					        case 11: nStubLayerNRingN[11][11]->Fill(mod,1./nentries);break; 
 						case 12: nStubLayerNRingN[11][12]->Fill(mod,1./nentries);break;
 						case 13: nStubLayerNRingN[11][13]->Fill(mod,1./nentries);break;
 						case 14: nStubLayerNRingN[11][14]->Fill(mod,1./nentries);break;
@@ -655,36 +705,36 @@ void ReadTree::Loop()
 						case 7: nStubLayerNRingN[12][7]->Fill(mod,1./nentries);break;
 						case 8: nStubLayerNRingN[12][8]->Fill(mod,1./nentries);break;
 						case 9: nStubLayerNRingN[12][9]->Fill(mod,1./nentries);break;
-						case 10: nStubLayerNRingN[12][10]->Fill(mod,1./nentries);break;
-						case 11: nStubLayerNRingN[12][11]->Fill(mod,1./nentries);break;
-						case 12: nStubLayerNRingN[12][12]->Fill(mod,1./nentries);break;
-						case 13: nStubLayerNRingN[12][13]->Fill(mod,1./nentries);break;
-						case 14: nStubLayerNRingN[12][14]->Fill(mod,1./nentries);break;
+					        case 10: nStubLayerNRingN[12][10]->Fill(mod,1./nentries);break; 
+					        case 11: nStubLayerNRingN[12][11]->Fill(mod,1./nentries);break;
+					        case 12: nStubLayerNRingN[12][12]->Fill(mod,1./nentries);break; 
+					        case 13: nStubLayerNRingN[12][13]->Fill(mod,1./nentries);break; 
+				        	case 14: nStubLayerNRingN[12][14]->Fill(mod,1./nentries);break; 
 						default:break;
 					}
 					break;
-				case 13: 
+						case 13: 
 					nSTUB_Layer13->Fill(lad,1./nentries/ring_nModule_Map_[lad]);
 					switch(lad) {
-						case 0: nStubLayerNRingN[13][0]->Fill(mod,1./nentries);break;
-						case 1: nStubLayerNRingN[13][1]->Fill(mod,1./nentries);break;
-						case 2: nStubLayerNRingN[13][2]->Fill(mod,1./nentries);break;
-						case 3: nStubLayerNRingN[13][3]->Fill(mod,1./nentries);break;
-						case 4: nStubLayerNRingN[13][4]->Fill(mod,1./nentries);break;
-						case 5: nStubLayerNRingN[13][5]->Fill(mod,1./nentries);break;
-						case 6: nStubLayerNRingN[13][6]->Fill(mod,1./nentries);break;
-						case 7: nStubLayerNRingN[13][7]->Fill(mod,1./nentries);break;
-						case 8: nStubLayerNRingN[13][8]->Fill(mod,1./nentries);break;
-						case 9: nStubLayerNRingN[13][9]->Fill(mod,1./nentries);break;
-						case 10: nStubLayerNRingN[13][10]->Fill(mod,1./nentries);break;
-						case 11: nStubLayerNRingN[13][11]->Fill(mod,1./nentries);break;
+					case 0: nStubLayerNRingN[13][0]->Fill(mod,1./nentries);break; 
+               					case 1: nStubLayerNRingN[13][1]->Fill(mod,1./nentries);break;
+		         			case 2: nStubLayerNRingN[13][2]->Fill(mod,1./nentries);break; 
+	            				case 3: nStubLayerNRingN[13][3]->Fill(mod,1./nentries);break; 
+			        		case 4: nStubLayerNRingN[13][4]->Fill(mod,1./nentries);break; 
+				        	case 5: nStubLayerNRingN[13][5]->Fill(mod,1./nentries);break; 
+			        		case 6: nStubLayerNRingN[13][6]->Fill(mod,1./nentries);break; 
+             					case 7: nStubLayerNRingN[13][7]->Fill(mod,1./nentries);break; 
+					        case 8: nStubLayerNRingN[13][8]->Fill(mod,1./nentries);break; 
+					case 9: nStubLayerNRingN[13][9]->Fill(mod,1./nentries);break; 
+					case 10: nStubLayerNRingN[13][10]->Fill(mod,1./nentries);break;   
+					case 11: nStubLayerNRingN[13][11]->Fill(mod,1./nentries);break;
 						case 12: nStubLayerNRingN[13][12]->Fill(mod,1./nentries);break;
 						case 13: nStubLayerNRingN[13][13]->Fill(mod,1./nentries);break;
 						case 14: nStubLayerNRingN[13][14]->Fill(mod,1./nentries);break;
-						default:break;
-					}
+    					        default:break;
+					} 
 					break;
-				case 14: 
+		       	           case 14: 
 					nSTUB_Layer14->Fill(lad,1./nentries/ring_nModule_Map_[lad]);
 					switch(lad) {
 						case 0: nStubLayerNRingN[14][0]->Fill(mod,1./nentries);break;
@@ -729,7 +779,7 @@ void ReadTree::Loop()
 
 				default: break;
 			}
-
+		
 			bool inTowerN[48] = {false}; //Endcap: 0-7,40,47; Hybird: 8-15,32-39; Barrel: 16-23,24-31; 
 			for (unsigned j=0; j<triggerTowerReverseMap_[moduleId].size(); j++) {
 				int getTower = triggerTowerReverseMap_[moduleId].at(j);
@@ -865,17 +915,21 @@ void ReadTree::Loop()
 					default: break;
 				}
 			}
-
+		
 			if (inTowerN[27]) {
-				//stub_ttN[27]++;
-				switch (lay) {
+				stub_ttN[27]++;
+		       		switch (lay) {
 					case 5: 
 						occupancyTower27Layer5->Fill(mod,lad,1./nentries);
 						stub_ttN_lN[27][5]++;
+
+						if((lad == 2) || (lad == 3 && mod < 34)) {stub_ttN_lN_ladN_modN[27][5][0]++;} //HERE
+						if((lad == 4) || (lad == 3 && mod >= 34)) {stub_ttN_lN_ladN_modN[27][5][1]++;}
+
 						if (lad==3 && mod==33) {stub_tt27_lN_ladN_modN[5][3][33]++;stub_roads++;}
 						if (lad==3 && mod==34) {stub_tt27_lN_ladN_modN[5][3][34]++;stub_roads++;}
 						// stub rate for ss with fountain approach sf1z1,2,4
-						if (lad==3) {
+						if (lad==2) {
 							if (localPhi<(9)) {
 								stub_sf1_lN_PhiN_z1[5][0][0]++;
 								if (mod==30||mod==31||mod==32||mod==33) { stub_sf1_lN_PhiN_z2[5][0][0]++;}
@@ -907,19 +961,11 @@ void ReadTree::Loop()
 								stub_sf1_lN_PhiN_z1[6][0][0]++;
 								if (mod>=26&&mod<31) { stub_sf1_lN_PhiN_z2[6][0][0]++;}
 								if (mod>=31&&mod<36) { stub_sf1_lN_PhiN_z2[6][0][1]++;}
-								if (mod==26||mod==27||(mod==28&&localZ>15)) { stub_sf1_lN_PhiN_z4[6][0][0]++;}
-								if (mod==29||mod==30||(mod==28&&localZ<16)) { stub_sf1_lN_PhiN_z4[6][0][1]++;}
-								if (mod==31||mod==32||(mod==33&&localZ>15)) { stub_sf1_lN_PhiN_z4[6][0][2]++;}
-								if (mod==34||mod==35||(mod==33&&localZ<16)) { stub_sf1_lN_PhiN_z4[6][0][3]++;}
 							}
 							if (localPhi>=(480-8) && localPhi<(480+8)) {
 								stub_sf1_lN_PhiN_z1[6][1][0]++;
 								if (mod>=26&&mod<31) { stub_sf1_lN_PhiN_z2[6][1][0]++;}
 								if (mod>=31&&mod<36) { stub_sf1_lN_PhiN_z2[6][1][1]++;}
-								if (mod==26||mod==27||(mod==28&&localZ>15)) { stub_sf1_lN_PhiN_z4[6][1][0]++;}
-								if (mod==29||mod==30||(mod==28&&localZ<16)) { stub_sf1_lN_PhiN_z4[6][1][1]++;}
-								if (mod==31||mod==32||(mod==33&&localZ>15)) { stub_sf1_lN_PhiN_z4[6][1][2]++;}
-								if (mod==34||mod==35||(mod==33&&localZ<16)) { stub_sf1_lN_PhiN_z4[6][1][3]++;}
 							}
 						}
 						break;
@@ -933,19 +979,11 @@ void ReadTree::Loop()
 								stub_sf1_lN_PhiN_z1[7][0][0]++;
 								if (mod>=26&&mod<32) { stub_sf1_lN_PhiN_z2[7][0][0]++;}
 								if (mod>=32&&mod<38) { stub_sf1_lN_PhiN_z2[7][0][1]++;}
-								if (mod>=26&&mod<29) { stub_sf1_lN_PhiN_z4[7][0][0]++;}
-								if (mod>=29&&mod<32) { stub_sf1_lN_PhiN_z4[7][0][1]++;}
-								if (mod>=32&&mod<35) { stub_sf1_lN_PhiN_z4[7][0][2]++;}
-								if (mod>=35&&mod<38) { stub_sf1_lN_PhiN_z4[7][0][3]++;}
 							}
 							if (localPhi>=(480-11) && localPhi<(480+12)) {
 								stub_sf1_lN_PhiN_z1[7][1][0]++;
 								if (mod>=26&&mod<32) { stub_sf1_lN_PhiN_z2[7][1][0]++;}
 								if (mod>=32&&mod<38) { stub_sf1_lN_PhiN_z2[7][1][1]++;}
-								if (mod>=26&&mod<29) { stub_sf1_lN_PhiN_z4[7][1][0]++;}
-								if (mod>=29&&mod<32) { stub_sf1_lN_PhiN_z4[7][1][1]++;}
-								if (mod>=32&&mod<35) { stub_sf1_lN_PhiN_z4[7][1][2]++;}
-								if (mod>=35&&mod<38) { stub_sf1_lN_PhiN_z4[7][1][3]++;}
 							}
 						}
 						break;
@@ -954,50 +992,36 @@ void ReadTree::Loop()
 						stub_ttN_lN[27][8]++;
 						if (lad==8 && mod==14) {stub_tt27_lN_ladN_modN[8][8][14]++;stub_roads++;}
 						if (lad==9 && mod==14) {stub_tt27_lN_ladN_modN[8][9][14]++;stub_roads++;}
-						if (lad==9) {
+						if (lad==10) {
 							if (localPhi<(37)) {
 								stub_sf1_lN_PhiN_z1[8][0][0]++;
 								if ((mod>=11&&mod<14)||(mod==14&&localZ==1)) { stub_sf1_lN_PhiN_z2[8][0][0]++;}
-								if ((mod>=15&&mod<18)||(mod==14&&localZ==0)) { stub_sf1_lN_PhiN_z2[8][0][1]++;}
-								if (mod==11||mod==12) { stub_sf1_lN_PhiN_z4[8][0][0]++;}
-								if (mod==13||mod==14) { stub_sf1_lN_PhiN_z4[8][0][1]++;}
-								if (mod==15||mod==16) { stub_sf1_lN_PhiN_z4[8][0][2]++;}
-								if (mod==17||mod==18) { stub_sf1_lN_PhiN_z4[8][0][3]++;}
+								if ((mod>=15&&mod<19)||(mod==14&&localZ==0)) { stub_sf1_lN_PhiN_z2[8][0][1]++;}
 							}
 							if (localPhi>=(508-18) && localPhi<(508+19)) {
 								stub_sf1_lN_PhiN_z1[8][1][0]++;
 								if ((mod>=11&&mod<14)||(mod==14&&localZ==1)) { stub_sf1_lN_PhiN_z2[8][1][0]++;}
-								if ((mod>=15&&mod<18)||(mod==14&&localZ==0)) { stub_sf1_lN_PhiN_z2[8][1][1]++;}
-								if (mod==11||mod==12) { stub_sf1_lN_PhiN_z4[8][1][0]++;}
-								if (mod==13||mod==14) { stub_sf1_lN_PhiN_z4[8][1][1]++;}
-								if (mod==15||mod==16) { stub_sf1_lN_PhiN_z4[8][1][2]++;}
-								if (mod==17||mod==18) { stub_sf1_lN_PhiN_z4[8][1][3]++;}
+								if ((mod>=15&&mod<19)||(mod==14&&localZ==0)) { stub_sf1_lN_PhiN_z2[8][1][1]++;}
 							}
 						}
 						break;
 					case 9: 
 						occupancyTower27Layer9->Fill(mod,lad,1./nentries);
 						stub_ttN_lN[27][9]++;
+						if (lad < 12) stub_ttN_lN_ladN_modN[27][9][0]++; //HERE
+						if (lad >= 12) stub_ttN_lN_ladN_modN[27][9][1]++;
 						if (lad==10 && mod==15) {stub_tt27_lN_ladN_modN[9][10][15]++;stub_roads++;}
 						if (lad==11 && mod==15) {stub_tt27_lN_ladN_modN[9][11][15]++;stub_roads++;}
-						if (lad==12) {
+						if (lad==14) {
 							if (localPhi<(51)) {
 								stub_sf1_lN_PhiN_z1[9][0][0]++;
 								if ((mod>=11&&mod<15)||(mod==15&&localZ==1)) { stub_sf1_lN_PhiN_z2[9][0][0]++;}
 								if ((mod>=16&&mod<20)||(mod==15&&localZ==0)) { stub_sf1_lN_PhiN_z2[9][0][1]++;}
-								if (mod==11||mod==12) { stub_sf1_lN_PhiN_z4[9][0][0]++;}
-								if (mod==13||mod==14) { stub_sf1_lN_PhiN_z4[9][0][1]++;}
-								if (mod==15||mod==16) { stub_sf1_lN_PhiN_z4[9][0][2]++;}
-								if (mod==17||mod==18) { stub_sf1_lN_PhiN_z4[9][0][3]++;}
 							}
 							if (localPhi>=(508-25) && localPhi<(508+26)) {
 								stub_sf1_lN_PhiN_z1[9][1][0]++;
 								if ((mod>=11&&mod<15)||(mod==15&&localZ==1)) { stub_sf1_lN_PhiN_z2[9][1][0]++;}
 								if ((mod>=16&&mod<20)||(mod==15&&localZ==0)) { stub_sf1_lN_PhiN_z2[9][1][1]++;}
-								if (mod==11||mod==12) { stub_sf1_lN_PhiN_z4[9][1][0]++;}
-								if (mod==13||mod==14) { stub_sf1_lN_PhiN_z4[9][1][1]++;}
-								if (mod==15||mod==16) { stub_sf1_lN_PhiN_z4[9][1][2]++;}
-								if (mod==17||mod==18) { stub_sf1_lN_PhiN_z4[9][1][3]++;}
 							}
 						}                 
 						break;
@@ -1010,7 +1034,7 @@ void ReadTree::Loop()
 						if (lad==12 && mod==16) {stub_tt27_lN_ladN_modN[10][12][16]++;stub_roads++;}
 						if (lad==13 && mod==16) {stub_tt27_lN_ladN_modN[10][13][16]++;stub_roads++;}
 						if (lad==14 && mod==16) {stub_tt27_lN_ladN_modN[10][14][16]++;stub_roads++;}
-						if (lad==14) {
+						if (lad==17) {
 							if (localPhi<69) {
 								if (jentry==277 || jentry==492 || jentry==530 || jentry==815) cout<<"mod="<<mod<<", local Z="<<localZ<<", local phi="<<localPhi<<", roughPt="<<roughPt<<", simPt="<<simPt<<endl;
 								stub_sf1_lN_PhiN_z1[10][0][0]++;
@@ -1034,24 +1058,47 @@ void ReadTree::Loop()
 						break;
 					default: break;
 				}
-				for (int m=0;m<40;m++) {
-					//std::cout<<moduleId<<" "<<OutputModule[0][m]<<" "<<stub_tt27_board01<<std::endl;
-					if (moduleId == OutputModule[0][m]) stub_tt27_board01++;
-				}
+				//				for (int board = 0; board<10; board++){ //HERE
+				  for (int m=0;m<50;m++) { //HERE
+				    //std::cout<<moduleId<<" "<<OutputModule[0][m]<<" "<<stub_tt27_board01<<std::endl;
+				    //				    if (moduleId == OutputModule[board][m]) stub_tt27_board01++;
+				    if (moduleId == OutputModule[0][m]) stub_tt27_board01++; //HERE
+				    if (moduleId == OutputModule[1][m]) stub_tt27_board02++; 
+				    if (moduleId == OutputModule[2][m]) stub_tt27_board03++; 
+				    if (moduleId == OutputModule[3][m]) stub_tt27_board04++;
+				    if (moduleId == OutputModule[4][m]) stub_tt27_board05++; 
+				    if (moduleId == OutputModule[5][m]) stub_tt27_board06++; 
+				    if (moduleId == OutputModule[6][m]) stub_tt27_board07++; 
+				    if (moduleId == OutputModule[7][m]) stub_tt27_board08++; 
+				    if (moduleId == OutputModule[8][m]) stub_tt27_board09++; 
+				    if (moduleId == OutputModule[9][m]) stub_tt27_board10++; 
+				  }
 			}
+		
 			if (inTowerN[8]) stub_ttN[8]++;
 			if (inTowerN[0]) stub_ttN[0]++;
 		}
-
+	
 		nStubGlobal->Fill(nstubs);
 		nStubGlobal_3GeV->Fill(stub_global_3GeV);
 
+		nStubTowerN[27]->Fill(stub_ttN[27]);
 		nStubTowerN[16]->Fill(stub_ttN[16]);
 		nStubTowerN[8]->Fill(stub_ttN[8]);
 		nStubTowerN[0]->Fill(stub_ttN[0]);
-
-		nSTUB_board01->Fill(stub_tt27_board01);
-
+	
+		//		nSTUB_board01->Fill(stub_tt27_board01);
+		nSTUB_boardN[0]->Fill(stub_tt27_board01); //cout <<"b01 = "<<stub_tt27_board01<<endl; //HERE
+		nSTUB_boardN[1]->Fill(stub_tt27_board02); //cout <<"b02 = "<<stub_tt27_board02<<endl;
+		nSTUB_boardN[2]->Fill(stub_tt27_board03); //cout <<"b03 = "<<stub_tt27_board03<<endl;
+		nSTUB_boardN[3]->Fill(stub_tt27_board04); //cout <<"b04 = "<<stub_tt27_board04<<endl;
+		nSTUB_boardN[4]->Fill(stub_tt27_board05); //cout <<"b05 = "<<stub_tt27_board05<<endl;
+		nSTUB_boardN[5]->Fill(stub_tt27_board06); //cout <<"b06 = "<<stub_tt27_board06<<endl;
+		nSTUB_boardN[6]->Fill(stub_tt27_board07); //cout <<"b07 = "<<stub_tt27_board07<<endl;
+		nSTUB_boardN[7]->Fill(stub_tt27_board08); //cout <<"b08 = "<<stub_tt27_board08<<endl;
+		nSTUB_boardN[8]->Fill(stub_tt27_board09); //cout <<"b09 = "<<stub_tt27_board09<<endl;
+		nSTUB_boardN[9]->Fill(stub_tt27_board10); //cout <<"b10 = "<<stub_tt27_board10<<endl;
+	
 		nStubTowerNLayerN[16][5]->Fill(stub_ttN_lN[16][5]);
 		nStubTowerNLayerN[16][6]->Fill(stub_ttN_lN[16][6]);
 		nStubTowerNLayerN[16][7]->Fill(stub_ttN_lN[16][7]);
@@ -1064,7 +1111,29 @@ void ReadTree::Loop()
 		nStubTowerNLayerN[27][8]->Fill(stub_ttN_lN[27][8]);
 		nStubTowerNLayerN[27][9]->Fill(stub_ttN_lN[27][9]);
 		nStubTowerNLayerN[27][10]->Fill(stub_ttN_lN[27][10]);
+		
+		nStubTowerNLayerNLayerM[27][0]->Fill(stub_ttN_lN[27][5]+stub_ttN_lN[27][6]);
+		nStubTowerNLayerNLayerM[27][1]->Fill(stub_ttN_lN[27][5]+stub_ttN_lN[27][7]);
+		nStubTowerNLayerNLayerM[27][2]->Fill(stub_ttN_lN[27][5]+stub_ttN_lN[27][8]);
+		nStubTowerNLayerNLayerM[27][3]->Fill(stub_ttN_lN[27][5]+stub_ttN_lN[27][9]);
+		nStubTowerNLayerNLayerM[27][4]->Fill(stub_ttN_lN[27][5]+stub_ttN_lN[27][10]);
+		nStubTowerNLayerNLayerM[27][5]->Fill(stub_ttN_lN[27][6]+stub_ttN_lN[27][7]);
+		nStubTowerNLayerNLayerM[27][6]->Fill(stub_ttN_lN[27][6]+stub_ttN_lN[27][8]);
+		nStubTowerNLayerNLayerM[27][7]->Fill(stub_ttN_lN[27][6]+stub_ttN_lN[27][9]);
+		nStubTowerNLayerNLayerM[27][8]->Fill(stub_ttN_lN[27][6]+stub_ttN_lN[27][10]);
+		nStubTowerNLayerNLayerM[27][9]->Fill(stub_ttN_lN[27][7]+stub_ttN_lN[27][8]);
+		nStubTowerNLayerNLayerM[27][10]->Fill(stub_ttN_lN[27][7]+stub_ttN_lN[27][9]);
+		nStubTowerNLayerNLayerM[27][11]->Fill(stub_ttN_lN[27][7]+stub_ttN_lN[27][10]);
+		nStubTowerNLayerNLayerM[27][12]->Fill(stub_ttN_lN[27][8]+stub_ttN_lN[27][9]);
+		nStubTowerNLayerNLayerM[27][13]->Fill(stub_ttN_lN[27][8]+stub_ttN_lN[27][10]);
+		nStubTowerNLayerNLayerM[27][14]->Fill(stub_ttN_lN[27][9]+stub_ttN_lN[27][10]);
 
+		nStubTowerNLayerNLayerMfirsthalf->Fill(stub_ttN_lN[27][8]+stub_ttN_lN_ladN_modN[27][9][0]);
+		nStubTowerNLayerNLayerMsechalf->Fill(stub_ttN_lN_ladN_modN[27][9][1]+stub_ttN_lN[27][10]);
+
+		nStubTowerNLayerNfirsthalf->Fill(stub_ttN_lN_ladN_modN[27][5][0]);
+		nStubTowerNLayerNsechalf->Fill(stub_ttN_lN_ladN_modN[27][5][1]);
+		
 		nStubTower16LayerNladNmodN[5][12][25]->Fill(stub_tt16_lN_ladN_modN[5][12][25]);
 		nStubTower16LayerNladNmodN[5][12][26]->Fill(stub_tt16_lN_ladN_modN[5][12][26]);
 		nStubTower16LayerNladNmodN[5][12][27]->Fill(stub_tt16_lN_ladN_modN[5][12][27]);
@@ -1089,28 +1158,28 @@ void ReadTree::Loop()
 		nStubTower16LayerNladNmodN[5][14][30]->Fill(stub_tt16_lN_ladN_modN[5][14][30]);
 		nStubTower16LayerNladNmodN[5][14][31]->Fill(stub_tt16_lN_ladN_modN[5][14][31]);
 		nStubTower16LayerNladNmodN[5][14][32]->Fill(stub_tt16_lN_ladN_modN[5][14][32]);
-
+		
 		nStubTower16LayerNladNmodN[6][18][23]->Fill(stub_tt16_lN_ladN_modN[6][18][23]);
 		nStubTower16LayerNladNmodN[6][18][24]->Fill(stub_tt16_lN_ladN_modN[6][18][24]);
 		nStubTower16LayerNladNmodN[6][18][25]->Fill(stub_tt16_lN_ladN_modN[6][18][25]);
 		nStubTower16LayerNladNmodN[6][18][26]->Fill(stub_tt16_lN_ladN_modN[6][18][26]);
 		nStubTower16LayerNladNmodN[6][18][27]->Fill(stub_tt16_lN_ladN_modN[6][18][27]);
 		nStubTower16LayerNladNmodN[6][18][28]->Fill(stub_tt16_lN_ladN_modN[6][18][28]);
-
+		
 		nStubTower16LayerNladNmodN[7][25][23]->Fill(stub_tt16_lN_ladN_modN[7][25][23]);
 		nStubTower16LayerNladNmodN[7][25][24]->Fill(stub_tt16_lN_ladN_modN[7][25][24]);
 		nStubTower16LayerNladNmodN[7][25][25]->Fill(stub_tt16_lN_ladN_modN[7][25][25]);
 		nStubTower16LayerNladNmodN[7][25][26]->Fill(stub_tt16_lN_ladN_modN[7][25][26]);
 		nStubTower16LayerNladNmodN[7][25][27]->Fill(stub_tt16_lN_ladN_modN[7][25][27]);
 		nStubTower16LayerNladNmodN[7][25][28]->Fill(stub_tt16_lN_ladN_modN[7][25][28]);
-
+		
 		nStubTower16LayerNladNmodN[8][36][7]->Fill(stub_tt16_lN_ladN_modN[8][36][7]);
 		nStubTower16LayerNladNmodN[8][36][8]->Fill(stub_tt16_lN_ladN_modN[8][36][8]);
 		nStubTower16LayerNladNmodN[8][36][9]->Fill(stub_tt16_lN_ladN_modN[8][36][9]);
 		nStubTower16LayerNladNmodN[8][36][10]->Fill(stub_tt16_lN_ladN_modN[8][36][10]);
 		nStubTower16LayerNladNmodN[8][36][11]->Fill(stub_tt16_lN_ladN_modN[8][36][11]);
 		nStubTower16LayerNladNmodN[8][36][12]->Fill(stub_tt16_lN_ladN_modN[8][36][12]);
-
+		
 		nStubTower16LayerNladNmodN[9][46][7]->Fill(stub_tt16_lN_ladN_modN[9][46][7]);
 		nStubTower16LayerNladNmodN[9][46][8]->Fill(stub_tt16_lN_ladN_modN[9][46][8]);
 		nStubTower16LayerNladNmodN[9][46][9]->Fill(stub_tt16_lN_ladN_modN[9][46][9]);
@@ -1194,38 +1263,6 @@ void ReadTree::Loop()
 		nStubTower27LayerNPhibinN_z4[5][1][1]->Fill(stub_sf1_lN_PhiN_z4[5][1][1]);
 		nStubTower27LayerNPhibinN_z4[5][1][2]->Fill(stub_sf1_lN_PhiN_z4[5][1][2]);
 		nStubTower27LayerNPhibinN_z4[5][1][3]->Fill(stub_sf1_lN_PhiN_z4[5][1][3]);
-		nStubTower27LayerNPhibinN_z4[6][0][0]->Fill(stub_sf1_lN_PhiN_z4[6][0][0]);
-		nStubTower27LayerNPhibinN_z4[6][0][1]->Fill(stub_sf1_lN_PhiN_z4[6][0][1]);
-		nStubTower27LayerNPhibinN_z4[6][0][2]->Fill(stub_sf1_lN_PhiN_z4[6][0][2]);
-		nStubTower27LayerNPhibinN_z4[6][0][3]->Fill(stub_sf1_lN_PhiN_z4[6][0][3]);
-		nStubTower27LayerNPhibinN_z4[6][1][0]->Fill(stub_sf1_lN_PhiN_z4[6][1][0]);
-		nStubTower27LayerNPhibinN_z4[6][1][1]->Fill(stub_sf1_lN_PhiN_z4[6][1][1]);
-		nStubTower27LayerNPhibinN_z4[6][1][2]->Fill(stub_sf1_lN_PhiN_z4[6][1][2]);
-		nStubTower27LayerNPhibinN_z4[6][1][3]->Fill(stub_sf1_lN_PhiN_z4[6][1][3]);
-		nStubTower27LayerNPhibinN_z4[7][0][0]->Fill(stub_sf1_lN_PhiN_z4[7][0][0]);
-		nStubTower27LayerNPhibinN_z4[7][0][1]->Fill(stub_sf1_lN_PhiN_z4[7][0][1]);
-		nStubTower27LayerNPhibinN_z4[7][0][2]->Fill(stub_sf1_lN_PhiN_z4[7][0][2]);
-		nStubTower27LayerNPhibinN_z4[7][0][3]->Fill(stub_sf1_lN_PhiN_z4[7][0][3]);
-		nStubTower27LayerNPhibinN_z4[7][1][0]->Fill(stub_sf1_lN_PhiN_z4[7][1][0]);
-		nStubTower27LayerNPhibinN_z4[7][1][1]->Fill(stub_sf1_lN_PhiN_z4[7][1][1]);
-		nStubTower27LayerNPhibinN_z4[7][1][2]->Fill(stub_sf1_lN_PhiN_z4[7][1][2]);
-		nStubTower27LayerNPhibinN_z4[7][1][3]->Fill(stub_sf1_lN_PhiN_z4[7][1][3]);
-		nStubTower27LayerNPhibinN_z4[8][0][0]->Fill(stub_sf1_lN_PhiN_z4[8][0][0]);
-		nStubTower27LayerNPhibinN_z4[8][0][1]->Fill(stub_sf1_lN_PhiN_z4[8][0][1]);
-		nStubTower27LayerNPhibinN_z4[8][0][2]->Fill(stub_sf1_lN_PhiN_z4[8][0][2]);
-		nStubTower27LayerNPhibinN_z4[8][0][3]->Fill(stub_sf1_lN_PhiN_z4[8][0][3]);
-		nStubTower27LayerNPhibinN_z4[8][1][0]->Fill(stub_sf1_lN_PhiN_z4[8][1][0]);
-		nStubTower27LayerNPhibinN_z4[8][1][1]->Fill(stub_sf1_lN_PhiN_z4[8][1][1]);
-		nStubTower27LayerNPhibinN_z4[8][1][2]->Fill(stub_sf1_lN_PhiN_z4[8][1][2]);
-		nStubTower27LayerNPhibinN_z4[8][1][3]->Fill(stub_sf1_lN_PhiN_z4[8][1][3]);
-		nStubTower27LayerNPhibinN_z4[9][0][0]->Fill(stub_sf1_lN_PhiN_z4[9][0][0]);
-		nStubTower27LayerNPhibinN_z4[9][0][1]->Fill(stub_sf1_lN_PhiN_z4[9][0][1]);
-		nStubTower27LayerNPhibinN_z4[9][0][2]->Fill(stub_sf1_lN_PhiN_z4[9][0][2]);
-		nStubTower27LayerNPhibinN_z4[9][0][3]->Fill(stub_sf1_lN_PhiN_z4[9][0][3]);
-		nStubTower27LayerNPhibinN_z4[9][1][0]->Fill(stub_sf1_lN_PhiN_z4[9][1][0]);
-		nStubTower27LayerNPhibinN_z4[9][1][1]->Fill(stub_sf1_lN_PhiN_z4[9][1][1]);
-		nStubTower27LayerNPhibinN_z4[9][1][2]->Fill(stub_sf1_lN_PhiN_z4[9][1][2]);
-		nStubTower27LayerNPhibinN_z4[9][1][3]->Fill(stub_sf1_lN_PhiN_z4[9][1][3]);
 		nStubTower27LayerNPhibinN_z4[10][0][0]->Fill(stub_sf1_lN_PhiN_z4[10][0][0]);
 		nStubTower27LayerNPhibinN_z4[10][0][1]->Fill(stub_sf1_lN_PhiN_z4[10][0][1]);
 		nStubTower27LayerNPhibinN_z4[10][0][2]->Fill(stub_sf1_lN_PhiN_z4[10][0][2]);
@@ -1234,13 +1271,11 @@ void ReadTree::Loop()
 		nStubTower27LayerNPhibinN_z4[10][1][1]->Fill(stub_sf1_lN_PhiN_z4[10][1][1]);
 		nStubTower27LayerNPhibinN_z4[10][1][2]->Fill(stub_sf1_lN_PhiN_z4[10][1][2]);
 		nStubTower27LayerNPhibinN_z4[10][1][3]->Fill(stub_sf1_lN_PhiN_z4[10][1][3]);
-
-
-
+	
 		nStubRoads->Fill(stub_roads);
 	}
 
-
+	
 	TDirectory *DirLayer[24];
 	for (int i=0;i<25;i++) {
 		sprintf(str,"Layer%02d",i);
@@ -1254,19 +1289,8 @@ void ReadTree::Loop()
 	}  
 
 	//Loop with the geometry map
-	int Nps=0; int N2s=0; int NpsWithOverlap=0; int N2sWithOverlap=0;
 	for (auto it: triggerTowerReverseMap_) {
-		//if (it.second.size()==0) continue;
 		Tower_perModule->Fill(it.second.size());
-		if (decodeLayer(it.first)<8 || decodeLayer(it.first)>10 && decodeLadder(it.first)<9) {
-			Nps++;
-			NpsWithOverlap+=(it.second.size());
-		}
-		else {
-			N2s++;
-			N2sWithOverlap+=(it.second.size());
-		}
-
 		// it.first (key, here is the moduleId); triggerTowerReverseMap_[it.first] (value, here is a vector of towers) 
 		// it.second.size() == triggerTowerReverseMap_[it.first].size()
 		for (unsigned j=0; j<triggerTowerReverseMap_[it.first].size(); j++) {
@@ -1279,13 +1303,10 @@ void ReadTree::Loop()
 			else Module_inEachTower_merge->Fill(triggerTowerReverseMap_[it.first].at(j));
 		}   
 	}   
-	std::cout<<"Nps="<<Nps<<", N2s="<<N2s<<", total="<<Nps+N2s<<std::endl;
-	std::cout<<"NpsWithOverlap="<<NpsWithOverlap<<", N2sWithOverlap="<<N2sWithOverlap<<", total="<<NpsWithOverlap+N2sWithOverlap<<std::endl;
-
 
 	TLatex L1;
 	L1.SetNDC();
-
+	/*
 	TCanvas *c0 = new TCanvas("c0","c0");
 	c0->cd();
 	Tower_perModule->SetFillColor(kYellow-9);
@@ -1532,6 +1553,7 @@ void ReadTree::Loop()
 	c9->SaveAs("plots/nSTUB_perTower.pdf");
 
 	gStyle->SetOptStat(1111);	
+	*/
 
 	TCanvas *c10 = new TCanvas("c10","c10",900,600);
 	c10->Divide(3,2);
@@ -1551,8 +1573,130 @@ void ReadTree::Loop()
 		L1.DrawLatex(0.2,0.95,str);
 	}   
 	c10->SaveAs("plots/nStubTower27allLayers.pdf");
+	
+	TCanvas *c10a = new TCanvas("c10a","c10a",900,600);
+	c10a->Divide(3,2);
+	for (int m=0;m<5;m++){
+		c10a->cd(m+1);
+		nStubTowerNLayerNLayerM[27][m]->SetFillColor(kMagenta-8);
+		nStubTowerNLayerNLayerM[27][m]->SetBit(TH1::kNoTitle);
+		nStubTowerNLayerNLayerM[27][m]->Draw();
+		sprintf(str,"TriggerTower27, Layer%02d Layer%02d",5,m+6);
+		L1.DrawLatex(0.2,0.95,str);
+	  }
+	c10a->SaveAs("plots/nStubTower27combLayers6.pdf");
 
+	TCanvas *c10b = new TCanvas("c10b","c10b",900,600);
+	c10b->Divide(3,2);
+	for (int m=5;m<9;m++){
+		c10b->cd(m-4);
+		nStubTowerNLayerNLayerM[27][m]->SetFillColor(kMagenta-8);
+		nStubTowerNLayerNLayerM[27][m]->SetBit(TH1::kNoTitle);
+		nStubTowerNLayerNLayerM[27][m]->Draw();
+		sprintf(str,"TriggerTower27, Layer%02d Layer%02d",6,m+2);
+		L1.DrawLatex(0.2,0.95,str);
+	  }
+	c10b->SaveAs("plots/nStubTower27combLayers7.pdf");
 
+	TCanvas *c10c = new TCanvas("c10c","c10c",900,600);
+	c10c->Divide(3,1);
+	c10c->cd(1);
+	nStubTowerNLayerNLayerM[27][9]->SetFillColor(kMagenta-8);
+	nStubTowerNLayerNLayerM[27][9]->SetBit(TH1::kNoTitle);
+	nStubTowerNLayerNLayerM[27][9]->Draw();
+	sprintf(str,"TriggerTower27, Layer%02d + Layer%02d",7,8);
+	L1.DrawLatex(0.1,0.95,str);
+	c10c->cd(2);
+	nStubTowerNLayerNLayerM[27][12]->SetFillColor(kMagenta-8);
+	nStubTowerNLayerNLayerM[27][12]->SetBit(TH1::kNoTitle);
+	nStubTowerNLayerNLayerM[27][12]->Draw();
+	sprintf(str,"TriggerTower27, Layer%02d + Layer%02d",8,9);
+	L1.DrawLatex(0.1,0.95,str);
+	c10c->cd(3);
+	nStubTowerNLayerNLayerM[27][14]->SetFillColor(kMagenta-8);
+	nStubTowerNLayerNLayerM[27][14]->SetBit(TH1::kNoTitle);
+	nStubTowerNLayerNLayerM[27][14]->Draw();
+	sprintf(str,"TriggerTower27, Layer%02d + Layer%02d",9,10);
+	L1.DrawLatex(0.1,0.95,str);
+	/*	for (int m=9;m<12;m++){
+		c10c->cd(m-8);
+		nStubTowerNLayerNLayerM[27][m]->SetFillColor(kMagenta-8);
+		nStubTowerNLayerNLayerM[27][m]->SetBit(TH1::kNoTitle);
+		nStubTowerNLayerNLayerM[27][m]->Draw();
+		sprintf(str,"TriggerTower27, Layer%02d + Layer%02d",7,m-1);
+		L1.DrawLatex(0.1,0.95,str);
+	  }
+	for (int m=12;m<14;m++){
+		c10c->cd(m-8);
+		nStubTowerNLayerNLayerM[27][m]->SetFillColor(kMagenta-8);
+		nStubTowerNLayerNLayerM[27][m]->SetBit(TH1::kNoTitle);
+		nStubTowerNLayerNLayerM[27][m]->Draw();
+		sprintf(str,"TriggerTower27, Layer%02d + Layer%02d",8,m-3);
+		L1.DrawLatex(0.1,0.95,str);
+	  }
+	for (int m=14;m<15;m++){
+		c10c->cd(m-8);
+		nStubTowerNLayerNLayerM[27][m]->SetFillColor(kMagenta-8);
+		nStubTowerNLayerNLayerM[27][m]->SetBit(TH1::kNoTitle);
+		nStubTowerNLayerNLayerM[27][m]->Draw();
+		sprintf(str,"TriggerTower27, Layer%02d + Layer%02d",9,m-4);
+		L1.DrawLatex(0.1,0.95,str);
+		}*/
+	c10c->SaveAs("plots/nStubTower27combLayers789.pdf");
+
+	TCanvas *c10d = new TCanvas("c10d","c10d",900,600);
+	c10d->Divide(2,1);
+	c10d->cd(1);
+	nStubTowerNLayerNLayerMfirsthalf->SetFillColor(kMagenta-8);
+	nStubTowerNLayerNLayerMfirsthalf->SetBit(TH1::kNoTitle);
+	nStubTowerNLayerNLayerMfirsthalf->Draw();
+	sprintf(str,"TT27, Layer%02d + Layer%02d(phiID = 7 - 11)",8,9);
+	L1.DrawLatex(0.1,0.95,str);
+	c10d->cd(2);
+	nStubTowerNLayerNLayerMsechalf->SetFillColor(kMagenta-8);
+	nStubTowerNLayerNLayerMsechalf->SetBit(TH1::kNoTitle);
+	nStubTowerNLayerNLayerMsechalf->Draw();
+        sprintf(str,"TT27, Layer%02d(phiID= 12 - 16) + Layer%02d",9,10);
+	L1.DrawLatex(0.1,0.95,str);
+	c10d->SaveAs("plots/nStubTower27combLayers89split10.pdf");
+
+	TCanvas *c10e = new TCanvas("c10e","c10e",900,600);
+	c10e->Divide(3,2);
+	c10e->cd(1);
+	nStubTowerNLayerNfirsthalf->SetFillColor(kMagenta-8);
+	nStubTowerNLayerNfirsthalf->SetBit(TH1::kNoTitle);
+	nStubTowerNLayerNfirsthalf->Draw();
+	sprintf(str,"TT27, Layer%02d (half)",5);
+	L1.DrawLatex(0.1,0.95,str);
+	c10e->cd(2);
+	nStubTowerNLayerNsechalf->SetFillColor(kMagenta-8);
+	nStubTowerNLayerNsechalf->SetBit(TH1::kNoTitle);
+	nStubTowerNLayerNsechalf->Draw();
+	sprintf(str,"TT27, Layer%02d (half)",5);
+	L1.DrawLatex(0.1,0.95,str);
+	for (int i=0;i<2;i++){
+		c10e->cd(i+3);
+		nStubTowerNLayerN[27][i+6]->SetFillColor(kMagenta-8);
+		nStubTowerNLayerN[27][i+6]->SetBit(TH1::kNoTitle);
+		nStubTowerNLayerN[27][i+6]->Draw();
+		sprintf(str,"TT27, Layer%02d",i+6);
+		L1.DrawLatex(0.2,0.95,str);
+	}   
+	c10e->cd(5);
+	nStubTowerNLayerNLayerMfirsthalf->SetFillColor(kMagenta-8);
+	nStubTowerNLayerNLayerMfirsthalf->SetBit(TH1::kNoTitle);
+	nStubTowerNLayerNLayerMfirsthalf->Draw();
+	sprintf(str,"TT27, Layer%02d + Layer%02d(phiID = 7 - 11)",8,9);
+	L1.DrawLatex(0.1,0.95,str);
+	c10e->cd(6);
+	nStubTowerNLayerNLayerMsechalf->SetFillColor(kMagenta-8);
+	nStubTowerNLayerNLayerMsechalf->SetBit(TH1::kNoTitle);
+	nStubTowerNLayerNLayerMsechalf->Draw();
+        sprintf(str,"TT27, Layer%02d(phiID= 12 - 16) + Layer%02d",9,10);
+	L1.DrawLatex(0.1,0.95,str);
+	c10e->SaveAs("plots/nStubTower27combLayersAll.pdf");
+
+	/*
 	TCanvas *c11 = new TCanvas("c11","c11",1600,600);
 	c11->Divide(8,3);
 	for (int l=0;l<3;l++){
@@ -1566,18 +1710,25 @@ void ReadTree::Loop()
 		}
 	}
 	c11->SaveAs("plots/nStubTower16Layer5allModules.pdf");
-
+	*/
 	TCanvas *c12 = new TCanvas("c12","c12",1200,400);
 	c12->Divide(3,1);
 	for (int i=0; i<3; i++) {
 		c12->cd(i+1);
-		nStubTowerN[i*8]->SetFillColor(kMagenta-8);
-		nStubTowerN[i*8]->Draw();
-		sprintf(str,"TriggerTower%02d",i*8);
+		if(i < 2){
+		  nStubTowerN[i*8]->SetFillColor(kMagenta-8);
+		  nStubTowerN[i*8]->Draw();
+		  sprintf(str,"TriggerTower%02d",i*8);		
+		}
+		if (i == 2){
+		  nStubTowerN[27]->SetFillColor(kMagenta-8);
+		  nStubTowerN[27]->Draw();
+		  sprintf(str,"TriggerTower%02d",27);		
+		}
 		L1.DrawLatex(0.4,0.95,str);
 	}
 	c12->SaveAs("plots/nStubFor3Towers.pdf");
-
+	/*
 	for (int i=0;i<25;i++){
 		for (int l=0;l<76;l++){
 			for (int m=0;m<82;m++){
@@ -1642,13 +1793,97 @@ void ReadTree::Loop()
 	nStubRoads->SetFillColor(kMagenta-8);
 	nStubRoads->Draw();
 	c14->SaveAs("plots/nStubRoads.pdf");
+	*/
 
-	TCanvas *c15 = new TCanvas("c15","c15");
+	/*TCanvas *c15 = new TCanvas("c15","c15"); //HERE
 	c15->cd();
-	nSTUB_board01->SetFillColor(kMagenta-8);
-	nSTUB_board01->Draw();
-	c15->SaveAs("plots/nSTUB_board01.pdf");
+        c15->Divide(5,2);
+        for (int i=0;i<10;i++){
+	  c15->cd(i+1);
+	  nSTUB_boardN[i]->SetFillColor(kMagenta-8);
+	  nSTUB_boardN[i]->Draw();
+	  sprintf(str,"TT27, Board%02d",i+1);
+	  L1.DrawLatex(0.2,0.95,str);
+	}
+	c15->SaveAs("plots/nSTUB_boardN.pdf");
+	*/	
+	TCanvas *c15i = new TCanvas("c15i","c15i"); //HERE
+	c15i->cd();
+	//        c15->Divide(5,2);
+        for (int i=0;i<5;i++){
+	  //	  c15->cd(i+1);
+	  //	  nSTUB_boardN[i]->SetFillColor(kMagenta-8);
+	  nSTUB_boardN[i]->GetYaxis()->SetRangeUser(0,125);	  
+	  if(i == 0) {nSTUB_boardN[i]->SetLineColor(kSpring-8); nSTUB_boardN[i]->Draw(); nSTUB_boardN[i]->SetStats(0);}
+	  if(i > 0){
+	    if(i == 1) nSTUB_boardN[i]->SetLineColor(kCyan); 	   
+	    if(i == 2) nSTUB_boardN[i]->SetLineColor(kOrange-6); 
+	    if(i == 3) nSTUB_boardN[i]->SetLineColor(kYellow+2); 
+	    if(i == 4) nSTUB_boardN[i]->SetLineColor(kOrange+8); 
+	    nSTUB_boardN[i]->Draw("SAME");
+	  }
+	  //	  sprintf(str,"TT27, Board%02d",i+1);
+	  //L1.DrawLatex(0.2,0.95,str);
+        }
+	c15i->SaveAs("plots/nSTUB_allboardN1to5.pdf");
 
+	TCanvas *c15ii = new TCanvas("c15ii","c15ii"); //HERE
+	c15ii->cd();
+	//        c15->Divide(5,2);
+        for (int i=5;i<10;i++){
+	  nSTUB_boardN[i]->GetYaxis()->SetRangeUser(0,125);	  
+	  //	  c15->cd(i+1);
+	  //	  nSTUB_boardN[i]->SetFillColor(kMagenta-8);
+	  if(i == 5) {nSTUB_boardN[i]->SetLineColor(kPink+1); nSTUB_boardN[i]->Draw(); nSTUB_boardN[i]->SetStats(0);}
+	  if(i > 0){
+	    if(i == 6) nSTUB_boardN[i]->SetLineColor(kRed+2); 	   
+	    if(i == 7) nSTUB_boardN[i]->SetLineColor(kTeal+3); 
+	    if(i == 8) nSTUB_boardN[i]->SetLineColor(kViolet+1); 
+	    if(i == 9) nSTUB_boardN[i]->SetLineColor(kBlue+2); 
+	    nSTUB_boardN[i]->Draw("SAME");
+	  }
+	  //	  sprintf(str,"TT27, Board%02d",i+1);
+	  //L1.DrawLatex(0.2,0.95,str);
+        }
+	c15ii->SaveAs("plots/nSTUB_allboardN6to10.pdf");
+	
+	/*TCanvas *c15a = new TCanvas("c15a","c15a"); //HERE
+	c15a->cd();
+        c15a->Divide(2,2);
+        for (int i=0;i<4;i++){
+	  c15a->cd(i+1);
+	  nSTUB_boardN[i]->SetFillColor(kMagenta-8);
+	  nSTUB_boardN[i]->Draw();
+	  sprintf(str,"TT27, Board%02d",i+1);
+	  L1.DrawLatex(0.2,0.95,str);
+        }
+	c15a->SaveAs("plots/nSTUB_boardN1to4.pdf");
+
+	TCanvas *c15b = new TCanvas("c15b","c15b"); //HERE
+	c15b->cd();
+        c15b->Divide(2,2);
+        for (int i=4;i<8;i++){
+	  c15b->cd(i-3);
+	  nSTUB_boardN[i]->SetFillColor(kMagenta-8);
+	  nSTUB_boardN[i]->Draw();
+	  sprintf(str,"TT27, Board%02d",i+1);
+	  L1.DrawLatex(0.2,0.95,str);
+        }
+	c15b->SaveAs("plots/nSTUB_boardN5to8.pdf");
+
+	TCanvas *c15c = new TCanvas("c15c","c15c"); //HERE
+	c15c->cd();
+        c15c->Divide(2,1);
+        for (int i=8;i<10;i++){
+	  c15c->cd(i-7);
+	  nSTUB_boardN[i]->SetFillColor(kMagenta-8);
+	  nSTUB_boardN[i]->Draw();
+	  sprintf(str,"TT27, Board%02d",i+1);
+	  L1.DrawLatex(0.2,0.95,str);
+        }
+	c15c->SaveAs("plots/nSTUB_boardN9to10.pdf");
+	
+	
 	TCanvas *c16 = new TCanvas("c16","c16");
 	c16->cd();
 	nStubGlobal_3GeV->SetLineColor(kBlue);
@@ -1778,22 +2013,6 @@ void ReadTree::Loop()
 		L.DrawLine(5,0.1,5,10);
 	}
 	c19->SaveAs("plots/nSTUB_sf1z4.pdf");
-
-	TCanvas *c20 = new TCanvas("c20","c20",900,600);
-	c20->Divide(6,4);
-	for (int z=0; z<4; z++){
-		for (int l=5; l<11; l++){
-			c20->cd(z*6+(l-5+1));
-			gPad-> SetLogy();
-			nStubTower27LayerNPhibinN_z4[l][1][z]->SetFillColor(l-3);
-			nStubTower27LayerNPhibinN_z4[l][1][z]->Draw();
-			sprintf(str,"TT27, Layer %02d, z_{%02d}",l,z+1);
-			L1.DrawLatex(0.1,0.95,str);
-			sprintf(str,"%03f",float(nStubTower27LayerNPhibinN_z4[l][1][z]->Integral(6,11))/nStubTower27LayerNPhibinN_z4[l][1][z]->Integral());
-			L1.DrawLatex(0.7,0.7,str);
-			L.DrawLine(5,0.1,5,10);
-		}
-	}
-	c20->SaveAs("plots/nSTUB_sf1z4_Jet.pdf");
+	*/
 
 }
